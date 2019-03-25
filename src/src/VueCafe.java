@@ -9,15 +9,20 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+
+import com.sun.javafx.iio.ImageLoadListener;
+import com.sun.prism.Image;
 
 public class VueCafe extends JFrame {
 	
@@ -29,10 +34,10 @@ public class VueCafe extends JFrame {
 			pnlNavigation, // Panel qui contient la barre de navigation au bas de l'écran
 			pnlConteneurIng; // Panel qui contient les ingrédients/taille/etc ainsi que le titre.
 
-	private JPanel[] pnlIngrediants; // Taille, Bouillon Légume, Viande, Nouille, Comfirmation
+	private JPanel[] pnlCafe; // Taille, Bouillon Légume, Viande, Nouille, Comfirmation
 	private JLabel lbTitre;
-	private String[] nomTitres = { "Sélectionnez la taille de votre café, ainsi que sa torréfaction", "Sélectionnez vos jets de saveur",
-			"Personnaliser le tout","Confirmation de la commande" };
+	private String[] nomTitres = { "Sélectionnez la taille de votre café, ainsi que sa torréfaction",
+			"Sélectionnez vos jets de saveur", "Personnaliser le tout", "Confirmation de la commande" };
 
 	private int sizeLVFValueX = 120; // Taille des images
 	private int sizeLVFValueY = 120;
@@ -40,117 +45,136 @@ public class VueCafe extends JFrame {
 	private int sizeBouillonX = 252; // Taille des images
 	private int sizeBouillonY = 168;
 	
-	public VueCafe(Cafe cafe, ArrayList<Ingredient> ing, ArrayList<Taille> tailleList, ArrayList<Torrefaction> torefListe) {
+	private ArrayList<ImageIcon> imageList;
+	private HashMap<Jets, ImageIcon> jetsIm; 
+
+	public VueCafe(Cafe cafe, ArrayList<Jet> jetList, ArrayList<Taille> tailleList,
+			ArrayList<Torrefaction> torefListe) {
 		// ‐‐‐‐‐‐‐‐‐‐‐‐‐‐ Fenetre JFrame ‐‐‐‐‐‐‐‐‐‐‐‐‐‐
 		setTitle("Cafe-Expresse");
-		setSize(640,480);
+		setSize(640, 480);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 
-	
+		setImageList();
+		
+		for(int i= 0; int <jetList.size();i++) {
+		jetsIm.put(jetList(i), imageList(i));
+		}
+		
+		this.cafe = cafe;
+		pnlGroupe = new JPanel(new BorderLayout());
+		pnlOnglets = new JPanel(new GridBagLayout());
+		pnlConteneurIng = new JPanel(new GridBagLayout());
+		pnlConteneurIng.setBackground(Color.WHITE);
+		pnlNavigation = new JPanel(new BorderLayout());
+		pnlNavigation.setBackground(Color.gray);
+		pnlNavigation.setPreferredSize(new Dimension(0, 60));
+		pnlNavigation.setBorder(new CompoundBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK),
+				new EmptyBorder(10, 10, 10, 10)));
+		lbTitre = new JLabel();
+		lbTitre.setPreferredSize(new Dimension(0, 100));
+		lbTitre.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
+		lbTitre.setFont(lbTitre.getFont().deriveFont(24.0f));
+		lbTitre.setHorizontalAlignment(SwingConstants.CENTER);
+		lbTitre.setText(nomTitres[0]);
 
-	this.cafe=cafe;
-	pnlGroupe=new JPanel(new BorderLayout());
-	pnlOnglets=new JPanel(new GridBagLayout());
-	pnlConteneurIng=new JPanel(new GridBagLayout());pnlConteneurIng.setBackground(Color.WHITE);
-	pnlNavigation=new JPanel(new BorderLayout());pnlNavigation.setBackground(Color.gray);
-	pnlNavigation.setPreferredSize(new Dimension(0,60));pnlNavigation.setBorder(new CompoundBorder(BorderFactory.createMatteBorder(1,0,0,0,Color.BLACK),new EmptyBorder(10,10,10,10)));
-	lbTitre=new JLabel();lbTitre.setPreferredSize(new Dimension(0,100));
-	lbTitre.setBorder(BorderFactory.createMatteBorder(0,0,2,0,Color.BLACK));
-	lbTitre.setFont(lbTitre.getFont().deriveFont(24.0f));
-	lbTitre.setHorizontalAlignment(SwingConstants.CENTER);
-	lbTitre.setText(nomTitres[0]);
+		pnlCafe = new JPanel[6];
 
+		pnlCafe[0] = new JPanel();
 
-	pnlIngrediants=new JPanel[6];
+		panelTaille(pnlCafe[0], tailleList, torefListe, cafe);
 
-	pnlIngrediants[0]=new JPanel();
+		pnlCafe[1] = new JPanel();
 
-	panelTaille(pnlIngrediants[0], tailleList, cafe);
-				
-				pnlIngrediants[1] =  new JPanel();
-				panelBouillon(pnlIngrediants[1], ingList, soupe);
-				
-				pnlIngrediants[2]=new JPanel();
-				panelIngrediant(pnlIngrediants[2], Categories.LEGUMES, ingList,soupe,imSoupe);
-				pnlIngrediants[3]=new JPanel();
-				panelIngrediant(pnlIngrediants[3], Categories.VIANDES, ingList,soupe,imSoupe);
-				pnlIngrediants[4]=new JPanel();
-				panelIngrediant	(pnlIngrediants[4],Categories.FECULENTS, ingList,soupe,imSoupe);
-				ConfirmationPane confirmationPane = new ConfirmationPane(soupe, this);
-				pnlIngrediants[5] =confirmationPane ;
-				
-				new NavigationManager(this,pnlOnglets,pnlNavigation,confirmationPane);
+		pnlCafe[2] = new JPanel();
+		panelJets(pnlCafe[2], jetsIm);
 
-				for (int i = 0; i < pnlIngrediants.length; i++) {
-					pnlIngrediants[i].setBackground(Color.white);
-				}
-				// ‐‐‐‐‐‐‐‐‐‐‐‐‐‐ Positionnement ‐‐‐‐‐‐‐‐‐‐‐‐‐‐
-				add(pnlGroupe);
-				
-				
-				{
-				GridBagConstraints constraints = new GridBagConstraints();
-				constraints.fill = GridBagConstraints.HORIZONTAL;
-				constraints.gridx = 0;
-				constraints.gridy = 0;
-				constraints.weightx = 1;
-				pnlConteneurIng.add(lbTitre,constraints);
-				
-				constraints.fill = GridBagConstraints.BOTH;
-				constraints.gridx = 0;
-				constraints.gridy = 1;
-				constraints.weightx = 1;
-				constraints.weighty = 1;
-				constraints.insets = new Insets(15, 10, 10, 10);
-				for (JPanel panel : pnlIngrediants) {
-					pnlConteneurIng.add(panel,constraints);
-					panel.setVisible(false);
-				}
-				pnlIngrediants[0].setVisible(true);
-				
+		pnlCafe[5] = new ConfirmationPane(soupe, this);
+		;
 
-				}
-				pnlGroupe.add(pnlOnglets, BorderLayout.NORTH);
-				pnlGroupe.add(pnlSoupe, BorderLayout.EAST);
-				pnlGroupe.add(pnlConteneurIng, BorderLayout.WEST);
-				pnlGroupe.add(pnlNavigation, BorderLayout.SOUTH);
+		new NavigationManager(this, pnlOnglets, pnlNavigation, confirmationPane);
 
-				pnlSoupe.setPreferredSize(new Dimension((int) (getSize().width * 0.35), 1));
-				pnlIngrediants[0].setPreferredSize(new Dimension((int) (getSize().width * 0.65), 1));
+		for (int i = 0; i < pnlCafe.length; i++) {
+			pnlCafe[i].setBackground(Color.white);
+		}
+		// ‐‐‐‐‐‐‐‐‐‐‐‐‐‐ Positionnement ‐‐‐‐‐‐‐‐‐‐‐‐‐‐
+		add(pnlGroupe);
 
-				validate();
+		{
+			GridBagConstraints constraints = new GridBagConstraints();
+			constraints.fill = GridBagConstraints.HORIZONTAL;
+			constraints.gridx = 0;
+			constraints.gridy = 0;
+			constraints.weightx = 1;
+			pnlConteneurIng.add(lbTitre, constraints);
 
-				
+			constraints.fill = GridBagConstraints.BOTH;
+			constraints.gridx = 0;
+			constraints.gridy = 1;
+			constraints.weightx = 1;
+			constraints.weighty = 1;
+			constraints.insets = new Insets(15, 10, 10, 10);
+			for (JPanel panel : pnlCafe) {
+				pnlConteneurIng.add(panel, constraints);
+				panel.setVisible(false);
 			}
+			pnlCafe[0].setVisible(true);
+
+		}
+		pnlGroupe.add(pnlOnglets, BorderLayout.NORTH);
+		pnlGroupe.add(pnlConteneurIng, BorderLayout.WEST);
+		pnlGroupe.add(pnlNavigation, BorderLayout.SOUTH);
+		pnlCafe[0].setPreferredSize(new Dimension((int) (getSize().width * 0.65), 1));
+
+		validate();
+
+	}
 
 	// Change le panel de sélection (lorsque l'utilisateur change d'onglet)
 	public void ChangePanelIngrediant(int oldPnlIndex, int newPnlIndex) {
-			/*	pnlConteneurIng.remove(pnlIngrediants[oldPnlIndex]);
-
-				GridBagConstraints constraints = new GridBagConstraints();
-				constraints.fill = GridBagConstraints.BOTH;
-				constraints.gridx = 0;
-				constraints.gridy = 1;
-				constraints.weightx = 1;
-				constraints.weighty = 1;
-				constraints.insets = new Insets(15, 10, 10, 10);
-
-				pnlConteneurIng.add(pnlIngrediants[newPnlIndex], constraints);
-		*/
-				pnlSoupe.setPreferredSize(new Dimension((int) (getSize().width * 0.35), 1));
-				pnlIngrediants[newPnlIndex].setPreferredSize(new Dimension((int) (getSize().width * 0.65), 1));
-				pnlIngrediants[oldPnlIndex].setVisible(false);
-				pnlIngrediants[newPnlIndex].setVisible(true);
-				lbTitre.setText(nomTitres[newPnlIndex]);
-				validate();
-				repaint();
-			}
-
+		/*
+		 * pnlConteneurIng.remove(pnlIngrediants[oldPnlIndex]);
+		 * 
+		 * GridBagConstraints constraints = new GridBagConstraints(); constraints.fill =
+		 * GridBagConstraints.BOTH; constraints.gridx = 0; constraints.gridy = 1;
+		 * constraints.weightx = 1; constraints.weighty = 1; constraints.insets = new
+		 * Insets(15, 10, 10, 10);
+		 * 
+		 * pnlConteneurIng.add(pnlIngrediants[newPnlIndex], constraints);
+		 */
+		pnlCafe[newPnlIndex].setPreferredSize(new Dimension((int) (getSize().width * 0.65), 1));
+		pnlCafe[oldPnlIndex].setVisible(false);
+		pnlCafe[newPnlIndex].setVisible(true);
+		lbTitre.setText(nomTitres[newPnlIndex]);
+		validate();
+		repaint();
+	}
+	public void setImageList(ArrayList<ImageIcon> imageList) {
+		
+		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
+		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
+		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
+		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
+		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
+		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
+		imageList.add(imageToIconImage(new ImageIcon(""), 150,150)); 
+		
+		
+	}
+	
+	public ImageIcon imageToIconImage(ImageIcon image, int resizeX, int resizeY) 
+	{	
+		java.awt.Image oof = image.getImage();
+		java.awt.Image resized = oof.getScaledInstance(resizeX, resizeY, java.awt.Image.SCALE_SMOOTH);
+		image.setImage(resized);
+		
+		return image;
+	}
 	// fonction qui gère chaques panel d'ingrédient en les positionants dans un gros
 	// panel
-	void panelIngrediant(JPanel panel, Categories type, ArrayList<Ingredient> ing, Cafe cafe) {
+	void panelJets(JPanel panel, ) {
 		panel.setLayout(new FlowLayout());
 
 		for (int i = 0; i < ing.size(); i++) {
