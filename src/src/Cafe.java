@@ -1,9 +1,7 @@
 package src;
 
-import java.text.NumberFormat;
 import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -74,12 +72,7 @@ public class Cafe {
 		int quantite = taille.getCapacite();
 		if (jets.size() > 0)
 			quantite -= Jet.getTailleportion() * taille.getCapacite();
-		quantite -= (prtnLait+prtnCreme)*QuantiteParPortion;
-		
-		/*for (Map.Entry<Jet,Integer> entry : jets.entrySet()) {
-			int quantiteIng = entry.getValue() * entry.getKey().getQuantParPortion();
-	        quantite -= quantiteIng;
-	    }*/
+		quantite -= (prtnLait+prtnCreme)*QuantiteParPortion;		
 		
 		return quantite<0?0:quantite;
 	}
