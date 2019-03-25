@@ -12,6 +12,11 @@ public class Cafe {
 	private int prtnLait;
 	private int prtnCreme;
 
+	public Cafe() 
+	{
+		
+	}
+	
 	public int getPrtnSucre() {
 		return prtnSucre;
 	}
