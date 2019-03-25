@@ -11,4 +11,5 @@ public class VueCafe extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 	}
+	
 }

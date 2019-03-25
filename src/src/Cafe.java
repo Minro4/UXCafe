@@ -2,7 +2,7 @@ package src;
 
 public class Cafe {
 
-	private final float ProportionSucreMax = 0.1f;
+	private final float ProportionSucreMax = 0.01f;
 	private final float ProportionLaitMax = 0.5f;
 	private final float ProportionCremeMax = 0.1f;
 	private final int QuantiteParPortion = 15;
