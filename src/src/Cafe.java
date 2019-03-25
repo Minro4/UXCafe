@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Cafe {
 
-	private final float ProportionSucreMax = 0.1f;
+	private final float ProportionSucreMax = 0.01f;
 	private final float ProportionLaitMax = 0.5f;
 	private final float ProportionCremeMax = 0.1f;
 	private final int QuantiteParPortion = 15;
@@ -86,7 +86,7 @@ public class Cafe {
 
 	public ArrayList<Map.Entry<String,Double>> getRapport() {
 		ArrayList<Map.Entry<String,Double>> rapport = new ArrayList<Map.Entry<String,Double>>();
-		rapport.add(createEntry(getQuantiteCafe() + " ml café:", taille.getPrix()));
+		rapport.add(createEntry(getQuantiteCafe() + " ml cafï¿½:", taille.getPrix()));
 		
 		int nbrPrtnJet = nbrTotPortionsJet();
 		for (Map.Entry<Jet,Integer> entry : jets.entrySet()) {
