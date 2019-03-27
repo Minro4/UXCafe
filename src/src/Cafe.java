@@ -6,7 +6,7 @@ public class Cafe {
 	private final float ProportionLaitMax = 0.5f;
 	private final float ProportionCremeMax = 0.1f;
 	private final int QuantiteParPortion = 15;
-
+	
 	private Taille taille;
 	private int prtnSucre;
 	private int prtnLait;
