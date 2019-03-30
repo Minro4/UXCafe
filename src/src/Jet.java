@@ -1,18 +1,16 @@
 package src;
 
-public class Jet {
+import java.awt.Image;
+
+public class Jet extends Ingredient{
 	
-	private String nom;
 	private final static double proportion = 0.05f;
 	private final static double prixParPortion = 0.1f;
 	private final static int taillePortion = 3;
 	
-	
-	
 
-	public Jet(String nom) {
-		super();
-		this.nom = nom;
+	public Jet(Image image, String nom) {
+		super(image, nom);
 	}
 
 	public static double getQuantite(double ratio,int tailleVerre) {
@@ -22,20 +20,12 @@ public class Jet {
 		int nbrPortion = (int) Math.ceil(getQuantite(ratio,tailleVerre)/taillePortion);
 		return nbrPortion * prixParPortion;
 	}
-
-	public String getNom() {
-		return nom;
-	}
-
-	public static double getProportion() {
-		return proportion;
-	}
-
-	public static double getPrixparportion() {
-		return prixParPortion;
-	}
-
 	public static int getTailleportion() {
 		return taillePortion;
-	}	
+	}
+	
+	public String rapport(double ratio,int tailleCapacite) {
+		return Jet.getQuantite(ratio, tailleCapacite) + " ml sirop " + getNom();	
+	}
+	
 }
