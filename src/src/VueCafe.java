@@ -29,7 +29,6 @@ public class VueCafe extends JFrame {
 	private Cafe cafe;
 
 	private JPanel pnlGroupe, // Panel qui contient tout les autres panels qui forment l'interface de création
-								// de la soupe
 			pnlOnglets, // Panel qui contient les onglets
 			pnlNavigation, // Panel qui contient la barre de navigation au bas de l'écran
 			pnlConteneurIng; // Panel qui contient les ingrédients/taille/etc ainsi que le titre.
@@ -152,16 +151,13 @@ public class VueCafe extends JFrame {
 		repaint();
 	}
 	public void setImageList(ArrayList<ImageIcon> imageList) {
-		
 		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
 		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
 		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
 		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
 		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
 		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
-		imageList.add(imageToIconImage(new ImageIcon(""), 150,150)); 
-		
-		
+		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
 	}
 	
 	public ImageIcon imageToIconImage(ImageIcon image, int resizeX, int resizeY) 

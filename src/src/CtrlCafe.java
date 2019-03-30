@@ -32,10 +32,6 @@ public class CtrlCafe {
 		
 		
 		
-		
-		
-		
-		
 	}
 	
 	
