@@ -8,7 +8,7 @@ public class Jet extends Ingredient{
 	private final static double prixParPortion = 0.1f;
 	private final static int taillePortion = 3;
 	
-	public Jet(String image, String nom) {
+	public Jet(String nom,String image) {
 		super(image, nom);
 
 	}
