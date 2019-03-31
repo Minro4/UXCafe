@@ -1,11 +1,16 @@
 package src;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import com.sun.tracing.dtrace.ProviderAttributes;
+import javax.swing.JTextField;
+
 
 public class CtrlCafe {
-
+	
+	private Cafe cafe;
+	
 	private ArrayList<Taille> tailleList;
 	private ArrayList<String> torefList;
 	private ArrayList<Jet> jetList;
@@ -23,16 +28,30 @@ public class CtrlCafe {
 		torefList.add("Régulation");
 		torefList.add("Foncée");
 		//Création de la liste de jets
-		jetList.add("Moka");
-		jetList.add("Caramel");
-		jetList.add("Vanille");
-		jetList.add("Noisette");
-		jetList.add("Menthe poivrée");
-		jetList.add("Framboise");
-		
-		
-		
+		jetList.add(new Jet("Images/chocolate.jpg", "Moka"));
+		jetList.add(new Jet("Images/caramel.jpg", "Caramel"));
+		jetList.add(new Jet("Images/vanilla.jpg", "Vanille"));
+		jetList.add(new Jet("Images/hazelnut.jpg", "Noisette"));
+		jetList.add(new Jet("Images/menthepoivre.jpg", "Menthe poivrée"));
+		jetList.add(new Jet("Images/rasberry.jpg", "Framboise"));
+			
 	}
 	
+    class ObsAddIng implements ActionListener {
+    	Ingredient ing;
+    	int nbrPortions; //1 pour add et -1 pour remove
+    	JTextField tfPortions;
+    	public ObsAddIng(Ingredient ing,JTextField tfPortions, boolean add) {
+    		this.ing = ing;
+    		this.tfPortions = tfPortions;
+    		this.nbrPortions = add?1:-1;
+    	}
+    	
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+           int prt=cafe.addIngredient(ing, nbrPortions);
+           tfPortions.setText(String.valueOf(prt));
+        }
+    }	
 	
 }

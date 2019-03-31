@@ -9,13 +9,13 @@ public class Sucre extends Ingredient {
 	
 	
 
-	public Sucre(Image image, String nom) {
+	public Sucre(String image, String nom) {
 		super(image, nom);
 		prix = 0.05f;
 		proportionMax = 0.01f;
 		
 	}
-	public Sucre(Image image, String nom, double prix, double proportionMax) {
+	public Sucre(String image, String nom, double prix, double proportionMax) {
 		super(image, nom);
 		this.prix = prix;
 		this.proportionMax = proportionMax;

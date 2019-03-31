@@ -16,44 +16,85 @@ public class Cafe {
 
 	private HashMap<Jet, Integer> jets = new HashMap<Jet, Integer>();
 
+	public Cafe(Taille taille) {
+		super();
+		this.taille = taille;
+	}
+	
+	public Taille getTaille() {
+		return taille;
+	}
+	public void setTaille(Taille taille) {
+		this.taille = taille;
+	}
+	
 	public int getPortion(Jet jet) {
 		return jets.get(jet);
 	}
+	
+	public int addIngredient(Ingredient ing, int nbrPortion) {
+		if (ing instanceof Jet) {
+			return setJetPortion((Jet) ing, nbrPortion + jets.get(ing));			
+		}
+		else if (ing instanceof Lait) {
+			return setLaitPortion(nbrPortion + lait.getValue());
+		}
+		else if (ing instanceof Creme) {
+			return setCremePortion(nbrPortion + creme.getValue());
+		}
+		else if (ing instanceof Sucre) {
+			return setSucrePortion(nbrPortion + sucre.getValue());
+		}
+		return 0;
+	}
 
-	public boolean addJetPortion(Jet jet, int nbrPortion) {
+	/*public boolean addJetPortion(Jet jet, int nbrPortion) {
 		nbrPortion += jets.get(jet);
 		return setJetPortion(jet, nbrPortion);
-	}
+	}*/
 
-	public boolean setJetPortion(Jet jet, int nbrPortion) {
+	private int setJetPortion(Jet jet, int nbrPortion) {
 		if (nbrPortion > 0) {
 			jets.put(jet, nbrPortion);
-			return true;
+			CheckAndAdjustLait();
+			return nbrPortion;
 		} else if (nbrPortion == 0) {
 			jets.remove(jet);
-			return true;
 		}
-		return false;
+		return 0;
 	}
 
-	public boolean setSucrePortion(int prtnSucre) {
+	private int setSucrePortion(int prtnSucre) {
 		if (sucre.getKey().valide(prtnSucre, taille.getCapacite())) {
 			sucre.setValue(prtnSucre);
-			return true;
+			return prtnSucre;
 		}
-		return false;
+		return sucre.getValue();
 	}
 
-	public boolean setCremePortion(int nbrPortion) {
+	private int setCremePortion(int nbrPortion) {
 		if (creme.getKey().valide(nbrPortion, taille.getCapacite())) {
 			creme.setValue(nbrPortion);
-			return true;
+			CheckAndAdjustLait();
+			return nbrPortion;
 		}
-		return false;
+		return creme.getValue();
 	}
 
-	public boolean setLaitPortion(Jet ingredient, int nbrPortion) {
+	private int setLaitPortion(int nbrPortion) {
 		if (lait.getKey().valide(nbrPortion, getQuantiteCafe())) {
+			lait.setValue(nbrPortion);
+			return nbrPortion;
+		}
+		return lait.getValue();
+	}
+	
+	//Est utilisé lorsque l'on ajoute un autre ingrédient, car puisque la quantite de café est réduite,
+	//il est possible que la quantite de lait ne soit plus valide
+	private boolean CheckAndAdjustLait() {	
+		int quantiteCafe = getQuantiteCafe();
+		if (!lait.getKey().valide(lait.getValue(), quantiteCafe)) {
+			int nbrPortion = lait.getKey().getNbrPortionMax(quantiteCafe);
 			lait.setValue(nbrPortion);
 			return true;
 		}

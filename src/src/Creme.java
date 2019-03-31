@@ -8,14 +8,14 @@ public class Creme extends Ingredient{
 	private int quantiteParPortion;
 	private double prixParPortion;
 	
-	public Creme(Image image, String nom) {
+	public Creme(String image, String nom) {
 		super(image, nom);
 		proportionMax = 0.1f;
 		quantiteParPortion = 15;
 		prixParPortion = 0.15;
 	}
 	
-	public Creme(Image image, String nom, float proportionMax, int quantiteParPortion, double prixParPortion) {
+	public Creme(String image, String nom, float proportionMax, int quantiteParPortion, double prixParPortion) {
 		super(image, nom);
 		this.proportionMax = proportionMax;
 		this.quantiteParPortion = quantiteParPortion;

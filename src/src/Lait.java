@@ -8,14 +8,14 @@ public class Lait extends Ingredient {
 	private int quantiteParPortion;
 	private double prixParPortion;
 	
-	public Lait(Image image, String nom) {
+	public Lait(String image, String nom) {
 		super(image, nom);
 		proportionMax = 0.5;
 		quantiteParPortion = 15;
 		prixParPortion = 0.1;
 	}
 
-	public Lait(Image image, String nom, double proportionMax, int quantiteParPortion, double prixParPortion) {
+	public Lait(String image, String nom, double proportionMax, int quantiteParPortion, double prixParPortion) {
 		super(image, nom);
 		this.proportionMax = proportionMax;
 		this.quantiteParPortion = quantiteParPortion;
@@ -26,6 +26,10 @@ public class Lait extends Ingredient {
 		int quantite = nbrPortion * quantiteParPortion;
 		int maxQuantite = (int) (proportionMax * quantiteCafe);
 		return (quantite <= maxQuantite && quantite >= 0);
+	}
+	
+	public int getNbrPortionMax(int quantiteCafe) {
+		return (int) (proportionMax * quantiteCafe / quantiteParPortion);
 	}
 	
 	public int getQuantite(int portion) {
