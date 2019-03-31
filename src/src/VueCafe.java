@@ -240,7 +240,7 @@ public class VueCafe extends JFrame {
 		panel.setLayout(new FlowLayout());
 		panel.setAlignmentY(CENTER_ALIGNMENT);
 		for (int i = 0; i < taille.size(); i++) {
-			//panel.add(new TaillePane(taille.get(i), cafe, btnGroup));
+			panel.add(new TaillePane(taille.get(i), cafe, btnGroup));
 		}
 	}
 
