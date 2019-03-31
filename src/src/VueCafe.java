@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -76,13 +77,13 @@ public class VueCafe extends JFrame {
 		pnlCafe = new JPanel[6];
 
 		pnlCafe[0] = new JPanel();
-
 		panelTaille(pnlCafe[0], tailleList, torefListe, cafe);
 
 		pnlCafe[1] = new JPanel();
 
 		pnlCafe[2] = new JPanel();
-		panelJets(pnlCafe[2]);
+		pnlCafe[2].setLayout(new FlowLayout());
+		
 
 		pnlCafe[5] = new ConfirmationPane(cafe, this);
 		;
@@ -155,18 +156,22 @@ public class VueCafe extends JFrame {
 	}
 	// fonction qui gère chaques panel d'ingrédient en les positionants dans un gros
 	// panel
-	void panelJets(JPanel panel) {
+	public void setPanelJet(ArrayList<Jet> jetList, Cafe cafe,Integer hauteur, CtrlCafe ctrl ) {
 		
-	}
-
-	void panelBouillon(JPanel panel, ArrayList<Ingredient> ing) {
-		panel.setLayout(new FlowLayout());
-
-		for (int i = 0; i < ing.size(); i++) {
-			if (ing.get(i).getType() == (Categories.BOUILLON))
-				panel.add(new BouillonPane(ing.get(i), cafe));
+		for(Jet j:jetList) {
+			
+			pnlCafe[2].add(new IngredPane(j,cafe,hauteur, ctrl));
+			
 		}
 	}
+
+	public void setPanelLCS(Lait lait, Creme Creme, Sucre sucre) {
+		
+		
+		
+	}
+	
+	
 
 	void panelTaille(JPanel panel, ArrayList<Taille> taille) {
 		ButtonGroup btnGroup = new ButtonGroup();
