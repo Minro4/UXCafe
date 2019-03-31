@@ -53,7 +53,7 @@ public class CtrlCafe implements PropertyChangeListener {
     	
         @Override
         public void actionPerformed(ActionEvent evt) {
-           int prt=cafe.addIngredient(ing, nbrPortions);
+           int prt = cafe.addIngredient(ing, nbrPortions);
            tfPortions.setText(String.valueOf(prt));
         }
     }
@@ -63,5 +63,11 @@ public class CtrlCafe implements PropertyChangeListener {
 		//Lait.setText(String.valueOf(evt.getNewValue()));
 		
 	}	
+	public class ConfirmerButtonListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {			
+			frame.dispose();
+		}
+	}
 	
 }
