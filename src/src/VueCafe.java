@@ -28,7 +28,7 @@ public class VueCafe extends JFrame {
 	
 	private Cafe cafe;
 
-	private JPanel pnlGroupe, // Panel qui contient tout les autres panels qui forment l'interface de création
+	private JPanel pnlGroupe,// Panel qui contient tout les autres panels qui forment l'interface de création
 			pnlOnglets, // Panel qui contient les onglets
 			pnlNavigation, // Panel qui contient la barre de navigation au bas de l'écran
 			pnlConteneurIng; // Panel qui contient les ingrédients/taille/etc ainsi que le titre.
@@ -84,7 +84,7 @@ public class VueCafe extends JFrame {
 		pnlCafe[2] = new JPanel();
 		panelJets(pnlCafe[2]);
 
-		pnlCafe[5] = new ConfirmationPane(soupe, this);
+		pnlCafe[5] = new ConfirmationPane(cafe, this);
 		;
 
 		new NavigationManager(this, pnlOnglets, pnlNavigation, confirmationPane);
@@ -164,7 +164,7 @@ public class VueCafe extends JFrame {
 
 		for (int i = 0; i < ing.size(); i++) {
 			if (ing.get(i).getType() == (Categories.BOUILLON))
-				panel.add(new BouillonPane(ing.get(i), soupe));
+				panel.add(new BouillonPane(ing.get(i), cafe));
 		}
 	}
 
@@ -173,7 +173,7 @@ public class VueCafe extends JFrame {
 		panel.setLayout(new FlowLayout());
 		panel.setAlignmentY(CENTER_ALIGNMENT);
 		for (int i = 0; i < taille.size(); i++) {
-			panel.add(new TaillePane(taille.get(i), soupe, btnGroup));
+			panel.add(new TaillePane(taille.get(i), cafe, btnGroup));
 		}
 	}
 
@@ -193,6 +193,3 @@ public class VueCafe extends JFrame {
 
 }
 
-}
-
-}
