@@ -28,6 +28,7 @@ public class CtrlCafe {
 		torefList.add("Régulation");
 		torefList.add("Foncée");
 		//Création de la liste de jets
+<<<<<<< Updated upstream
 		jetList.add(new Jet("Images/chocolate.jpg", "Moka"));
 		jetList.add(new Jet("Images/caramel.jpg", "Caramel"));
 		jetList.add(new Jet("Images/vanilla.jpg", "Vanille"));
@@ -35,6 +36,17 @@ public class CtrlCafe {
 		jetList.add(new Jet("Images/menthepoivre.jpg", "Menthe poivrée"));
 		jetList.add(new Jet("Images/rasberry.jpg", "Framboise"));
 			
+=======
+		jetList.add(new Jet("Moka","Images/chocolate.png"));
+		jetList.add(new Jet("Caramel","Images/caramel.jpg"));
+		jetList.add(new Jet("Vanille","Images/vanilla.png"));
+		jetList.add(new Jet("Noisette","Images/hazelnut.jpg"));
+		jetList.add(new Jet("Menthe poivrée","Images/menthepoivre.png"));
+		jetList.add(new Jet("Framboise","Images/raspberry.png"));
+		
+		
+		
+>>>>>>> Stashed changes
 	}
 	
     class ObsAddIng implements ActionListener {

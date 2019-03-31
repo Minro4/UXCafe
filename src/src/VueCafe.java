@@ -45,7 +45,6 @@ public class VueCafe extends JFrame {
 	private int sizeBouillonY = 168;
 	
 	private ArrayList<ImageIcon> imageList;
-	private HashMap<Jets, ImageIcon> jetsIm; 
 
 	public VueCafe(Cafe cafe, ArrayList<Jet> jetList, ArrayList<Taille> tailleList,
 			ArrayList<Torrefaction> torefListe) {
@@ -56,11 +55,6 @@ public class VueCafe extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 
-		setImageList();
-		
-		for(int i= 0; int <jetList.size();i++) {
-		jetsIm.put(jetList(i), imageList(i));
-		}
 		
 		this.cafe = cafe;
 		pnlGroupe = new JPanel(new BorderLayout());
@@ -88,7 +82,7 @@ public class VueCafe extends JFrame {
 		pnlCafe[1] = new JPanel();
 
 		pnlCafe[2] = new JPanel();
-		panelJets(pnlCafe[2], jetsIm);
+		panelJets(pnlCafe[2]);
 
 		pnlCafe[5] = new ConfirmationPane(soupe, this);
 		;
@@ -150,15 +144,6 @@ public class VueCafe extends JFrame {
 		validate();
 		repaint();
 	}
-	public void setImageList(ArrayList<ImageIcon> imageList) {
-		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
-		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
-		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
-		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
-		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
-		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
-		imageList.add(imageToIconImage(new ImageIcon(""), 150,150));
-	}
 	
 	public ImageIcon imageToIconImage(ImageIcon image, int resizeX, int resizeY) 
 	{	
@@ -170,16 +155,11 @@ public class VueCafe extends JFrame {
 	}
 	// fonction qui gère chaques panel d'ingrédient en les positionants dans un gros
 	// panel
-	void panelJets(JPanel panel, ) {
-		panel.setLayout(new FlowLayout());
-
-		for (int i = 0; i < ing.size(); i++) {
-			if (ing.get(i).getType() == (type))
-				panel.add(new IngredPane(ing.get(i), cafe, sizeLVFValueY));
-		}
+	void panelJets(JPanel panel) {
+		
 	}
 
-	void panelBouillon(JPanel panel, ArrayList<Ingredient> ing, Soupe soupe) {
+	void panelBouillon(JPanel panel, ArrayList<Ingredient> ing) {
 		panel.setLayout(new FlowLayout());
 
 		for (int i = 0; i < ing.size(); i++) {
@@ -188,7 +168,7 @@ public class VueCafe extends JFrame {
 		}
 	}
 
-	void panelTaille(JPanel panel, ArrayList<Taille> taille, Soupe soupe) {
+	void panelTaille(JPanel panel, ArrayList<Taille> taille) {
 		ButtonGroup btnGroup = new ButtonGroup();
 		panel.setLayout(new FlowLayout());
 		panel.setAlignmentY(CENTER_ALIGNMENT);

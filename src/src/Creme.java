@@ -8,15 +8,25 @@ public class Creme extends Ingredient{
 	private int quantiteParPortion;
 	private double prixParPortion;
 	
+<<<<<<< Updated upstream
 	public Creme(String image, String nom) {
 		super(image, nom);
+=======
+	public Creme(String nom, String path) {
+		super(nom, path);
+>>>>>>> Stashed changes
 		proportionMax = 0.1f;
 		quantiteParPortion = 15;
 		prixParPortion = 0.15;
 	}
 	
+<<<<<<< Updated upstream
 	public Creme(String image, String nom, float proportionMax, int quantiteParPortion, double prixParPortion) {
 		super(image, nom);
+=======
+	public Creme(String nom, String path, float proportionMax, int quantiteParPortion, double prixParPortion) {
+		super(nom , path);
+>>>>>>> Stashed changes
 		this.proportionMax = proportionMax;
 		this.quantiteParPortion = quantiteParPortion;
 		this.prixParPortion = prixParPortion;

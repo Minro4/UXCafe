@@ -9,8 +9,13 @@ public class Jet extends Ingredient{
 	private final static int taillePortion = 3;
 	
 
+<<<<<<< Updated upstream
 	public Jet(String image, String nom) {
 		super(image, nom);
+=======
+	public Jet(String nom, String path) {
+		super(nom, path);
+>>>>>>> Stashed changes
 	}
 
 	public static double getQuantite(double ratio,int tailleVerre) {
