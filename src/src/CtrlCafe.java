@@ -30,12 +30,12 @@ public class CtrlCafe implements PropertyChangeListener {
 		torefList.add("Foncée");
 		//Création de la liste de jets
 
-		jetList.add(new Jet("Images/chocolate.jpg", "Moka"));
-		jetList.add(new Jet("Images/caramel.jpg", "Caramel"));
-		jetList.add(new Jet("Images/vanilla.jpg", "Vanille"));
-		jetList.add(new Jet("Images/hazelnut.jpg", "Noisette"));
-		jetList.add(new Jet("Images/menthepoivre.jpg", "Menthe poivrée"));
-		jetList.add(new Jet("Images/rasberry.jpg", "Framboise"));
+		jetList.add(new Jet("Moka","Images/chocolate.jpg"));
+		jetList.add(new Jet("Caramel","Images/caramel.jpg"));
+		jetList.add(new Jet("Vanille","Images/vanilla.jpg"));
+		jetList.add(new Jet("Noisette","Images/hazelnut.jpg"));
+		jetList.add(new Jet("Menthe poivrée","Images/menthepoivre.jpg"));
+		jetList.add(new Jet("Framboise","Images/rasberry.jpg"));
 
 		cafe = new Cafe(tailleList.get(2));
 		cafe.addPropertyChangeListener(this);
