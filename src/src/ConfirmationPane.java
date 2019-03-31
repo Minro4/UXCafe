@@ -25,6 +25,8 @@ public class ConfirmationPane extends JPanel {
 	
 	public ConfirmationPane(ActionListener listener) {
 
+		JLabel lbTitre = new JLabel("Compte‐rendu");
+		lbTitre.setFont(lbTitre.getFont().deriveFont(32f));
 		
 		btnConfirm = new JButton("Confirmer");
 		btnConfirm.setPreferredSize(new Dimension(170, 75));
@@ -49,11 +51,14 @@ public class ConfirmationPane extends JPanel {
 		//constraints.insets = normalInset;
 		constraints.gridx = 0;
 		constraints.gridy = 0;
+		add(lbTitre, constraints);
+		constraints.gridx = 0;
+		constraints.gridy = 1;
 		add(panelRapport, constraints);
 	
 
 		constraints.gridx = 0;
-		constraints.gridy = 1;
+		constraints.gridy = 2;
 		//constraints.weighty = 1;
 		add(btnConfirm, constraints);
 

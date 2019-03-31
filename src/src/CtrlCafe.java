@@ -11,10 +11,11 @@ import javax.swing.JTextField;
 public class CtrlCafe implements PropertyChangeListener {
 	
 	private Cafe cafe;
+	private VueCafe vueCafe;
 	
-	private ArrayList<Taille> tailleList;
-	private ArrayList<Ingredient> torefList;
-	private ArrayList<Jet> jetList;
+	private ArrayList<Taille> tailleList = new ArrayList<Taille>();
+	private ArrayList<Ingredient> torefList = new ArrayList<Ingredient>();
+	private ArrayList<Jet> jetList = new ArrayList<Jet>();
 	
 	public CtrlCafe() {
 		
@@ -25,9 +26,9 @@ public class CtrlCafe implements PropertyChangeListener {
 		tailleList.add(new Taille("Grand", 250, 2.15));
 		tailleList.add(new Taille("Très Grand", 250, 2.35));
 		//Création de l'array de torréfactions
-		torefList.add(new Torrefaction("Légère","Image/coffeeBean.png"));
-		torefList.add(new Torrefaction("Normale","Image/CoffeeBean2.png"));
-		torefList.add(new Torrefaction("Foncée","Image/CoffeeBean3.png"));
+		torefList.add(new Ingredient("Légère","Image/coffeeBean.png"));
+		torefList.add(new Ingredient("Normale","Image/CoffeeBean2.png"));
+		torefList.add(new Ingredient("Foncée","Image/CoffeeBean3.png"));
 		//Création de la liste de jets
 		jetList.add(new Jet("Moka","Images/chocolate.jpg"));
 		jetList.add(new Jet("Caramel","Images/caramel.jpg"));
@@ -36,8 +37,11 @@ public class CtrlCafe implements PropertyChangeListener {
 		jetList.add(new Jet("Menthe poivrée","Images/menthepoivre.jpg"));
 		jetList.add(new Jet("Framboise","Images/rasberry.jpg"));
 
-		cafe = new Cafe(tailleList.get(2));
+		cafe = new Cafe(tailleList.get(2), torefList.get(1));
 		cafe.addPropertyChangeListener(this);
+		
+		vueCafe = new VueCafe(cafe, jetList, tailleList, torefList);
+		new NavigationManager(vueCafe);
 
 	}
 	
@@ -66,7 +70,7 @@ public class CtrlCafe implements PropertyChangeListener {
 	public class ConfirmerButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {			
-			frame.dispose();
+			vueCafe.dispose();
 		}
 	}
 	

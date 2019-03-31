@@ -8,22 +8,19 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-
-import com.sun.javafx.iio.ImageLoadListener;
-import com.sun.prism.Image;
 
 public class VueCafe extends JFrame {
 	
@@ -37,7 +34,7 @@ public class VueCafe extends JFrame {
 	private JPanel[] pnlCafe; // Taille, Bouillon Légume, Viande, Nouille, Comfirmation
 	private JLabel lbTitre;
 	private String[] nomTitres = { "Sélectionnez la taille de votre café, ainsi que sa torréfaction",
-			"Sélectionnez vos jets de saveur", "Personnaliser le tout", "Confirmation de la commande" };
+			"Sélectionnez vos jets de saveur", "Personnaliser le tout"};
 
 	private int sizeLVFValueX = 120; // Taille des images
 	private int sizeLVFValueY = 120;
@@ -46,9 +43,23 @@ public class VueCafe extends JFrame {
 	private int sizeBouillonY = 168;
 	
 	private ArrayList<ImageIcon> imageList;
+	
+	
+	//--------------Navigation--------------------------
+	private JPanel pnlSuivRet; // Panel qui contient les bouttons suivant et retour
+
+	private JButton btnSuivant, btnRetour, btnAnnuler;
+	private JButton[] btnOnglets;
+
+	private String[] ongletNoms = { "Taille et Torefaction", "Jets de Saveurs", "Lait, Crème et Sucre" };
+
+	private Color selectedColor;
+	private Color unselectedColor;
+	private Border selectedBorder;
+	private Border unselectedBorder;
 
 	public VueCafe(Cafe cafe, ArrayList<Jet> jetList, ArrayList<Taille> tailleList,
-			ArrayList<Torrefaction> torefListe) {
+			ArrayList<Ingredient> torefList) {
 		// ‐‐‐‐‐‐‐‐‐‐‐‐‐‐ Fenetre JFrame ‐‐‐‐‐‐‐‐‐‐‐‐‐‐
 		setTitle("Cafe-Expresse");
 		setSize(640, 480);
@@ -64,9 +75,9 @@ public class VueCafe extends JFrame {
 		pnlConteneurIng.setBackground(Color.WHITE);
 		pnlNavigation = new JPanel(new BorderLayout());
 		pnlNavigation.setBackground(Color.gray);
-		pnlNavigation.setPreferredSize(new Dimension(0, 60));
+		pnlNavigation.setPreferredSize(new Dimension(0, 40));
 		pnlNavigation.setBorder(new CompoundBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK),
-				new EmptyBorder(10, 10, 10, 10)));
+				new EmptyBorder(4, 4, 4, 4)));
 		lbTitre = new JLabel();
 		lbTitre.setPreferredSize(new Dimension(0, 100));
 		lbTitre.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
@@ -74,21 +85,18 @@ public class VueCafe extends JFrame {
 		lbTitre.setHorizontalAlignment(SwingConstants.CENTER);
 		lbTitre.setText(nomTitres[0]);
 
-		pnlCafe = new JPanel[6];
+		pnlCafe = new JPanel[3];
 
 		pnlCafe[0] = new JPanel();
-		panelTaille(pnlCafe[0], tailleList, torefListe, cafe);
+		panelTaille(pnlCafe[0], tailleList, torefList);
 
 		pnlCafe[1] = new JPanel();
 
 		pnlCafe[2] = new JPanel();
 		pnlCafe[2].setLayout(new FlowLayout());
 		
+		
 
-		pnlCafe[5] = new ConfirmationPane(cafe, this);
-		;
-
-		new NavigationManager(this, pnlOnglets, pnlNavigation, confirmationPane);
 
 		for (int i = 0; i < pnlCafe.length; i++) {
 			pnlCafe[i].setBackground(Color.white);
@@ -122,22 +130,65 @@ public class VueCafe extends JFrame {
 		pnlGroupe.add(pnlNavigation, BorderLayout.SOUTH);
 		pnlCafe[0].setPreferredSize(new Dimension((int) (getSize().width * 0.65), 1));
 
+		
+		//-------------- NAVIGATION ----------------------------------------------------------------------
+		selectedColor = Color.white;
+		unselectedColor = Color.lightGray;
+		selectedBorder = BorderFactory.createMatteBorder(2, 1, 0, 1, Color.BLACK);
+		unselectedBorder = BorderFactory.createMatteBorder(2, 1, 2, 1, Color.BLACK);
+		// ‐‐‐‐‐‐‐‐‐‐‐‐‐‐ Instanciation des composants ‐‐‐‐‐‐‐‐‐‐‐‐‐‐
+		pnlSuivRet = new JPanel(new BorderLayout(4, 0));
+		pnlSuivRet.setBackground(Color.gray);
+
+		// ---- Barre de navigation ----
+		btnSuivant = new JButton("Suivant");
+
+		btnRetour = new JButton("Retour");
+		btnAnnuler = new JButton("Annuler");
+		Dimension btnDim = new Dimension(120, 0);
+		btnSuivant.setPreferredSize(btnDim);
+		btnRetour.setPreferredSize(btnDim);
+		btnAnnuler.setPreferredSize(btnDim);
+
+		// ---- Onglet ----
+		btnOnglets = new JButton[ongletNoms.length];
+
+		for (int i = 0; i < btnOnglets.length; i++) {
+			btnOnglets[i] = new JButton(ongletNoms[i]);
+			UnselectOnglet(i);
+			btnOnglets[i].setPreferredSize(new Dimension(0, 40));
+		}
+		selectOnglet(0);
+
+		// ‐‐‐‐‐‐‐‐‐‐‐‐‐‐ Positionnement ‐‐‐‐‐‐‐‐‐‐‐‐‐‐
+
+		// ---- Onglet ----
+		{
+			GridBagConstraints constraints = new GridBagConstraints();
+			constraints.fill = GridBagConstraints.HORIZONTAL;
+			constraints.weightx = 1;
+			for (int i = 0; i < btnOnglets.length; i++) {
+				constraints.gridx = i;
+				pnlOnglets.add(btnOnglets[i], constraints);
+			}
+		}
+
+		// ---- Barre de navigation ----
+		{
+			pnlSuivRet.add(btnSuivant, BorderLayout.EAST);
+			pnlSuivRet.add(btnRetour, BorderLayout.WEST);
+			btnRetour.setEnabled(false);
+			pnlNavigation.add(btnAnnuler, BorderLayout.WEST);
+			pnlNavigation.add(pnlSuivRet, BorderLayout.EAST);
+		}
+		//----------- END NAVIGATION --------------------------------------------------------------
+		
 		validate();
 
 	}
 
 	// Change le panel de sélection (lorsque l'utilisateur change d'onglet)
 	public void ChangePanelIngrediant(int oldPnlIndex, int newPnlIndex) {
-		/*
-		 * pnlConteneurIng.remove(pnlIngrediants[oldPnlIndex]);
-		 * 
-		 * GridBagConstraints constraints = new GridBagConstraints(); constraints.fill =
-		 * GridBagConstraints.BOTH; constraints.gridx = 0; constraints.gridy = 1;
-		 * constraints.weightx = 1; constraints.weighty = 1; constraints.insets = new
-		 * Insets(15, 10, 10, 10);
-		 * 
-		 * pnlConteneurIng.add(pnlIngrediants[newPnlIndex], constraints);
-		 */
 		pnlCafe[newPnlIndex].setPreferredSize(new Dimension((int) (getSize().width * 0.65), 1));
 		pnlCafe[oldPnlIndex].setVisible(false);
 		pnlCafe[newPnlIndex].setVisible(true);
@@ -145,6 +196,17 @@ public class VueCafe extends JFrame {
 		validate();
 		repaint();
 	}
+	// Change l'aspect visuel de l'onglet lorsqu'il est sélectionné
+		void selectOnglet(int index) {
+			btnOnglets[index].setBackground(selectedColor);
+			btnOnglets[index].setBorder(selectedBorder);
+		}
+
+		// Change l'aspect visuel de l'onglet lorsqu'il est désélectionné
+		public void UnselectOnglet(int index) {
+			btnOnglets[index].setBackground(unselectedColor);
+			btnOnglets[index].setBorder(unselectedBorder);
+		}
 	
 	public ImageIcon imageToIconImage(ImageIcon image, int resizeX, int resizeY) 
 	{	
@@ -173,15 +235,34 @@ public class VueCafe extends JFrame {
 	
 	
 
-	void panelTaille(JPanel panel, ArrayList<Taille> taille) {
+	void panelTaille(JPanel panel, ArrayList<Taille> taille,ArrayList<Ingredient> toref) {
 		ButtonGroup btnGroup = new ButtonGroup();
 		panel.setLayout(new FlowLayout());
 		panel.setAlignmentY(CENTER_ALIGNMENT);
 		for (int i = 0; i < taille.size(); i++) {
-			panel.add(new TaillePane(taille.get(i), cafe, btnGroup));
+			//panel.add(new TaillePane(taille.get(i), cafe, btnGroup));
 		}
 	}
 
+	public JButton getBtnSuivant() {
+		return btnSuivant;
+	}
+
+	public void setBtnSuivant(JButton btnSuivant) {
+		this.btnSuivant = btnSuivant;
+	}
+
+	public JButton getBtnRetour() {
+		return btnRetour;
+	}
+
+	public JButton getBtnAnnuler() {
+		return btnAnnuler;
+	}
+
+	public JButton[] getBtnOnglets() {
+		return btnOnglets;
+	}
 	/*
 	 * public class ResizeListener extends ComponentAdapter {
 	 * 

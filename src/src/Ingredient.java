@@ -2,7 +2,7 @@ package src;
 
 import java.awt.Image;
 
-public abstract class Ingredient {
+public class Ingredient {
 	
 
 	private String path; //jsp si cest ca que vs voulez
