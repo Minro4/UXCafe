@@ -25,9 +25,9 @@ public class CtrlCafe implements PropertyChangeListener {
 		tailleList.add(new Taille("Grand", 250, 2.15));
 		tailleList.add(new Taille("Très Grand", 250, 2.35));
 		//Création de l'array de torréfactions
-		torefList.add("Légère");
-		torefList.add("Normale");
-		torefList.add("Foncée");
+		torefList.add(new Torrefaction("Légère","Image/coffeeBean.png"));
+		torefList.add(new Torrefaction("Normale","Image/CoffeeBean2.png"));
+		torefList.add(new Torrefaction("Foncée","Image/CoffeeBean3.png"));
 		//Création de la liste de jets
 		jetList.add(new Jet("Moka","Images/chocolate.jpg"));
 		jetList.add(new Jet("Caramel","Images/caramel.jpg"));
