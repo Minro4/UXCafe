@@ -36,23 +36,10 @@ public class CtrlCafe implements PropertyChangeListener {
 		jetList.add(new Jet("Images/hazelnut.jpg", "Noisette"));
 		jetList.add(new Jet("Images/menthepoivre.jpg", "Menthe poivrée"));
 		jetList.add(new Jet("Images/rasberry.jpg", "Framboise"));
-<<<<<<< Updated upstream
-		
+
 		cafe = new Cafe(tailleList.get(2));
 		cafe.addPropertyChangeListener(this);
-			
-=======
-		jetList.add(new Jet("Moka","Images/chocolate.png"));
-		jetList.add(new Jet("Caramel","Images/caramel.jpg"));
-		jetList.add(new Jet("Vanille","Images/vanilla.png"));
-		jetList.add(new Jet("Noisette","Images/hazelnut.jpg"));
-		jetList.add(new Jet("Menthe poivrée","Images/menthepoivre.png"));
-		jetList.add(new Jet("Framboise","Images/raspberry.png"));
-		
-		
-=======
->>>>>>> Stashed changes
-		
+
 	}
 	
     class ObsAddIng implements ActionListener {
