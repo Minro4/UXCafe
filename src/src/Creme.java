@@ -8,8 +8,8 @@ public class Creme extends Ingredient{
 	private int quantiteParPortion;
 	private double prixParPortion;
 	
-	public Creme(String image, String nom) {
-		super(image, nom);
+	public Creme(String nom, String path) {
+		super(nom, path);
 
 		proportionMax = 0.1f;
 		quantiteParPortion = 15;

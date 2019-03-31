@@ -8,15 +8,15 @@ public class Lait extends Ingredient {
 	private int quantiteParPortion;
 	private double prixParPortion;
 	
-	public Lait(String image, String nom) {
-		super(image, nom);
+	public Lait(String nom, String path) {
+		super(nom, path);
 		proportionMax = 0.5;
 		quantiteParPortion = 15;
 		prixParPortion = 0.1;
 	}
 
-	public Lait(String image, String nom, double proportionMax, int quantiteParPortion, double prixParPortion) {
-		super(image, nom);
+	public Lait(String nom, String path, double proportionMax, int quantiteParPortion, double prixParPortion) {
+		super(nom, path);
 		this.proportionMax = proportionMax;
 		this.quantiteParPortion = quantiteParPortion;
 		this.prixParPortion = prixParPortion;

@@ -5,14 +5,14 @@ import java.awt.Image;
 public abstract class Ingredient {
 	
 
-	private String image; //jsp si cest ca que vs voulez
+	private String path; //jsp si cest ca que vs voulez
 	private String nom;
 
 	
-	public Ingredient(String image, String nom) {
+	public Ingredient( String nom,String path) {
 	
 		super();
-		this.image = image;
+		this.path = path;
 		this.nom = nom;
 	}
 
@@ -21,7 +21,7 @@ public abstract class Ingredient {
 	}
 
 	public String getImage() {
-		return image;
+		return path;
 
 	}
 }

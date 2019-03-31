@@ -9,8 +9,8 @@ public class Sucre extends Ingredient {
 	
 	
 
-	public Sucre(String image, String nom) {
-		super(image, nom);
+	public Sucre(String nom, String path) {
+		super(nom, path);
 		prix = 0.05f;
 		proportionMax = 0.01f;
 		

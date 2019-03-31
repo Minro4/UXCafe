@@ -13,7 +13,7 @@ public class CtrlCafe implements PropertyChangeListener {
 	private Cafe cafe;
 	
 	private ArrayList<Taille> tailleList;
-	private ArrayList<String> torefList;
+	private ArrayList<Ingredient> torefList;
 	private ArrayList<Jet> jetList;
 	
 	public CtrlCafe() {
@@ -26,10 +26,9 @@ public class CtrlCafe implements PropertyChangeListener {
 		tailleList.add(new Taille("Très Grand", 250, 2.35));
 		//Création de l'array de torréfactions
 		torefList.add("Légère");
-		torefList.add("Régulation");
+		torefList.add("Normale");
 		torefList.add("Foncée");
 		//Création de la liste de jets
-
 		jetList.add(new Jet("Moka","Images/chocolate.jpg"));
 		jetList.add(new Jet("Caramel","Images/caramel.jpg"));
 		jetList.add(new Jet("Vanille","Images/vanilla.jpg"));
