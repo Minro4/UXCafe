@@ -1,5 +1,7 @@
 package src;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,10 +17,13 @@ public class Cafe {
 	private Map.Entry<Creme, Integer> creme;
 
 	private HashMap<Jet, Integer> jets = new HashMap<Jet, Integer>();
-
+	
+	private PropertyChangeSupport support;
+    
 	public Cafe(Taille taille) {
 		super();
 		this.taille = taille;
+		support = new PropertyChangeSupport(this);
 	}
 	
 	public Taille getTaille() {
@@ -91,14 +96,14 @@ public class Cafe {
 	
 	//Est utilisé lorsque l'on ajoute un autre ingrédient, car puisque la quantite de café est réduite,
 	//il est possible que la quantite de lait ne soit plus valide
-	private boolean CheckAndAdjustLait() {	
+	private void CheckAndAdjustLait() {	
 		int quantiteCafe = getQuantiteCafe();
 		if (!lait.getKey().valide(lait.getValue(), quantiteCafe)) {
 			int nbrPortion = lait.getKey().getNbrPortionMax(quantiteCafe);
-			lait.setValue(nbrPortion);
-			return true;
+			support.firePropertyChange("Lait",lait, nbrPortion);
+			lait.setValue(nbrPortion);		
 		}
-		return false;
+
 	}
 
 	public int getQuantiteCafe() {
@@ -172,5 +177,15 @@ public class Cafe {
 		}
 		return sum;
 	}
-
+	
+	
+	
+	public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
+    }
+ 
+    public void removePropertyChangeListener(PropertyChangeListener pcl) {
+        support.removePropertyChangeListener(pcl);
+    }
+ 
 }

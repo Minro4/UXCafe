@@ -2,12 +2,13 @@ package src;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 import javax.swing.JTextField;
 
-
-public class CtrlCafe {
+public class CtrlCafe implements PropertyChangeListener {
 	
 	private Cafe cafe;
 	
@@ -34,6 +35,9 @@ public class CtrlCafe {
 		jetList.add(new Jet("Images/hazelnut.jpg", "Noisette"));
 		jetList.add(new Jet("Images/menthepoivre.jpg", "Menthe poivrée"));
 		jetList.add(new Jet("Images/rasberry.jpg", "Framboise"));
+		
+		cafe = new Cafe(tailleList.get(2));
+		cafe.addPropertyChangeListener(this);
 			
 	}
 	
@@ -52,6 +56,12 @@ public class CtrlCafe {
            int prt=cafe.addIngredient(ing, nbrPortions);
            tfPortions.setText(String.valueOf(prt));
         }
-    }	
+    }
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		//Lait.setText(String.valueOf(evt.getNewValue()));
+		
+	}	
 	
 }
