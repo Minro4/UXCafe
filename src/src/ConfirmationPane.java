@@ -8,44 +8,42 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
 
 public class ConfirmationPane extends JPanel {
 
-	JButton btnConfirm;
+	private static final long serialVersionUID = 1L;
+	private JButton btnConfirm;
+
 	private JPanel panelRapport;
 	
 //	private Font font;
 	
 	
-	public ConfirmationPane(ActionListener listener) {
+	public ConfirmationPane() {
 
+		setPreferredSize(new Dimension(183, 0));
 		JLabel lbTitre = new JLabel("Compte‐rendu");
-		lbTitre.setFont(lbTitre.getFont().deriveFont(32f));
+		lbTitre.setFont(lbTitre.getFont().deriveFont(16f));
 		
 		btnConfirm = new JButton("Confirmer");
-		btnConfirm.setPreferredSize(new Dimension(170, 75));
-		btnConfirm.setFont(btnConfirm.getFont().deriveFont(24f));
-		btnConfirm.addActionListener(listener);
+		btnConfirm.setPreferredSize(new Dimension(140,40));
+		btnConfirm.setFont(btnConfirm.getFont().deriveFont(16f));
 		
 		panelRapport = new JPanel();		
 		///panelRapport.setLayout(new BoxLayout(panelRapport, BoxLayout.Y_AXIS));
-		panelRapport.setBackground(Color.white);		
+		panelRapport.setBackground(Color.lightGray);
+		setBackground(Color.lightGray);
 
 		Font font = new Font("Dialog", Font.BOLD,24);		
 		
 
 		setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
-		Insets inset = new Insets(30, 10, 0, 10);
+		//Insets inset = new Insets(30, 10, 0, 10);
 		
-		constraints.fill = GridBagConstraints.HORIZONTAL;
-		constraints.anchor = GridBagConstraints.FIRST_LINE_START;
+		//constraints.fill = GridBagConstraints.HORIZONTAL;
+		//constraints.anchor = GridBagConstraints.BASELINE_LEADING;
 		constraints.weightx = 1;
 		
 		//constraints.insets = normalInset;
@@ -59,6 +57,7 @@ public class ConfirmationPane extends JPanel {
 
 		constraints.gridx = 0;
 		constraints.gridy = 2;
+		constraints.weightx = 0;
 		//constraints.weighty = 1;
 		add(btnConfirm, constraints);
 
@@ -90,6 +89,9 @@ public class ConfirmationPane extends JPanel {
 		}
 	}
 	
+	public JButton getBtnConfirm() {
+		return btnConfirm;
+	}
 	
 	
 	

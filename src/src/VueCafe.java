@@ -22,6 +22,8 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
+import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
+
 public class VueCafe extends JFrame {
 	
 	private Cafe cafe;
@@ -30,8 +32,11 @@ public class VueCafe extends JFrame {
 			pnlOnglets, // Panel qui contient les onglets
 			pnlNavigation, // Panel qui contient la barre de navigation au bas de l'écran
 			pnlConteneurIng; // Panel qui contient les ingrédients/taille/etc ainsi que le titre.
+	
+	private ConfirmationPane confirmationPane;
 
 	private JPanel[] pnlCafe; // Taille, Bouillon Légume, Viande, Nouille, Comfirmation
+	private int panelWidth = 420;
 	private JLabel lbTitre;
 	private String[] nomTitres = { "Sélectionnez la taille de votre café, ainsi que sa torréfaction",
 			"Sélectionnez vos jets de saveur", "Personnaliser le tout"};
@@ -84,6 +89,8 @@ public class VueCafe extends JFrame {
 		lbTitre.setFont(lbTitre.getFont().deriveFont(24.0f));
 		lbTitre.setHorizontalAlignment(SwingConstants.CENTER);
 		lbTitre.setText(nomTitres[0]);
+		
+		confirmationPane = new ConfirmationPane();
 
 		pnlCafe = new JPanel[3];
 
@@ -128,7 +135,9 @@ public class VueCafe extends JFrame {
 		pnlGroupe.add(pnlOnglets, BorderLayout.NORTH);
 		pnlGroupe.add(pnlConteneurIng, BorderLayout.WEST);
 		pnlGroupe.add(pnlNavigation, BorderLayout.SOUTH);
-		pnlCafe[0].setPreferredSize(new Dimension((int) (getSize().width * 0.65), 1));
+		pnlGroupe.add(confirmationPane, BorderLayout.EAST);
+		for(int i =0;  i < pnlCafe.length; i++) {
+		pnlCafe[i].setPreferredSize(new Dimension(panelWidth, 1));}
 
 		
 		//-------------- NAVIGATION ----------------------------------------------------------------------
@@ -188,8 +197,7 @@ public class VueCafe extends JFrame {
 	}
 
 	// Change le panel de sélection (lorsque l'utilisateur change d'onglet)
-	public void ChangePanelIngrediant(int oldPnlIndex, int newPnlIndex) {
-		pnlCafe[newPnlIndex].setPreferredSize(new Dimension((int) (getSize().width * 0.65), 1));
+	public void ChangePanelIngrediant(int oldPnlIndex, int newPnlIndex) {		
 		pnlCafe[oldPnlIndex].setVisible(false);
 		pnlCafe[newPnlIndex].setVisible(true);
 		lbTitre.setText(nomTitres[newPnlIndex]);
@@ -240,7 +248,7 @@ public class VueCafe extends JFrame {
 		panel.setLayout(new FlowLayout());
 		panel.setAlignmentY(CENTER_ALIGNMENT);
 		for (int i = 0; i < taille.size(); i++) {
-			panel.add(new TaillePane(taille.get(i), cafe, btnGroup));
+		//	panel.add(new TaillePane(taille.get(i), cafe, btnGroup));
 		}
 	}
 
@@ -262,6 +270,9 @@ public class VueCafe extends JFrame {
 
 	public JButton[] getBtnOnglets() {
 		return btnOnglets;
+	}
+	public ConfirmationPane getConfirmationPane() {
+		return confirmationPane;
 	}
 	/*
 	 * public class ResizeListener extends ComponentAdapter {

@@ -41,6 +41,7 @@ public class CtrlCafe implements PropertyChangeListener {
 		cafe.addPropertyChangeListener(this);
 		
 		vueCafe = new VueCafe(cafe, jetList, tailleList, torefList);
+		vueCafe.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
 		new NavigationManager(vueCafe);
 
 	}
@@ -59,6 +60,7 @@ public class CtrlCafe implements PropertyChangeListener {
         public void actionPerformed(ActionEvent evt) {
            int prt = cafe.addIngredient(ing, nbrPortions);
            tfPortions.setText(String.valueOf(prt));
+           updateRapport();
         }
     }
 
@@ -67,11 +69,17 @@ public class CtrlCafe implements PropertyChangeListener {
 		//Lait.setText(String.valueOf(evt.getNewValue()));
 		
 	}	
+	
+	public void updateRapport() {
+		vueCafe.getConfirmationPane().update(cafe.getRapport());
+	}
 	public class ConfirmerButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {			
 			vueCafe.dispose();
 		}
 	}
+	
+	
 	
 }
