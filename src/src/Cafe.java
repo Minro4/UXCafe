@@ -4,14 +4,10 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.text.NumberFormat;
 import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.sun.tools.javac.comp.Infer;
 
 public class Cafe {
 
@@ -25,10 +21,13 @@ public class Cafe {
 
 	private PropertyChangeSupport support;
 
-	public Cafe(Taille taille, Ingredient torefaction) {
+	public Cafe(Taille taille, Ingredient torefaction,Sucre sucre, Lait lait,  Creme creme) {
 		super();
 		this.taille = taille;
 		this.torefaction = torefaction;
+		this.sucre = new  AbstractMap.SimpleEntry<Sucre, Integer>(sucre, 0); 
+		this.lait = new  AbstractMap.SimpleEntry<Lait, Integer>(lait, 0); 
+		this.creme = new  AbstractMap.SimpleEntry<Creme, Integer>(creme, 0); 
 		support = new PropertyChangeSupport(this);
 	}
 
@@ -188,6 +187,12 @@ public class Cafe {
 
 		Arrays.sort(rapport, new Comparator<String[]>() {
 			public int compare(String[] o1, String[] o2) {
+				if (o1[1] == null && o2[1] == null) 
+	                return 0;           
+	            if (o1[1] == null) 
+	                return 1;            
+	            if (o2[1] == null) 
+	                return -1;	            
 				return extractInt(o1[1]) - extractInt(o2[1]);
 			}
 

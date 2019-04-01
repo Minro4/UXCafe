@@ -1,6 +1,7 @@
 package src;
 
 import javax.swing.*;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -8,7 +9,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
 
 public class ConfirmationPane extends JPanel {
 
@@ -24,14 +24,14 @@ public class ConfirmationPane extends JPanel {
 
 		setPreferredSize(new Dimension(183, 0));
 		JLabel lbTitre = new JLabel("Compte‐rendu");
-		lbTitre.setFont(lbTitre.getFont().deriveFont(16f));
+		lbTitre.setFont(lbTitre.getFont().deriveFont(20f));
 		
 		btnConfirm = new JButton("Confirmer");
 		btnConfirm.setPreferredSize(new Dimension(140,40));
 		btnConfirm.setFont(btnConfirm.getFont().deriveFont(16f));
 		
 		panelRapport = new JPanel();		
-		///panelRapport.setLayout(new BoxLayout(panelRapport, BoxLayout.Y_AXIS));
+		panelRapport.setLayout(new GridBagLayout());
 		panelRapport.setBackground(Color.lightGray);
 		setBackground(Color.lightGray);
 
@@ -40,33 +40,37 @@ public class ConfirmationPane extends JPanel {
 
 		setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
-		//Insets inset = new Insets(30, 10, 0, 10);
 		
-		//constraints.fill = GridBagConstraints.HORIZONTAL;
-		//constraints.anchor = GridBagConstraints.BASELINE_LEADING;
-		constraints.weightx = 1;
+		
+		constraints.anchor = GridBagConstraints.PAGE_START;
+		constraints.weighty = 1;
 		
 		//constraints.insets = normalInset;
 		constraints.gridx = 0;
 		constraints.gridy = 0;
+		constraints.insets =  new Insets(40, 0, 0, 0);
 		add(lbTitre, constraints);
+		//constraints.anchor = GridBagConstraints.CENTER;
 		constraints.gridx = 0;
 		constraints.gridy = 1;
+		constraints.insets =  new Insets(0, 0, 0, 0);
 		add(panelRapport, constraints);
 	
 
 		constraints.gridx = 0;
 		constraints.gridy = 2;
-		constraints.weightx = 0;
+		constraints.weighty = 0;
+		
+		constraints.insets =  new Insets(0, 0, 40, 0);
 		//constraints.weighty = 1;
+		//constraints.anchor = GridBagConstraints.PAGE_END;
 		add(btnConfirm, constraints);
 
 	}
 
 	public void update(String[][] rapport) {
 		
-		
-		int defaultFontSize = 24;
+		int defaultFontSize = 16;
 		int nbrRow = 10;	
 		
 		int fontSize = (int)((float)(defaultFontSize*nbrRow)/rapport.length);
@@ -75,16 +79,22 @@ public class ConfirmationPane extends JPanel {
 		Font font = new Font("Dialog", Font.BOLD,fontSize);
 		
 		panelRapport.removeAll();
-		panelRapport.setLayout(new GridLayout(rapport.length, 2));
-		
+		//panelRapport.setLayout(new GridLayout(rapport.length, 2));
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.weightx = 1;
+		constraints.insets = new Insets(0, 5, 0, 5);
 		for (int i = 0; i < rapport.length; i++) {
 
 			JLabel labelText = new JLabel(rapport[i][0]);
 			JLabel labelPrix = new JLabel(rapport[i][1]);
 			labelText.setFont(font);
 			labelPrix.setFont(font);
-			panelRapport.add(labelText);
-			panelRapport.add(labelPrix);
+			constraints.gridx = 0;
+			constraints.gridy = i;
+			panelRapport.add(labelText,constraints);
+			constraints.gridx = 1;
+			panelRapport.add(labelPrix,constraints);
 			
 		}
 	}
