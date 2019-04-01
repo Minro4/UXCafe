@@ -1,17 +1,14 @@
 package src;
 
-public class Taille {
-	private String nom;
-	private int capacite;
+public class Taille extends ComposanteCafe {
+	private int capacite, sizeIm;
 	private double prix;
 	
-	public Taille(String n, int c, double p) {
-		nom=n;
+	public Taille(String nom, int c, double p, String path, int sizeIm) {
+		super(nom, path);
 		capacite=c;
 		prix=p;
-	}
-	public String getNom() {
-		return nom;
+		this.sizeIm = sizeIm;
 	}
 	public int getCapacite() {
 		return capacite;
@@ -19,4 +16,8 @@ public class Taille {
 	public double getPrix() {
 		return prix;
 	}
+	public int getSize() {
+		return this.sizeIm;
+	}
 }
+

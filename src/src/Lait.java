@@ -2,7 +2,7 @@ package src;
 
 import java.awt.Image;
 
-public class Lait extends Ingredient {
+public class Lait extends ComposanteCafe {
 
 	private double proportionMax;
 	private int quantiteParPortion;

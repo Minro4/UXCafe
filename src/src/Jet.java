@@ -2,7 +2,7 @@ package src;
 
 import java.awt.Image;
 
-public class Jet extends Ingredient{
+public class Jet extends ComposanteCafe{
 	
 	private final static double proportion = 0.05f;
 	private final static double prixParPortion = 0.1f;

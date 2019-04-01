@@ -64,7 +64,7 @@ public class VueCafe extends JFrame {
 	private Border unselectedBorder;
 
 	public VueCafe(Cafe cafe, ArrayList<Jet> jetList, ArrayList<Taille> tailleList,
-			ArrayList<Ingredient> torefList) {
+			ArrayList<ComposanteCafe> torefList) {
 		// ‐‐‐‐‐‐‐‐‐‐‐‐‐‐ Fenetre JFrame ‐‐‐‐‐‐‐‐‐‐‐‐‐‐
 		setTitle("Cafe-Expresse");
 		setSize(640, 480);
@@ -84,9 +84,9 @@ public class VueCafe extends JFrame {
 		pnlNavigation.setBorder(new CompoundBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK),
 				new EmptyBorder(4, 4, 4, 4)));
 		lbTitre = new JLabel();
-		lbTitre.setPreferredSize(new Dimension(0, 100));
+		lbTitre.setPreferredSize(new Dimension(0, 50));
 		lbTitre.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
-		lbTitre.setFont(lbTitre.getFont().deriveFont(24.0f));
+		lbTitre.setFont(lbTitre.getFont().deriveFont(14.0f));
 		lbTitre.setHorizontalAlignment(SwingConstants.CENTER);
 		lbTitre.setText(nomTitres[0]);
 		
@@ -95,15 +95,12 @@ public class VueCafe extends JFrame {
 		pnlCafe = new JPanel[3];
 
 		pnlCafe[0] = new JPanel();
-		panelTaille(pnlCafe[0], tailleList, torefList);
-
 		pnlCafe[1] = new JPanel();
-
+		pnlCafe[1].setLayout(new FlowLayout());
 		pnlCafe[2] = new JPanel();
 		pnlCafe[2].setLayout(new FlowLayout());
 		
 		
-
 
 		for (int i = 0; i < pnlCafe.length; i++) {
 			pnlCafe[i].setBackground(Color.white);
@@ -226,32 +223,62 @@ public class VueCafe extends JFrame {
 	}
 	// fonction qui gère chaques panel d'ingrédient en les positionants dans un gros
 	// panel
+	public void setPanelCafe(ArrayList<Taille> tailleList, ArrayList<ComposanteCafe> torefList, Cafe cafe, Integer hauteur, CtrlCafe ctrl) {
+		JPanel taillePane = new JPanel();
+		panelTaille(taillePane,tailleList, ctrl);
+		
+		JPanel torefPane = new JPanel();
+		panelToref(torefPane, torefList,hauteur, ctrl);
+		
+		taillePane.setLayout(new FlowLayout());
+		torefPane.setLayout(new FlowLayout());
+		
+		
+		
+		pnlCafe[0].add(torefPane);
+		pnlCafe[0].add(taillePane);
+	}
+	
 	public void setPanelJet(ArrayList<Jet> jetList, Cafe cafe,Integer hauteur, CtrlCafe ctrl ) {
 		
 		for(Jet j:jetList) {
 			
-			pnlCafe[2].add(new IngredPane(j,cafe,hauteur, ctrl));
+			pnlCafe[1].add(new IngredPane(j,cafe,hauteur, ctrl));
 			
 		}
+		validate();
 	}
 
-	public void setPanelLCS(Lait lait, Creme Creme, Sucre sucre) {
+	public void setPanelLCS(Lait lait, Creme Creme, Sucre sucre, Cafe cafe,Integer hauteur, CtrlCafe ctrl) {
 		
+		pnlCafe[2].add(new IngredPane(lait, cafe, hauteur, ctrl));
+		pnlCafe[2].add(new IngredPane(Creme, cafe, hauteur, ctrl));
+		pnlCafe[2].add(new IngredPane(sucre, cafe, hauteur, ctrl));
 		
-		
+		validate();
 	}
 	
 	
 
-	void panelTaille(JPanel panel, ArrayList<Taille> taille,ArrayList<Ingredient> toref) {
+	public void panelTaille(JPanel panel, ArrayList<Taille> taille, CtrlCafe ctrl) {
 		ButtonGroup btnGroup = new ButtonGroup();
 		panel.setLayout(new FlowLayout());
 		panel.setAlignmentY(CENTER_ALIGNMENT);
-		for (int i = 0; i < taille.size(); i++) {
-		//	panel.add(new TaillePane(taille.get(i), cafe, btnGroup));
+		
+		for(Taille t:taille) {
+			panel.add(new PaneauTaille(t, cafe, btnGroup, ctrl));
 		}
 	}
-
+	public void panelToref(JPanel panel, ArrayList<ComposanteCafe> cc,int hauteur, CtrlCafe ctrl) {
+		ButtonGroup btnGroup = new ButtonGroup();
+		panel.setLayout(new FlowLayout());
+		panel.setAlignmentY(CENTER_ALIGNMENT);
+		
+		for(ComposanteCafe c:cc) {
+			panel.add(new PaneauToref(c, cafe, btnGroup,hauteur, ctrl));
+		}
+	}
+	
 	public JButton getBtnSuivant() {
 		return btnSuivant;
 	}

@@ -2,14 +2,14 @@ package src;
 
 import java.awt.Image;
 
-public class Ingredient {
+public class ComposanteCafe {
 	
 
 	private String path; //jsp si cest ca que vs voulez
 	private String nom;
 
 	
-	public Ingredient( String nom,String path) {
+	public ComposanteCafe(String nom,String path) {
 	
 		super();
 		this.path = path;
@@ -20,7 +20,7 @@ public class Ingredient {
 		return nom;
 	}
 
-	public String getImage() {
+	public String getPath() {
 		return path;
 
 	}

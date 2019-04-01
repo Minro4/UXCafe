@@ -21,10 +21,10 @@ import src.CtrlCafe.ObsAddIng;
 public class IngredPane extends JPanel {
 
 	private Cafe cafe;
-	private Ingredient ingredient;
+	private ComposanteCafe ingredient;
 	private JTextField portions;
 
-	public IngredPane(Ingredient ingred, Cafe cafe, int imHeight, CtrlCafe ctrl) {
+	public IngredPane(ComposanteCafe ingred, Cafe cafe, int imHeight, CtrlCafe ctrl) {
 		this.cafe = cafe;
 		this.ingredient = ingred;
 		
@@ -68,7 +68,7 @@ public class IngredPane extends JPanel {
 
 		// set els images d'ingredients
 		imageIngred = new JLabel();
-		imageIngred.setIcon(new ImageIcon(setIcon(ingred.getImage(), 50, 50).getImage()));
+		imageIngred.setIcon(new ImageIcon(setIcon(ingred.getPath(), imHeight).getImage()));
 		imageIngred.setBorder(new LineBorder(Color.BLACK));
 
 		nom = new JLabel(ingred.getNom());
@@ -107,12 +107,12 @@ public class IngredPane extends JPanel {
 
 		validate();
 	}
-	public ImageIcon setIcon(String path, int resizeX, int resizeY) {
+	public ImageIcon setIcon(String path, int hauteur) {
 		
 		ImageIcon imageI = new ImageIcon(path);
 		
 		java.awt.Image oof = imageI.getImage();
-		java.awt.Image resized = oof.getScaledInstance(resizeX, resizeY, java.awt.Image.SCALE_SMOOTH);
+		java.awt.Image resized = oof.getScaledInstance(hauteur, hauteur, java.awt.Image.SCALE_SMOOTH);
 		imageI.setImage(resized);		
 		
 		return imageI;

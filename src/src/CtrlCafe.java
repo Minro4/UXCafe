@@ -14,22 +14,22 @@ public class CtrlCafe implements PropertyChangeListener {
 	private VueCafe vueCafe;
 
 	private ArrayList<Taille> tailleList = new ArrayList<Taille>();
-	private ArrayList<Ingredient> torefList = new ArrayList<Ingredient>();
+	private ArrayList<ComposanteCafe> torefList = new ArrayList<ComposanteCafe>();
 	private ArrayList<Jet> jetList = new ArrayList<Jet>();
-	private ArrayList<Ingredient> lcsList = new ArrayList<Ingredient>();
+	private ArrayList<ComposanteCafe> lcsList = new ArrayList<ComposanteCafe>();
 
 	public CtrlCafe() {
 
 		// Création de l'array de tailles
-		tailleList.add(new Taille("Très petit", 250, 1.55));
-		tailleList.add(new Taille("Petit", 250, 1.75));
-		tailleList.add(new Taille("Moyen", 250, 1.95));
-		tailleList.add(new Taille("Grand", 250, 2.15));
-		tailleList.add(new Taille("Très Grand", 250, 2.35));
+		tailleList.add(new Taille("Très petit", 250, 1.55, "Image/coffee.png", 25));
+		tailleList.add(new Taille("Petit", 250, 1.75, "Image/coffee.png", 30));
+		tailleList.add(new Taille("Moyen", 250, 1.95, "Image/coffee.png", 35));
+		tailleList.add(new Taille("Grand", 250, 2.15, "Image/coffee.png", 40));
+		tailleList.add(new Taille("Très Grand", 250, 2.35, "Image/coffee.png", 45));
 		// Création de l'array de torréfactions
-		torefList.add(new Ingredient("Légère", "Image/coffeeBean.png"));
-		torefList.add(new Ingredient("Normale", "Image/CoffeeBean2.png"));
-		torefList.add(new Ingredient("Foncée", "Image/CoffeeBean3.png"));
+		torefList.add(new ComposanteCafe("Légère", "Image/coffeeBean.png"));
+		torefList.add(new ComposanteCafe("Normale", "Image/CoffeeBean2.png"));
+		torefList.add(new ComposanteCafe("Foncée", "Image/CoffeeBean3.png"));
 		// Création de la liste de jets
 		jetList.add(new Jet("Moka", "Images/chocolate.jpg"));
 		jetList.add(new Jet("Caramel", "Images/caramel.jpg"));
@@ -52,15 +52,19 @@ public class CtrlCafe implements PropertyChangeListener {
 		vueCafe.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
 		new NavigationManager(vueCafe);
 
+		vueCafe.setPanelCafe(tailleList, torefList, cafe,30, this);
+		vueCafe.setPanelJet(jetList, cafe, 30, this);
+		vueCafe.setPanelLCS(lait, creme, sucre, cafe, 30, this);
+		
 		updateRapport();
 	}
 
-	class ObsAddIng implements ActionListener {
-		Ingredient ing;
+	public class ObsAddIng implements ActionListener {
+		ComposanteCafe ing;
 		int nbrPortions; // 1 pour add et -1 pour remove
 		JTextField tfPortions;
 
-		public ObsAddIng(Ingredient ing, JTextField tfPortions, boolean add) {
+		public ObsAddIng(ComposanteCafe ing, JTextField tfPortions, boolean add) {
 			this.ing = ing;
 			this.tfPortions = tfPortions;
 			this.nbrPortions = add ? 1 : -1;
@@ -73,8 +77,39 @@ public class CtrlCafe implements PropertyChangeListener {
 			updateRapport();
 		}
 	}
+	
+	public class tailleListener implements ActionListener{
+		
+		Taille taille;
+		public tailleListener(Taille taille) {
+			// TODO Auto-generated constructor stub
+			this.taille = taille;
+		}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			cafe.setTaille(taille);
+			// TODO Auto-generated method stub
+			
+		}
+	}
+		public class torefListener implements ActionListener{
+			
+			ComposanteCafe c;
+			
+			public torefListener(ComposanteCafe c) {
+				// TODO Auto-generated constructor stub
+				this.c = c;
+			}
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				cafe.setTorefaction(c);
+				// TODO Auto-generated method stub
+				
+			}
+	}
 
-	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		// Lait.setText(String.valueOf(evt.getNewValue()));
 

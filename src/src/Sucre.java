@@ -2,7 +2,7 @@ package src;
 
 import java.awt.Image;
 
-public class Sucre extends Ingredient {
+public class Sucre extends ComposanteCafe {
 
 	private double prix;
 	private double proportionMax;
