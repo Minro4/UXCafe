@@ -74,7 +74,7 @@ public class ConfirmationPane extends JPanel {
 
 	public void update(String[][] rapport) {
 		
-		int defaultFontSize = 14;
+		int defaultFontSize = 13;
 		int nbrRow = 10;	
 		
 		int fontSize = (int)((float)(defaultFontSize*nbrRow)/rapport.length);

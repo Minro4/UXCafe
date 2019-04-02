@@ -26,7 +26,7 @@ public class Sucre extends ComposanteCafe {
 	}
 
 	public boolean valide(int portions,int tailleCapacite) {
-		return ((int) (tailleCapacite * proportionMax) <= portions);
+		return (portions <= (int) (tailleCapacite * proportionMax));
 	}
 	
 	public String rapport(int portion) {
