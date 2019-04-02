@@ -41,7 +41,7 @@ public class CtrlCafe implements PropertyChangeListener {
 		
 
 		Sucre sucre = new Sucre("Sucre", "Images/sugar.png");
-		Lait lait = new Lait("Lait", "Images/creme.png");//existe pas!!!
+		Lait lait = new Lait("Lait", "Images/lait.png");//existe pas!!!
 		Creme creme = new Creme("Creme", "Images/creme.png"); //existe pas!!!
 		lcsList.add(sucre);
 		lcsList.add(lait);
