@@ -29,7 +29,7 @@ private ComposanteCafe cafeComp;
 		lbNom.setFont(lbNom.getFont().deriveFont(12.0f));
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		setPreferredSize(new Dimension(100, 100));
+		setPreferredSize(new Dimension(75, 60));
 		
 		toggleButton.addActionListener(ctrl.new torefListener(cafeComp));
 		

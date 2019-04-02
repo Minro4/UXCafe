@@ -32,7 +32,7 @@ private Taille taille;
 		lbPrix.setFont(lbPrix.getFont().deriveFont(12.0f));
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		setPreferredSize(new Dimension(70, 100));
+		setPreferredSize(new Dimension(75, 80));
 		
 		toggleButton.addActionListener(ctrl.new tailleListener(taille));
 		

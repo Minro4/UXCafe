@@ -42,7 +42,7 @@ public class Cafe {
 	public void setTorefaction(ComposanteCafe torefaction) {
 		this.torefaction = torefaction;
 	}
-
+	
 	public int getPortion(Jet jet) {
 		return jets.get(jet);
 	}
@@ -130,7 +130,7 @@ public class Cafe {
 		NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
 		int nbrPrtnJet = nbrTotPortionsJet();
-		int totalLigne = 2 + jets.size();
+		int totalLigne = 3 + jets.size();
 		if (lait.getValue() > 0)
 			totalLigne++;
 		if (creme.getValue() > 0)
@@ -142,11 +142,11 @@ public class Cafe {
 		int currentIndex = 0;
 		double prixTotal = 0;
 
-		{
+		
 			rapport[currentIndex][0] = getQuantiteCafe() + " ml cafe:";
 			rapport[currentIndex++][1] = formatter.format(taille.getPrix());
 			prixTotal += taille.getPrix();
-		}
+		
 
 		{ // On ajoute les jets
 
@@ -184,6 +184,15 @@ public class Cafe {
 				rapport[currentIndex][0] = text;
 				rapport[currentIndex++][1] = formatter.format(prix);
 			}
+		}
+		
+		//On ajoute la torrefaction
+		
+		{
+			String text = "Votre toréfaction: ";
+			
+			rapport[currentIndex][0] = text;
+			rapport[currentIndex++][1]= torefaction.getNom();
 		}
 
 		Arrays.sort(rapport, new Comparator<String[]>() {

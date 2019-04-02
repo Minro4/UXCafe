@@ -21,11 +21,11 @@ public class CtrlCafe implements PropertyChangeListener {
 	public CtrlCafe() {
 
 		// Cr�ation de l'array de tailles
-		tailleList.add(new Taille("Très petit", 250, 1.55, "Images/coffee.png", 15));
-		tailleList.add(new Taille("Petit", 250, 1.75, "Images/coffee.png", 20));
-		tailleList.add(new Taille("Moyen", 250, 1.95, "Images/coffee.png", 25));
-		tailleList.add(new Taille("Grand", 250, 2.15, "Images/coffee.png", 30));
-		tailleList.add(new Taille("Très Grand", 250, 2.35, "Images/coffee.png", 35));
+		tailleList.add(new Taille("Très petit", 250, 1.55, "Images/coffee.png", 30));
+		tailleList.add(new Taille("Petit", 350, 1.75, "Images/coffee.png", 32));
+		tailleList.add(new Taille("Moyen", 500, 1.95, "Images/coffee.png", 34));
+		tailleList.add(new Taille("Grand", 600, 2.15, "Images/coffee.png", 36));
+		tailleList.add(new Taille("Très Grand", 700, 2.35, "Images/coffee.png", 38));
 		// Cr�ation de l'array de torr�factions
 		torefList.add(new ComposanteCafe("Légère", "Images/coffeeBean.png"));
 		torefList.add(new ComposanteCafe("Normale", "Images/CoffeeBean2.png"));
@@ -91,6 +91,7 @@ public class CtrlCafe implements PropertyChangeListener {
 		public void actionPerformed(ActionEvent e) {
 			
 			cafe.setTaille(taille);
+			updateRapport();
 			// TODO Auto-generated method stub
 			
 		}
@@ -107,6 +108,7 @@ public class CtrlCafe implements PropertyChangeListener {
 			public void actionPerformed(ActionEvent e) {
 				
 				cafe.setTorefaction(c);
+				updateRapport();
 				// TODO Auto-generated method stub
 				
 			}
