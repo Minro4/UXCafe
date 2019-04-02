@@ -1,6 +1,5 @@
 package src;
 
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,35 +21,32 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
-import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
-
 public class VueCafe extends JFrame {
-	
+
 	private Cafe cafe;
 
-	private JPanel pnlGroupe,// Panel qui contient tout les autres panels qui forment l'interface de création
+	private JPanel pnlGroupe, // Panel qui contient tout les autres panels qui forment l'interface de création
 			pnlOnglets, // Panel qui contient les onglets
 			pnlNavigation, // Panel qui contient la barre de navigation au bas de l'écran
 			pnlConteneurIng; // Panel qui contient les ingrédients/taille/etc ainsi que le titre.
-	
+
 	private ConfirmationPane confirmationPane;
 
 	private JPanel[] pnlCafe; // Taille, Bouillon Légume, Viande, Nouille, Comfirmation
 	private int panelWidth = 400;
 	private JLabel lbTitre;
 	private String[] nomTitres = { "Sélectionnez la taille de votre café, ainsi que sa torréfaction",
-			"Sélectionnez vos jets de saveur", "Personnaliser le tout"};
+			"Sélectionnez vos jets de saveur", "Personnaliser le tout" };
 
 	private int sizeLVFValueX = 120; // Taille des images
 	private int sizeLVFValueY = 120;
 
 	private int sizeBouillonX = 252; // Taille des images
 	private int sizeBouillonY = 168;
-	
+
 	private ArrayList<ImageIcon> imageList;
-	
-	
-	//--------------Navigation--------------------------
+
+	// --------------Navigation--------------------------
 	private JPanel pnlSuivRet; // Panel qui contient les bouttons suivant et retour
 
 	private JButton btnSuivant, btnRetour, btnAnnuler;
@@ -72,7 +68,6 @@ public class VueCafe extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 
-		
 		this.cafe = cafe;
 		pnlGroupe = new JPanel(new BorderLayout());
 		pnlOnglets = new JPanel(new GridBagLayout());
@@ -89,7 +84,7 @@ public class VueCafe extends JFrame {
 		lbTitre.setFont(lbTitre.getFont().deriveFont(14.0f));
 		lbTitre.setHorizontalAlignment(SwingConstants.CENTER);
 		lbTitre.setText(nomTitres[0]);
-		
+
 		confirmationPane = new ConfirmationPane();
 
 		pnlCafe = new JPanel[3];
@@ -99,8 +94,6 @@ public class VueCafe extends JFrame {
 		pnlCafe[1].setLayout(new FlowLayout());
 		pnlCafe[2] = new JPanel();
 		pnlCafe[2].setLayout(new FlowLayout());
-		
-		
 
 		for (int i = 0; i < pnlCafe.length; i++) {
 			pnlCafe[i].setBackground(Color.white);
@@ -133,11 +126,12 @@ public class VueCafe extends JFrame {
 		pnlGroupe.add(pnlConteneurIng, BorderLayout.WEST);
 		pnlGroupe.add(pnlNavigation, BorderLayout.SOUTH);
 		pnlGroupe.add(confirmationPane, BorderLayout.EAST);
-		for(int i =0;  i < pnlCafe.length; i++) {
-		pnlCafe[i].setPreferredSize(new Dimension(panelWidth, 1));}
+		for (int i = 0; i < pnlCafe.length; i++) {
+			pnlCafe[i].setPreferredSize(new Dimension(panelWidth, 1));
+		}
 
-		
-		//-------------- NAVIGATION ----------------------------------------------------------------------
+		// -------------- NAVIGATION
+		// ----------------------------------------------------------------------
 		selectedColor = Color.white;
 		unselectedColor = Color.lightGray;
 		selectedBorder = BorderFactory.createMatteBorder(2, 1, 0, 1, Color.BLACK);
@@ -187,98 +181,98 @@ public class VueCafe extends JFrame {
 			pnlNavigation.add(btnAnnuler, BorderLayout.WEST);
 			pnlNavigation.add(pnlSuivRet, BorderLayout.EAST);
 		}
-		//----------- END NAVIGATION --------------------------------------------------------------
-		
+		// ----------- END NAVIGATION
+		// --------------------------------------------------------------
+
 		validate();
 
 	}
 
 	// Change le panel de sélection (lorsque l'utilisateur change d'onglet)
-	public void ChangePanelIngrediant(int oldPnlIndex, int newPnlIndex) {		
+	public void ChangePanelIngrediant(int oldPnlIndex, int newPnlIndex) {
 		pnlCafe[oldPnlIndex].setVisible(false);
 		pnlCafe[newPnlIndex].setVisible(true);
 		lbTitre.setText(nomTitres[newPnlIndex]);
 		validate();
 		repaint();
 	}
-	// Change l'aspect visuel de l'onglet lorsqu'il est sélectionné
-		void selectOnglet(int index) {
-			btnOnglets[index].setBackground(selectedColor);
-			btnOnglets[index].setBorder(selectedBorder);
-		}
 
-		// Change l'aspect visuel de l'onglet lorsqu'il est désélectionné
-		public void UnselectOnglet(int index) {
-			btnOnglets[index].setBackground(unselectedColor);
-			btnOnglets[index].setBorder(unselectedBorder);
-		}
-	
-	public ImageIcon imageToIconImage(ImageIcon image, int resizeX, int resizeY) 
-	{	
+	// Change l'aspect visuel de l'onglet lorsqu'il est sélectionné
+	void selectOnglet(int index) {
+		btnOnglets[index].setBackground(selectedColor);
+		btnOnglets[index].setBorder(selectedBorder);
+	}
+
+	// Change l'aspect visuel de l'onglet lorsqu'il est désélectionné
+	public void UnselectOnglet(int index) {
+		btnOnglets[index].setBackground(unselectedColor);
+		btnOnglets[index].setBorder(unselectedBorder);
+	}
+
+	public ImageIcon imageToIconImage(ImageIcon image, int resizeX, int resizeY) {
 		java.awt.Image oof = image.getImage();
 		java.awt.Image resized = oof.getScaledInstance(resizeX, resizeY, java.awt.Image.SCALE_SMOOTH);
 		image.setImage(resized);
-		
+
 		return image;
 	}
+
 	// fonction qui gère chaques panel d'ingrédient en les positionants dans un gros
 	// panel
-	public void setPanelCafe(ArrayList<Taille> tailleList, ArrayList<ComposanteCafe> torefList, Cafe cafe, Integer hauteur, CtrlCafe ctrl) {
+	public void setPanelCafe(ArrayList<Taille> tailleList, ArrayList<ComposanteCafe> torefList, Cafe cafe,
+			Integer hauteur, CtrlCafe ctrl) {
 		JPanel taillePane = new JPanel();
-		panelTaille(taillePane,tailleList, ctrl);
-		
+		panelTaille(taillePane, tailleList, ctrl);
+
 		JPanel torefPane = new JPanel();
-		panelToref(torefPane, torefList,hauteur, ctrl);
-		
+		panelToref(torefPane, torefList, hauteur, ctrl);
+
 		taillePane.setLayout(new FlowLayout());
 		torefPane.setLayout(new FlowLayout());
-		
-		
-		
+
 		pnlCafe[0].add(torefPane);
 		pnlCafe[0].add(taillePane);
 	}
-	
-	public void setPanelJet(ArrayList<Jet> jetList, Cafe cafe,Integer hauteur, CtrlCafe ctrl ) {
-		
-		for(Jet j:jetList) {
-			
-			pnlCafe[1].add(new IngredPane(j,cafe,hauteur, ctrl));
-			
+
+	public void setPanelJet(ArrayList<Jet> jetList, Integer hauteur, CtrlCafe ctrl) {
+
+		for (Jet j : jetList) {
+
+			pnlCafe[1].add(new IngredPane(j,  hauteur, ctrl));
+
 		}
 		validate();
 	}
 
-	public void setPanelLCS(Lait lait, Creme Creme, Sucre sucre, Cafe cafe,Integer hauteur, CtrlCafe ctrl) {
-		
-		pnlCafe[2].add(new IngredPane(lait, cafe, hauteur, ctrl));
-		pnlCafe[2].add(new IngredPane(Creme, cafe, hauteur, ctrl));
-		pnlCafe[2].add(new IngredPane(sucre, cafe, hauteur, ctrl));
-		
+	public void setPanelLCS(Lait lait, Creme Creme, Sucre sucre, Integer hauteur, CtrlCafe ctrl) {
+
+		pnlCafe[2].add(new IngredPane(lait,  hauteur, ctrl));
+		pnlCafe[2].add(new IngredPane(Creme,  hauteur, ctrl));
+		pnlCafe[2].add(new IngredPane(sucre,  hauteur, ctrl));
+
 		validate();
 	}
-	
-	
 
 	public void panelTaille(JPanel panel, ArrayList<Taille> taille, CtrlCafe ctrl) {
 		ButtonGroup btnGroup = new ButtonGroup();
 		panel.setLayout(new FlowLayout());
 		panel.setAlignmentY(CENTER_ALIGNMENT);
-		
-		for(Taille t:taille) {
+
+		for (Taille t : taille) {
 			panel.add(new PaneauTaille(t, cafe, btnGroup, ctrl));
 		}
 	}
-	public void panelToref(JPanel panel, ArrayList<ComposanteCafe> cc,int hauteur, CtrlCafe ctrl) {
+
+	public void panelToref(JPanel panel, ArrayList<ComposanteCafe> cc, int hauteur, CtrlCafe ctrl) {
 		ButtonGroup btnGroup = new ButtonGroup();
 		panel.setLayout(new FlowLayout());
 		panel.setAlignmentY(CENTER_ALIGNMENT);
-		
-		for(ComposanteCafe c:cc) {
-			panel.add(new PaneauToref(c, cafe, btnGroup,hauteur, ctrl));
+
+		for (ComposanteCafe c : cc) {
+			panel.add(new PaneauToref(c, cafe, btnGroup, hauteur, ctrl));
 		}
 	}
-	
+
 	public JButton getBtnSuivant() {
 		return btnSuivant;
 	}
@@ -298,6 +292,7 @@ public class VueCafe extends JFrame {
 	public JButton[] getBtnOnglets() {
 		return btnOnglets;
 	}
+
 	public ConfirmationPane getConfirmationPane() {
 		return confirmationPane;
 	}
@@ -316,4 +311,3 @@ public class VueCafe extends JFrame {
 	 */
 
 }
-

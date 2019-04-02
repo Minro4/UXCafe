@@ -31,16 +31,17 @@ public class CtrlCafe implements PropertyChangeListener {
 		torefList.add(new ComposanteCafe("Normale", "Image/CoffeeBean2.png"));
 		torefList.add(new ComposanteCafe("Foncée", "Image/CoffeeBean3.png"));
 		// Création de la liste de jets
-		jetList.add(new Jet("Moka", "Images/chocolate.jpg"));
+		jetList.add(new Jet("Moka", "Images/chocolate.png"));
 		jetList.add(new Jet("Caramel", "Images/caramel.jpg"));
-		jetList.add(new Jet("Vanille", "Images/vanilla.jpg"));
-		jetList.add(new Jet("Noisette", "Images/hazelnut.jpg"));
-		jetList.add(new Jet("Menthe poivrée", "Images/menthepoivre.jpg"));
-		jetList.add(new Jet("Framboise", "Images/rasberry.jpg"));
+		jetList.add(new Jet("Vanille", "Images/vanilla.png"));
+		jetList.add(new Jet("Framboise", "Images/raspberry.png"));
+		jetList.add(new Jet("Noisette", "Images/hazelnut.png"));
+		jetList.add(new Jet("Menthe poivrée", "Images/menthepoivre.png"));
+		
 
-		Sucre sucre = new Sucre("Sucre", "Images/sugar.jpg");
-		Lait lait = new Lait("Lait", "Images/lait.jpg");
-		Creme creme = new Creme("Creme", "Images/creme.jpg");
+		Sucre sucre = new Sucre("Sucre", "Images/sugar.png");
+		Lait lait = new Lait("Lait", "Images/lait.jpg");//existe pas!!!
+		Creme creme = new Creme("Creme", "Images/creme.jpg"); //existe pas!!!
 		lcsList.add(sucre);
 		lcsList.add(lait);
 		lcsList.add(creme);
@@ -53,8 +54,8 @@ public class CtrlCafe implements PropertyChangeListener {
 		new NavigationManager(vueCafe);
 
 		vueCafe.setPanelCafe(tailleList, torefList, cafe,30, this);
-		vueCafe.setPanelJet(jetList, cafe, 30, this);
-		vueCafe.setPanelLCS(lait, creme, sucre, cafe, 30, this);
+		vueCafe.setPanelJet(jetList,  30, this);
+		vueCafe.setPanelLCS(lait, creme, sucre,  30, this);
 		
 		updateRapport();
 	}

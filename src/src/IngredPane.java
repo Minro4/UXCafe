@@ -20,12 +20,11 @@ import src.CtrlCafe.ObsAddIng;
 
 public class IngredPane extends JPanel {
 
-	private Cafe cafe;
 	private ComposanteCafe ingredient;
 	private JTextField portions;
 
-	public IngredPane(ComposanteCafe ingred, Cafe cafe, int imHeight, CtrlCafe ctrl) {
-		this.cafe = cafe;
+	public IngredPane(ComposanteCafe ingred, int imHeight, CtrlCafe ctrl) {
+		imHeight = 69;
 		this.ingredient = ingred;
 		
 		JLabel nom;
@@ -54,9 +53,9 @@ public class IngredPane extends JPanel {
 		moins.setMargin(new Insets(5, 5, 5, 5));
 
 		plus.setText("+");
-		plus.setFont(plus.getFont().deriveFont(24.0f));
+		plus.setFont(plus.getFont().deriveFont(12.0f));
 		moins.setText("-");
-		moins.setFont(moins.getFont().deriveFont(24.0f));
+		moins.setFont(moins.getFont().deriveFont(12.0f));
 
 		// ajout de bouttonPlusListener aux bouttons plus et moins
 
@@ -64,7 +63,7 @@ public class IngredPane extends JPanel {
 		moins.addActionListener(ctrl.new ObsAddIng(ingredient,portions,false));
 
 		setBackground(Color.white);
-		setPreferredSize(new Dimension(250, 250));
+		setPreferredSize(new Dimension(100, 100));
 
 		// set els images d'ingredients
 		imageIngred = new JLabel();
@@ -72,7 +71,7 @@ public class IngredPane extends JPanel {
 		imageIngred.setBorder(new LineBorder(Color.BLACK));
 
 		nom = new JLabel(ingred.getNom());
-		nom.setFont(nom.getFont().deriveFont(24.0f));
+		nom.setFont(nom.getFont().deriveFont(16.0f));
 
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
