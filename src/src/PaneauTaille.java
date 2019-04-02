@@ -14,6 +14,7 @@ import javax.swing.JToggleButton;
 
 public class PaneauTaille extends JPanel{
 
+	
 private Taille taille;
 
   public PaneauTaille(Taille taille, ButtonGroup buttonGroup, CtrlCafe ctrl){
