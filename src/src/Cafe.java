@@ -102,8 +102,8 @@ public class Cafe {
 		return lait.getValue();
 	}
 
-	// Est utilisé lorsque l'on ajoute un autre ingrédient, car puisque la quantite
-	// de café est réduite,
+	// Est utilisï¿½ lorsque l'on ajoute un autre ingrï¿½dient, car puisque la quantite
+	// de cafï¿½ est rï¿½duite,
 	// il est possible que la quantite de lait ne soit plus valide
 	private void CheckAndAdjustLait() {
 		int quantiteCafe = getQuantiteCafe();

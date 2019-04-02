@@ -50,7 +50,7 @@ public class CtrlCafe implements PropertyChangeListener {
 		cafe = new Cafe(tailleList.get(2), torefList.get(1),sucre, lait, creme);
 		cafe.addPropertyChangeListener(this);
 
-		vueCafe = new VueCafe(cafe, jetList, tailleList, torefList);
+		vueCafe = new VueCafe(jetList, tailleList, torefList);
 		vueCafe.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
 		new NavigationManager(vueCafe);
 

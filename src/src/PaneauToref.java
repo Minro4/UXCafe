@@ -14,12 +14,10 @@ import javax.swing.JToggleButton;
 
 public class PaneauToref extends JPanel{
 
-private Cafe cafe;
 private ComposanteCafe cafeComp;
 
-  public PaneauToref(ComposanteCafe cafeComp, Cafe cafe, ButtonGroup buttonGroup, Integer hauteur, CtrlCafe ctrl){
+  public PaneauToref(ComposanteCafe cafeComp, ButtonGroup buttonGroup, Integer hauteur, CtrlCafe ctrl){
 
-	  	this.cafe = cafe;
 	  	this.cafeComp = cafeComp;
 	  
 	  
@@ -44,7 +42,6 @@ private ComposanteCafe cafeComp;
 	  
 		if(cafeComp.getNom().equals("Normale")) {
 			toggleButton.setSelected(true);
-			cafe.setTorefaction(cafeComp);
 		}
 		
 	  buttonGroup.add(toggleButton);
