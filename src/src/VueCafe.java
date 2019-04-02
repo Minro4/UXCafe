@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -43,6 +44,10 @@ public class VueCafe extends JFrame {
 
 	private JButton btnSuivant, btnRetour, btnAnnuler;
 	private JButton[] btnOnglets;
+	
+	private JTextField tfLaitPortion;
+
+	
 
 	private String[] ongletNoms = { "Taille et Torefaction", "Jets de Saveurs", "Lait, Crème et Sucre" };
 
@@ -239,7 +244,9 @@ public class VueCafe extends JFrame {
 
 	public void setPanelLCS(Lait lait, Creme Creme, Sucre sucre, Integer hauteur, CtrlCafe ctrl) {
 
-		pnlCafe[2].add(new IngredPane(lait,  hauteur, ctrl));
+		IngredPane pnlLait = new IngredPane(lait,  hauteur, ctrl);
+		tfLaitPortion = pnlLait.getTfPortion();
+		pnlCafe[2].add(pnlLait);
 		pnlCafe[2].add(new IngredPane(Creme,  hauteur, ctrl));
 		pnlCafe[2].add(new IngredPane(sucre,  hauteur, ctrl));
 
@@ -288,6 +295,9 @@ public class VueCafe extends JFrame {
 
 	public ConfirmationPane getConfirmationPane() {
 		return confirmationPane;
+	}
+	public JTextField getTfLaitPortion() {
+		return tfLaitPortion;
 	}
 	/*
 	 * public class ResizeListener extends ComponentAdapter {

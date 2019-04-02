@@ -113,7 +113,7 @@ public class CtrlCafe implements PropertyChangeListener {
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
-		// Lait.setText(String.valueOf(evt.getNewValue()));
+		 vueCafe.getTfLaitPortion().setText(String.valueOf(evt.getNewValue()));
 
 	}
 
