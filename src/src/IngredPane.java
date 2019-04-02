@@ -66,7 +66,7 @@ public class IngredPane extends JPanel {
 
 		// set els images d'ingredients
 		imageIngred = new JLabel();
-		imageIngred.setIcon(new ImageIcon(setIcon(ingred.getPath(), imHeight).getImage()));
+		imageIngred.setIcon(new ImageIcon(setIc(ingred.getPath(), imHeight).getImage()));
 		imageIngred.setBorder(new LineBorder(Color.BLACK));
 
 		nom = new JLabel(ingred.getNom());
@@ -105,7 +105,7 @@ public class IngredPane extends JPanel {
 
 		validate();
 	}
-	public ImageIcon setIcon(String path, int hauteur) {
+	public ImageIcon setIc(String path, int hauteur) {
 		
 		ImageIcon imageI = new ImageIcon(path);
 		

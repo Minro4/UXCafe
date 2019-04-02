@@ -26,10 +26,10 @@ private ComposanteCafe cafeComp;
 		setBackground(Color.white);
 		
 		JLabel lbNom = new JLabel(cafeComp.getNom());
-		lbNom.setFont(lbNom.getFont().deriveFont(20.0f));
+		lbNom.setFont(lbNom.getFont().deriveFont(12.0f));
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		setPreferredSize(new Dimension(325, 500));
+		setPreferredSize(new Dimension(100, 100));
 		
 		toggleButton.addActionListener(ctrl.new torefListener(cafeComp));
 		
@@ -38,7 +38,6 @@ private ComposanteCafe cafeComp;
 		add(toggleButton,c);
 		c.gridy = 1;
 		add(lbNom,c);
-		c.gridy=2;
 	  
 		if(cafeComp.getNom().equals("Normale")) {
 			toggleButton.setSelected(true);

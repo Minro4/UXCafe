@@ -27,12 +27,12 @@ private Taille taille;
 		setBackground(Color.white);
 		
 		JLabel lbNom = new JLabel(taille.getNom());
-		lbNom.setFont(lbNom.getFont().deriveFont(10.0f));
+		lbNom.setFont(lbNom.getFont().deriveFont(12.0f));
 		JLabel lbPrix= new JLabel(String.valueOf(taille.getPrix())+"0$");
-		lbPrix.setFont(lbPrix.getFont().deriveFont(10.0f));
+		lbPrix.setFont(lbPrix.getFont().deriveFont(12.0f));
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		setPreferredSize(new Dimension(110, 110));
+		setPreferredSize(new Dimension(70, 100));
 		
 		toggleButton.addActionListener(ctrl.new tailleListener(taille));
 		
@@ -51,8 +51,7 @@ private Taille taille;
 	  buttonGroup.add(toggleButton);
 	}
  
-  
-  public ImageIcon setIcon(String path, int resizeX) {
+    public ImageIcon setIcon(String path, int resizeX) {
 		
 		ImageIcon imageI = new ImageIcon(path);
 		
@@ -63,5 +62,6 @@ private Taille taille;
 		return imageI;
 		
 	}
+
 }
 
