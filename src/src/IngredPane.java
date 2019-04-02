@@ -24,7 +24,6 @@ public class IngredPane extends JPanel {
 	private JTextField portions;
 
 	public IngredPane(ComposanteCafe ingred, int imHeight, CtrlCafe ctrl) {
-		imHeight = 69;
 		this.ingredient = ingred;
 		
 		JLabel nom;
@@ -63,7 +62,7 @@ public class IngredPane extends JPanel {
 		moins.addActionListener(ctrl.new ObsAddIng(ingredient,portions,false));
 
 		setBackground(Color.white);
-		setPreferredSize(new Dimension(100, 100));
+		setPreferredSize(new Dimension(110, 120));
 
 		// set els images d'ingredients
 		imageIngred = new JLabel();
