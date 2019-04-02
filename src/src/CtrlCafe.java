@@ -41,8 +41,8 @@ public class CtrlCafe implements PropertyChangeListener {
 		
 
 		Sucre sucre = new Sucre("Sucre", "Images/sugar.png");
-		Lait lait = new Lait("Lait", "Images/lait.png");//existe pas!!!
-		Creme creme = new Creme("Creme", "Images/creme.png"); //existe pas!!!
+		Lait lait = new Lait("Lait", "Images/lait.png");
+		Creme creme = new Creme("Creme", "Images/creme.png");
 		lcsList.add(sucre);
 		lcsList.add(lait);
 		lcsList.add(creme);
@@ -54,7 +54,7 @@ public class CtrlCafe implements PropertyChangeListener {
 		vueCafe.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
 		new NavigationManager(vueCafe);
 
-		vueCafe.setPanelCafe(tailleList, torefList, cafe,25, this);
+		vueCafe.setPanelCafe(tailleList, torefList, cafe,40, this);
 		vueCafe.setPanelJet(jetList,  69, this);
 		vueCafe.setPanelLCS(lait, creme, sucre,  69, this);
 		
