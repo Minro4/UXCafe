@@ -21,15 +21,15 @@ public class CtrlCafe implements PropertyChangeListener {
 	public CtrlCafe() {
 
 		// Cr�ation de l'array de tailles
-		tailleList.add(new Taille("Très petit", 250, 1.55, "Image/coffee.png", 25));
-		tailleList.add(new Taille("Petit", 250, 1.75, "Image/coffee.png", 30));
-		tailleList.add(new Taille("Moyen", 250, 1.95, "Image/coffee.png", 35));
-		tailleList.add(new Taille("Grand", 250, 2.15, "Image/coffee.png", 40));
-		tailleList.add(new Taille("Très Grand", 250, 2.35, "Image/coffee.png", 45));
+		tailleList.add(new Taille("Très petit", 250, 1.55, "Images/coffee.png", 15));
+		tailleList.add(new Taille("Petit", 250, 1.75, "Images/coffee.png", 20));
+		tailleList.add(new Taille("Moyen", 250, 1.95, "Images/coffee.png", 25));
+		tailleList.add(new Taille("Grand", 250, 2.15, "Images/coffee.png", 30));
+		tailleList.add(new Taille("Très Grand", 250, 2.35, "Images/coffee.png", 35));
 		// Cr�ation de l'array de torr�factions
-		torefList.add(new ComposanteCafe("Légère", "Image/coffeeBean.png"));
-		torefList.add(new ComposanteCafe("Normale", "Image/CoffeeBean2.png"));
-		torefList.add(new ComposanteCafe("Foncée", "Image/CoffeeBean3.png"));
+		torefList.add(new ComposanteCafe("Légère", "Images/coffeeBean.png"));
+		torefList.add(new ComposanteCafe("Normale", "Images/CoffeeBean2.png"));
+		torefList.add(new ComposanteCafe("Foncée", "Images/CoffeeBean3.png"));
 		// Cr�ation de la liste de jets
 		jetList.add(new Jet("Menthe", "Images/menthepoivre.png"));
 		jetList.add(new Jet("Moka", "Images/chocolate.png"));
@@ -54,7 +54,7 @@ public class CtrlCafe implements PropertyChangeListener {
 		vueCafe.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
 		new NavigationManager(vueCafe);
 
-		vueCafe.setPanelCafe(tailleList, torefList, cafe,69, this);
+		vueCafe.setPanelCafe(tailleList, torefList, cafe,25, this);
 		vueCafe.setPanelJet(jetList,  69, this);
 		vueCafe.setPanelLCS(lait, creme, sucre,  69, this);
 		
