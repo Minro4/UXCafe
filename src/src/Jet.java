@@ -1,6 +1,7 @@
 package src;
 
 import java.awt.Image;
+import java.text.DecimalFormat;
 
 public class Jet extends ComposanteCafe{
 	
@@ -9,7 +10,7 @@ public class Jet extends ComposanteCafe{
 	private final static int taillePortion = 3;
 	
 	public Jet(String nom,String image) {
-		super(image, nom);
+		super(nom, image);
 
 	}
 
@@ -20,12 +21,13 @@ public class Jet extends ComposanteCafe{
 		int nbrPortion = (int) Math.ceil(getQuantite(ratio,tailleVerre)/taillePortion);
 		return nbrPortion * prixParPortion;
 	}
-	public static int getTailleportion() {
-		return taillePortion;
+	public static double getProportion() {
+		return proportion;
 	}
 	
 	public String rapport(double ratio,int tailleCapacite) {
-		return Jet.getQuantite(ratio, tailleCapacite) + " ml sirop " + getNom();	
+		DecimalFormat df = new DecimalFormat("#.0"); 
+		return df.format(Jet.getQuantite(ratio, tailleCapacite)) + " ml sirop " + getNom() + ":";	
 	}
 	
 }

@@ -37,7 +37,7 @@ public class Creme extends ComposanteCafe{
 	}
 	
 	public String rapport(int portion) {
-		return getQuantite(portion) + " ml de " + getNom();
+		return getQuantite(portion) + " ml de " + getNom() + ":";
 	}
 	
 	public double getPrix(int portion) {

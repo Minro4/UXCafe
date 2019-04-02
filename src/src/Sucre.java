@@ -30,6 +30,6 @@ public class Sucre extends ComposanteCafe {
 	}
 	
 	public String rapport(int portion) {
-		return portion + " " + getNom() + ((portion > 1)?"s":"");//Si on a plus de 1 portions, on ajoute un 's'
+		return portion + " " + getNom() + ((portion > 1)?"s:":":");//Si on a plus de 1 portions, on ajoute un 's'
 	}
 }

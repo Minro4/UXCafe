@@ -49,7 +49,8 @@ public class Cafe {
 
 	public int addIngredient(ComposanteCafe ing, int nbrPortion) {
 		if (ing instanceof Jet) {
-			return setJetPortion((Jet) ing, nbrPortion + jets.get(ing));
+			int dj = jets.containsKey(ing)?jets.get(ing):0;
+			return setJetPortion((Jet) ing, nbrPortion + dj);
 		} else if (ing instanceof Lait) {
 			return setLaitPortion(nbrPortion + lait.getValue());
 		} else if (ing instanceof Creme) {
@@ -117,7 +118,7 @@ public class Cafe {
 	public int getQuantiteCafe() {
 		int quantite = taille.getCapacite();
 		if (jets.size() > 0)
-			quantite -= Jet.getTailleportion() * taille.getCapacite();
+			quantite -= Jet.getProportion() * taille.getCapacite();
 		quantite -= lait.getKey().getQuantite(lait.getValue());
 		quantite -= creme.getKey().getQuantite(creme.getValue());
 
@@ -129,7 +130,7 @@ public class Cafe {
 		NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
 		int nbrPrtnJet = nbrTotPortionsJet();
-		int totalLigne = 2 + nbrPrtnJet;
+		int totalLigne = 2 + jets.size();
 		if (lait.getValue() > 0)
 			totalLigne++;
 		if (creme.getValue() > 0)
@@ -193,7 +194,7 @@ public class Cafe {
 	                return 1;            
 	            if (o2[1] == null) 
 	                return -1;	            
-				return extractInt(o1[1]) - extractInt(o2[1]);
+				return extractInt(o2[1])-extractInt(o1[1]);
 			}
 
 			int extractInt(String s) {
@@ -203,7 +204,7 @@ public class Cafe {
 			}
 		});
 
-		rapport[currentIndex][0] = "Total";
+		rapport[currentIndex][0] = "Total:";
 		rapport[currentIndex++][1] = formatter.format(prixTotal);
 
 		return rapport;

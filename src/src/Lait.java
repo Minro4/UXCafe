@@ -1,7 +1,5 @@
 package src;
 
-import java.awt.Image;
-
 public class Lait extends ComposanteCafe {
 
 	private double proportionMax;
@@ -10,7 +8,7 @@ public class Lait extends ComposanteCafe {
 	
 	public Lait(String nom, String path) {
 		super(nom, path);
-		proportionMax = 0.5;
+		proportionMax = 1;
 		quantiteParPortion = 15;
 		prixParPortion = 0.1;
 	}
@@ -24,7 +22,7 @@ public class Lait extends ComposanteCafe {
 	
 	public boolean valide(int nbrPortion, int quantiteCafe) {
 		int quantite = nbrPortion * quantiteParPortion;
-		int maxQuantite = (int) (proportionMax * quantiteCafe);
+		int maxQuantite = (int) (proportionMax * quantiteCafe-quantiteParPortion);
 		return (quantite <= maxQuantite && quantite >= 0);
 	}
 	
@@ -37,7 +35,7 @@ public class Lait extends ComposanteCafe {
 	}
 	
 	public String rapport(int portion) {
-		return getQuantite(portion) + " ml de " + getNom();
+		return getQuantite(portion) + " ml de " + getNom() + ":";
 	}
 	
 	public double getPrix(int portion) {

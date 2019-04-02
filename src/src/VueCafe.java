@@ -36,7 +36,7 @@ public class VueCafe extends JFrame {
 	private ConfirmationPane confirmationPane;
 
 	private JPanel[] pnlCafe; // Taille, Bouillon Légume, Viande, Nouille, Comfirmation
-	private int panelWidth = 420;
+	private int panelWidth = 400;
 	private JLabel lbTitre;
 	private String[] nomTitres = { "Sélectionnez la taille de votre café, ainsi que sa torréfaction",
 			"Sélectionnez vos jets de saveur", "Personnaliser le tout"};
