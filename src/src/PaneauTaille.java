@@ -14,12 +14,11 @@ import javax.swing.JToggleButton;
 
 public class PaneauTaille extends JPanel{
 
-private Cafe cafe;
+	
 private Taille taille;
 
-  public PaneauTaille(Taille taille, Cafe cafe, ButtonGroup buttonGroup, CtrlCafe ctrl){
+  public PaneauTaille(Taille taille, ButtonGroup buttonGroup, CtrlCafe ctrl){
 
-	  	this.cafe = cafe;
 	  	this.taille = taille;
 	  
 	  
@@ -28,12 +27,12 @@ private Taille taille;
 		setBackground(Color.white);
 		
 		JLabel lbNom = new JLabel(taille.getNom());
-		lbNom.setFont(lbNom.getFont().deriveFont(20.0f));
+		lbNom.setFont(lbNom.getFont().deriveFont(12.0f));
 		JLabel lbPrix= new JLabel(String.valueOf(taille.getPrix())+"0$");
-		lbPrix.setFont(lbPrix.getFont().deriveFont(20.0f));
+		lbPrix.setFont(lbPrix.getFont().deriveFont(12.0f));
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		setPreferredSize(new Dimension(325, 500));
+		setPreferredSize(new Dimension(75, 80));
 		
 		toggleButton.addActionListener(ctrl.new tailleListener(taille));
 		
@@ -47,14 +46,12 @@ private Taille taille;
 	  
 		if(taille.getNom().equals("Moyen")) {
 			toggleButton.setSelected(true);
-			cafe.setTaille(taille);
 		}
 		
 	  buttonGroup.add(toggleButton);
 	}
  
-  
-  public ImageIcon setIcon(String path, int resizeX) {
+    public ImageIcon setIcon(String path, int resizeX) {
 		
 		ImageIcon imageI = new ImageIcon(path);
 		
@@ -65,5 +62,6 @@ private Taille taille;
 		return imageI;
 		
 	}
+
 }
 

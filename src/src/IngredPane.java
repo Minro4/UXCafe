@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -24,6 +25,7 @@ public class IngredPane extends JPanel {
 	private JTextField portions;
 
 	public IngredPane(ComposanteCafe ingred, int imHeight, CtrlCafe ctrl) {
+
 		this.ingredient = ingred;
 		
 		JLabel nom;
@@ -66,7 +68,7 @@ public class IngredPane extends JPanel {
 
 		// set els images d'ingredients
 		imageIngred = new JLabel();
-		imageIngred.setIcon(new ImageIcon(setIcon(ingred.getPath(), imHeight).getImage()));
+		imageIngred.setIcon(new ImageIcon(setIc(ingred.getPath(), imHeight).getImage()));
 		imageIngred.setBorder(new LineBorder(Color.BLACK));
 
 		nom = new JLabel(ingred.getNom());
@@ -105,7 +107,7 @@ public class IngredPane extends JPanel {
 
 		validate();
 	}
-	public ImageIcon setIcon(String path, int hauteur) {
+	public ImageIcon setIc(String path, int hauteur) {
 		
 		ImageIcon imageI = new ImageIcon(path);
 		
@@ -115,5 +117,9 @@ public class IngredPane extends JPanel {
 		
 		return imageI;
 		
+	}
+	
+	public JTextField getTfPortion() {
+		return portions;
 	}
 }

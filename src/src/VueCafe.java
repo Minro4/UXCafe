@@ -6,24 +6,25 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 public class VueCafe extends JFrame {
-
-	private Cafe cafe;
 
 	private JPanel pnlGroupe, // Panel qui contient tout les autres panels qui forment l'interface de création
 			pnlOnglets, // Panel qui contient les onglets
@@ -33,24 +34,20 @@ public class VueCafe extends JFrame {
 	private ConfirmationPane confirmationPane;
 
 	private JPanel[] pnlCafe; // Taille, Bouillon Légume, Viande, Nouille, Comfirmation
-	private int panelWidth = 400;
+	private int panelWidth = 402;
 	private JLabel lbTitre;
 	private String[] nomTitres = { "Sélectionnez la taille de votre café, ainsi que sa torréfaction",
 			"Sélectionnez vos jets de saveur", "Personnaliser le tout" };
-
-	private int sizeLVFValueX = 120; // Taille des images
-	private int sizeLVFValueY = 120;
-
-	private int sizeBouillonX = 252; // Taille des images
-	private int sizeBouillonY = 168;
-
-	private ArrayList<ImageIcon> imageList;
 
 	// --------------Navigation--------------------------
 	private JPanel pnlSuivRet; // Panel qui contient les bouttons suivant et retour
 
 	private JButton btnSuivant, btnRetour, btnAnnuler;
 	private JButton[] btnOnglets;
+	
+	private JTextField tfLaitPortion;
+
+	
 
 	private String[] ongletNoms = { "Taille et Torefaction", "Jets de Saveurs", "Lait, Crème et Sucre" };
 
@@ -59,7 +56,7 @@ public class VueCafe extends JFrame {
 	private Border selectedBorder;
 	private Border unselectedBorder;
 
-	public VueCafe(Cafe cafe, ArrayList<Jet> jetList, ArrayList<Taille> tailleList,
+	public VueCafe(ArrayList<Jet> jetList, ArrayList<Taille> tailleList,
 			ArrayList<ComposanteCafe> torefList) {
 		// ‐‐‐‐‐‐‐‐‐‐‐‐‐‐ Fenetre JFrame ‐‐‐‐‐‐‐‐‐‐‐‐‐‐
 		setTitle("Cafe-Expresse");
@@ -68,7 +65,6 @@ public class VueCafe extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 
-		this.cafe = cafe;
 		pnlGroupe = new JPanel(new BorderLayout());
 		pnlOnglets = new JPanel(new GridBagLayout());
 		pnlConteneurIng = new JPanel(new GridBagLayout());
@@ -90,6 +86,7 @@ public class VueCafe extends JFrame {
 		pnlCafe = new JPanel[3];
 
 		pnlCafe[0] = new JPanel();
+		pnlCafe[0].setLayout(new GridLayout(2, 1));
 		pnlCafe[1] = new JPanel();
 		pnlCafe[1].setLayout(new FlowLayout());
 		pnlCafe[2] = new JPanel();
@@ -230,8 +227,9 @@ public class VueCafe extends JFrame {
 		taillePane.setLayout(new FlowLayout());
 		torefPane.setLayout(new FlowLayout());
 
-		pnlCafe[0].add(torefPane);
+		
 		pnlCafe[0].add(taillePane);
+		pnlCafe[0].add(torefPane);
 	}
 
 	public void setPanelJet(ArrayList<Jet> jetList, Integer hauteur, CtrlCafe ctrl) {
@@ -246,7 +244,9 @@ public class VueCafe extends JFrame {
 
 	public void setPanelLCS(Lait lait, Creme Creme, Sucre sucre, Integer hauteur, CtrlCafe ctrl) {
 
-		pnlCafe[2].add(new IngredPane(lait,  hauteur, ctrl));
+		IngredPane pnlLait = new IngredPane(lait,  hauteur, ctrl);
+		tfLaitPortion = pnlLait.getTfPortion();
+		pnlCafe[2].add(pnlLait);
 		pnlCafe[2].add(new IngredPane(Creme,  hauteur, ctrl));
 		pnlCafe[2].add(new IngredPane(sucre,  hauteur, ctrl));
 
@@ -259,7 +259,7 @@ public class VueCafe extends JFrame {
 		panel.setAlignmentY(CENTER_ALIGNMENT);
 
 		for (Taille t : taille) {
-			panel.add(new PaneauTaille(t, cafe, btnGroup, ctrl));
+			panel.add(new PaneauTaille(t, btnGroup, ctrl));
 		}
 	}
 
@@ -269,7 +269,7 @@ public class VueCafe extends JFrame {
 		panel.setAlignmentY(CENTER_ALIGNMENT);
 
 		for (ComposanteCafe c : cc) {
-			panel.add(new PaneauToref(c, cafe, btnGroup, hauteur, ctrl));
+			panel.add(new PaneauToref(c, btnGroup, hauteur, ctrl));
 		}
 	}
 
@@ -295,6 +295,9 @@ public class VueCafe extends JFrame {
 
 	public ConfirmationPane getConfirmationPane() {
 		return confirmationPane;
+	}
+	public JTextField getTfLaitPortion() {
+		return tfLaitPortion;
 	}
 	/*
 	 * public class ResizeListener extends ComponentAdapter {

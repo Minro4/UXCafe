@@ -14,12 +14,10 @@ import javax.swing.JToggleButton;
 
 public class PaneauToref extends JPanel{
 
-private Cafe cafe;
 private ComposanteCafe cafeComp;
 
-  public PaneauToref(ComposanteCafe cafeComp, Cafe cafe, ButtonGroup buttonGroup, Integer hauteur, CtrlCafe ctrl){
+  public PaneauToref(ComposanteCafe cafeComp, ButtonGroup buttonGroup, Integer hauteur, CtrlCafe ctrl){
 
-	  	this.cafe = cafe;
 	  	this.cafeComp = cafeComp;
 	  
 	  
@@ -28,10 +26,10 @@ private ComposanteCafe cafeComp;
 		setBackground(Color.white);
 		
 		JLabel lbNom = new JLabel(cafeComp.getNom());
-		lbNom.setFont(lbNom.getFont().deriveFont(20.0f));
+		lbNom.setFont(lbNom.getFont().deriveFont(12.0f));
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		setPreferredSize(new Dimension(325, 500));
+		setPreferredSize(new Dimension(100, 100));
 		
 		toggleButton.addActionListener(ctrl.new torefListener(cafeComp));
 		
@@ -40,11 +38,9 @@ private ComposanteCafe cafeComp;
 		add(toggleButton,c);
 		c.gridy = 1;
 		add(lbNom,c);
-		c.gridy=2;
 	  
 		if(cafeComp.getNom().equals("Normale")) {
 			toggleButton.setSelected(true);
-			cafe.setTorefaction(cafeComp);
 		}
 		
 	  buttonGroup.add(toggleButton);

@@ -21,15 +21,15 @@ public class CtrlCafe implements PropertyChangeListener {
 	public CtrlCafe() {
 
 		// Cr�ation de l'array de tailles
-		tailleList.add(new Taille("Très petit", 250, 1.55, "Image/coffee.png", 25));
-		tailleList.add(new Taille("Petit", 250, 1.75, "Image/coffee.png", 30));
-		tailleList.add(new Taille("Moyen", 250, 1.95, "Image/coffee.png", 35));
-		tailleList.add(new Taille("Grand", 250, 2.15, "Image/coffee.png", 40));
-		tailleList.add(new Taille("Très Grand", 250, 2.35, "Image/coffee.png", 45));
+		tailleList.add(new Taille("Très petit", 250, 1.55, "Images/coffee.png", 30));
+		tailleList.add(new Taille("Petit", 350, 1.75, "Images/coffee.png", 32));
+		tailleList.add(new Taille("Moyen", 500, 1.95, "Images/coffee.png", 34));
+		tailleList.add(new Taille("Grand", 600, 2.15, "Images/coffee.png", 36));
+		tailleList.add(new Taille("Très Grand", 700, 2.35, "Images/coffee.png", 38));
 		// Cr�ation de l'array de torr�factions
-		torefList.add(new ComposanteCafe("Légère", "Image/coffeeBean.png"));
-		torefList.add(new ComposanteCafe("Normale", "Image/CoffeeBean2.png"));
-		torefList.add(new ComposanteCafe("Foncée", "Image/CoffeeBean3.png"));
+		torefList.add(new ComposanteCafe("Légère", "Images/coffeeBean.png"));
+		torefList.add(new ComposanteCafe("Normale", "Images/CoffeeBean2.png"));
+		torefList.add(new ComposanteCafe("Foncée", "Images/CoffeeBean3.png"));
 		// Cr�ation de la liste de jets
 		jetList.add(new Jet("Menthe", "Images/menthepoivre.png"));
 		jetList.add(new Jet("Moka", "Images/chocolate.png"));
@@ -41,8 +41,8 @@ public class CtrlCafe implements PropertyChangeListener {
 		
 
 		Sucre sucre = new Sucre("Sucre", "Images/sugar.png");
-		Lait lait = new Lait("Lait", "Images/lait.png");//existe pas!!!
-		Creme creme = new Creme("Creme", "Images/creme.png"); //existe pas!!!
+		Lait lait = new Lait("Lait", "Images/lait.png");
+		Creme creme = new Creme("Creme", "Images/creme.png");
 		lcsList.add(sucre);
 		lcsList.add(lait);
 		lcsList.add(creme);
@@ -50,11 +50,11 @@ public class CtrlCafe implements PropertyChangeListener {
 		cafe = new Cafe(tailleList.get(2), torefList.get(1),sucre, lait, creme);
 		cafe.addPropertyChangeListener(this);
 
-		vueCafe = new VueCafe(cafe, jetList, tailleList, torefList);
+		vueCafe = new VueCafe(jetList, tailleList, torefList);
 		vueCafe.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
 		new NavigationManager(vueCafe);
 
-		vueCafe.setPanelCafe(tailleList, torefList, cafe,69, this);
+		vueCafe.setPanelCafe(tailleList, torefList, cafe,40, this);
 		vueCafe.setPanelJet(jetList,  69, this);
 		vueCafe.setPanelLCS(lait, creme, sucre,  69, this);
 		
@@ -91,6 +91,7 @@ public class CtrlCafe implements PropertyChangeListener {
 		public void actionPerformed(ActionEvent e) {
 			
 			cafe.setTaille(taille);
+			updateRapport();
 			// TODO Auto-generated method stub
 			
 		}
@@ -107,13 +108,14 @@ public class CtrlCafe implements PropertyChangeListener {
 			public void actionPerformed(ActionEvent e) {
 				
 				cafe.setTorefaction(c);
+				updateRapport();
 				// TODO Auto-generated method stub
 				
 			}
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
-		// Lait.setText(String.valueOf(evt.getNewValue()));
+		 vueCafe.getTfLaitPortion().setText(String.valueOf(evt.getNewValue()));
 
 	}
 

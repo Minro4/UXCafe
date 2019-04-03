@@ -93,7 +93,7 @@ public class ConfirmationPane extends JPanel {
 
 		for (int i = 0; i < rapport.length; i++) {
 
-			JLabel labelText = new JLabel(rapport[i][0],SwingConstants.LEFT);
+			JLabel labelText = new JLabel(rapport[i][0], SwingConstants.LEFT);
 			labelText.setPreferredSize(new Dimension(1000, 0));
 			JLabel labelPrix = new JLabel(rapport[i][1]);
 			if (i!= rapport.length -1) {
