@@ -1,3 +1,9 @@
+//********************************************************************
+// Sucre.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde, Guillaume St-Louis
+//
+// Modèle du sucre
+//********************************************************************
+
 package src;
 
 

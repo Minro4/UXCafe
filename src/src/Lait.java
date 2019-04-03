@@ -1,3 +1,9 @@
+//********************************************************************
+// Lait.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde, Guillaume St-Louis
+//
+// Modèle de lait
+//********************************************************************
+
 package src;
 
 public class Lait extends ComposanteCafe {

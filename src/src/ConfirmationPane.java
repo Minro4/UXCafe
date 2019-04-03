@@ -1,3 +1,9 @@
+//********************************************************************
+// Comfirmation.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde, Guillaume St-Louis
+//
+// Paneau de Compte-rendu
+//********************************************************************
+
 package src;
 
 import javax.swing.*;
@@ -7,7 +13,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 
 public class ConfirmationPane extends JPanel {

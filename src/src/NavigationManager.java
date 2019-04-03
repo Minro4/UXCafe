@@ -1,12 +1,15 @@
+//********************************************************************
+// NavigationManager.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde, Guillaume St-Louis
+//
+// Controleur qui s'occupe de la navigation
+//********************************************************************
+
 package src;
 
-
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-
 
 
 public class NavigationManager {

@@ -1,3 +1,9 @@
+//********************************************************************
+// VueCafe.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde, Guillaume St-Louis
+//
+// Vue du café qui s'occupe de créer l'interface
+//********************************************************************
+
 package src;
 
 import java.awt.BorderLayout;
@@ -11,7 +17,6 @@ import java.awt.Insets;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,6 +30,8 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 public class VueCafe extends JFrame {
+
+	private static final long serialVersionUID = 1L;
 
 	private JPanel pnlGroupe, // Panel qui contient tout les autres panels qui forment l'interface de création
 			pnlOnglets, // Panel qui contient les onglets

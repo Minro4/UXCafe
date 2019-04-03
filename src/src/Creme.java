@@ -1,6 +1,9 @@
+//********************************************************************
+// Creme.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde, Guillaume St-Louis
+//
+// Modèle de creme
+//********************************************************************
 package src;
-
-import java.awt.Image;
 
 public class Creme extends ComposanteCafe{
 

@@ -1,3 +1,9 @@
+//********************************************************************
+// Cafe.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde, Guillaume St-Louis
+//
+// Modèle du café
+//********************************************************************
+
 package src;
 
 import java.beans.PropertyChangeListener;

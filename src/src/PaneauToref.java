@@ -1,3 +1,9 @@
+//********************************************************************
+// PaneauToref.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde, Guillaume St-Louis
+//
+// Paneau de la torefaction
+//********************************************************************
+
 package src;
 
 import java.awt.Color;
@@ -14,12 +20,10 @@ import javax.swing.JToggleButton;
 
 public class PaneauToref extends JPanel{
 
-private ComposanteCafe cafeComp;
+	private static final long serialVersionUID = 1L;
 
-  public PaneauToref(ComposanteCafe cafeComp, ButtonGroup buttonGroup, Integer hauteur, CtrlCafe ctrl){
 
-	  	this.cafeComp = cafeComp;
-	  
+public PaneauToref(ComposanteCafe cafeComp, ButtonGroup buttonGroup, Integer hauteur, CtrlCafe ctrl){  
 	  
 	  	JToggleButton toggleButton= new JToggleButton(setIcon(cafeComp.getPath(), hauteur));
 	  	toggleButton.setBackground(Color.WHITE);

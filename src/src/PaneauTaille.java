@@ -1,3 +1,9 @@
+//********************************************************************
+// PaneauTaille.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde, Guillaume St-Louis
+//
+// Paneau de la taille
+//********************************************************************
+
 package src;
 
 import java.awt.Color;
@@ -14,12 +20,9 @@ import javax.swing.JToggleButton;
 
 public class PaneauTaille extends JPanel{
 
-	
-private Taille taille;
+	private static final long serialVersionUID = 1L;
 
-  public PaneauTaille(Taille taille, ButtonGroup buttonGroup, CtrlCafe ctrl){
-
-	  	this.taille = taille;
+public PaneauTaille(Taille taille, ButtonGroup buttonGroup, CtrlCafe ctrl){
 	  
 	  
 	  	JToggleButton toggleButton= new JToggleButton(setIcon(taille.getPath(), taille.getSize()));

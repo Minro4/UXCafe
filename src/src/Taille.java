@@ -1,3 +1,9 @@
+//********************************************************************
+// Taille.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde, Guillaume St-Louis
+//
+// Modèle de la taille
+//********************************************************************
+
 package src;
 
 public class Taille extends ComposanteCafe {

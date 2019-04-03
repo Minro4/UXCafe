@@ -1,3 +1,9 @@
+//********************************************************************
+// CtrlCafe.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde, Guillaume St-Louis
+//
+// Controleur du cafe
+//********************************************************************
+
 package src;
 
 import java.awt.event.ActionEvent;

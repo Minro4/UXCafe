@@ -1,6 +1,10 @@
+//********************************************************************
+// ComposanteCafe.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde, Guillaume St-Louis
+//
+// Composante formant un café
+//********************************************************************
 package src;
 
-import java.awt.Image;
 
 public class ComposanteCafe {
 	

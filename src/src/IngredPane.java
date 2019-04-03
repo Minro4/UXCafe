@@ -1,14 +1,17 @@
+//********************************************************************
+// IngredPane.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde, Guillaume St-Louis
+//
+// Paneau qui représente un composant du café
+//********************************************************************
+
 package src;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
-import java.awt.TextField;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,6 +23,7 @@ import javax.swing.border.LineBorder;
 
 public class IngredPane extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 	private ComposanteCafe ingredient;
 	private JTextField portions;
 

@@ -1,6 +1,11 @@
+//********************************************************************
+// Jet.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde, Guillaume St-Louis
+//
+// Modèle de jet
+//********************************************************************
+
 package src;
 
-import java.awt.Image;
 import java.text.DecimalFormat;
 
 public class Jet extends ComposanteCafe{
