@@ -4,8 +4,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.text.NumberFormat;
 import java.util.AbstractMap;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,13 +19,13 @@ public class Cafe {
 
 	private PropertyChangeSupport support;
 
-	public Cafe(Taille taille, ComposanteCafe torefaction,Sucre sucre, Lait lait,  Creme creme) {
+	public Cafe(Taille taille, ComposanteCafe torefaction, Sucre sucre, Lait lait, Creme creme) {
 		super();
 		this.taille = taille;
 		this.torefaction = torefaction;
-		this.sucre = new  AbstractMap.SimpleEntry<Sucre, Integer>(sucre, 0); 
-		this.lait = new  AbstractMap.SimpleEntry<Lait, Integer>(lait, 0); 
-		this.creme = new  AbstractMap.SimpleEntry<Creme, Integer>(creme, 0); 
+		this.sucre = new AbstractMap.SimpleEntry<Sucre, Integer>(sucre, 0);
+		this.lait = new AbstractMap.SimpleEntry<Lait, Integer>(lait, 0);
+		this.creme = new AbstractMap.SimpleEntry<Creme, Integer>(creme, 0);
 		support = new PropertyChangeSupport(this);
 	}
 
@@ -37,19 +35,22 @@ public class Cafe {
 
 	public void setTaille(Taille taille) {
 		this.taille = taille;
+		CheckAndAdjustCreme();
+		CheckAndAdjustSucre();
+		CheckAndAdjustLait();
 	}
 
 	public void setTorefaction(ComposanteCafe torefaction) {
 		this.torefaction = torefaction;
 	}
-	
+
 	public int getPortion(Jet jet) {
 		return jets.get(jet);
 	}
 
 	public int addIngredient(ComposanteCafe ing, int nbrPortion) {
 		if (ing instanceof Jet) {
-			int dj = jets.containsKey(ing)?jets.get(ing):0;
+			int dj = jets.containsKey(ing) ? jets.get(ing) : 0;
 			return setJetPortion((Jet) ing, nbrPortion + dj);
 		} else if (ing instanceof Lait) {
 			return setLaitPortion(nbrPortion + lait.getValue());
@@ -106,12 +107,25 @@ public class Cafe {
 	// de caf� est r�duite,
 	// il est possible que la quantite de lait ne soit plus valide
 	private void CheckAndAdjustLait() {
-		int quantiteCafe = getQuantiteCafe();
-		if (!lait.getKey().valide(lait.getValue(), quantiteCafe)) {
-			int nbrPortion = lait.getKey().getNbrPortionMax(quantiteCafe);
-			support.firePropertyChange("Lait", lait, nbrPortion);
-			lait.setValue(nbrPortion);
+		while (!lait.getKey().valide(lait.getValue(), getQuantiteCafe()) && lait.getValue() > 0) {
+			lait.setValue(lait.getValue()-1);		
 		}
+		support.firePropertyChange("Lait", lait, lait.getValue());
+		//lait.setValue(nbrPortion);
+
+	}
+	private void CheckAndAdjustCreme() {
+		while (!creme.getKey().valide(creme.getValue(), taille.getCapacite()) && creme.getValue() > 0) {
+			creme.setValue(creme.getValue()-1);		
+		}
+		support.firePropertyChange("Creme", creme, creme.getValue());
+
+	}
+	private void CheckAndAdjustSucre() {
+		while (!sucre.getKey().valide(sucre.getValue(), taille.getCapacite()) && sucre.getValue() > 0) {
+			sucre.setValue(sucre.getValue()-1);		
+		}
+		support.firePropertyChange("Sucre", sucre, sucre.getValue());
 
 	}
 
@@ -130,7 +144,7 @@ public class Cafe {
 		NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
 		int nbrPrtnJet = nbrTotPortionsJet();
-		int totalLigne = 3 + jets.size();
+		int totalLigne = 3 + jets.size() +((jets.size() > 0) ? 1 : 0);
 		if (lait.getValue() > 0)
 			totalLigne++;
 		if (creme.getValue() > 0)
@@ -142,22 +156,39 @@ public class Cafe {
 		int currentIndex = 0;
 		double prixTotal = 0;
 
-		
-			rapport[currentIndex][0] = getQuantiteCafe() + " ml cafe:";
-			rapport[currentIndex++][1] = formatter.format(taille.getPrix());
-			prixTotal += taille.getPrix();
-		
+		rapport[currentIndex][0] = getQuantiteCafe() + " ml cafe:";
+		rapport[currentIndex++][1] = formatter.format(taille.getPrix());
+		prixTotal += taille.getPrix();
+
+		{
+			String text = "Toréfaction: ";
+
+			rapport[currentIndex][0] = text;
+			rapport[currentIndex++][1] = torefaction.getNom();
+		}
 
 		{ // On ajoute les jets
 
 			for (Map.Entry<Jet, Integer> entry : jets.entrySet()) {
 				double ratio = (double) entry.getValue() / nbrPrtnJet;
 				String text = entry.getKey().rapport(ratio, taille.getCapacite());
-				double prix = Jet.getPrix(ratio, taille.getCapacite());
-				prixTotal += prix;
 				rapport[currentIndex][0] = text;
+				
+				if (jets.size() == 1) {
+					double prix = Jet.getPrix(1, taille.getCapacite());
+					prixTotal += prix;
+					rapport[currentIndex++][1] = formatter.format(prix);
+				}
+				else
+				rapport[currentIndex++][1] = "";
+			}
+			if (jets.size() > 1) {
+				double prix = Jet.getPrix(1, taille.getCapacite());
+				prixTotal += prix;
+				rapport[currentIndex][0] = "Prix des jets:";
 				rapport[currentIndex++][1] = formatter.format(prix);
 			}
+
 		}
 
 		{// On ajoute le lait, creme et sucre
@@ -185,33 +216,18 @@ public class Cafe {
 				rapport[currentIndex++][1] = formatter.format(prix);
 			}
 		}
-		
-		//On ajoute la torrefaction
-		
-		{
-			String text = "Votre toréfaction: ";
-			
-			rapport[currentIndex][0] = text;
-			rapport[currentIndex++][1]= torefaction.getNom();
-		}
 
-		Arrays.sort(rapport, new Comparator<String[]>() {
-			public int compare(String[] o1, String[] o2) {
-				if (o1[1] == null && o2[1] == null) 
-	                return 0;           
-	            if (o1[1] == null) 
-	                return 1;            
-	            if (o2[1] == null) 
-	                return -1;	            
-				return extractInt(o2[1])-extractInt(o1[1]);
-			}
+		// On ajoute la torrefaction
 
-			int extractInt(String s) {
-				String num = s.replaceAll("\\D", "");
-				// return 0 if no digits found
-				return num.isEmpty() ? 0 : Integer.parseInt(num);
-			}
-		});
+		/*
+		 * Arrays.sort(rapport, new Comparator<String[]>() { public int compare(String[]
+		 * o1, String[] o2) { if (o1[1] == null && o2[1] == null) return 0; if (o1[1] ==
+		 * null) return 1; if (o2[1] == null) return -1; return
+		 * extractInt(o2[1])-extractInt(o1[1]); }
+		 * 
+		 * int extractInt(String s) { String num = s.replaceAll("\\D", ""); // return 0
+		 * if no digits found return num.isEmpty() ? 0 : Integer.parseInt(num); } });
+		 */
 
 		rapport[currentIndex][0] = "Total:";
 		rapport[currentIndex++][1] = formatter.format(prixTotal);
@@ -221,8 +237,7 @@ public class Cafe {
 	/*
 	 * public ArrayList<String[]> getRapport() { ArrayList<Map.Entry<String,
 	 * Double>> rapport = new ArrayList<Map.Entry<String, Double>>();
-	 * rapport.add(createEntry(getQuantiteCafe() + " ml caf�:",
-	 * taille.getPrix()));
+	 * rapport.add(createEntry(getQuantiteCafe() + " ml caf�:", taille.getPrix()));
 	 * 
 	 * double prixTotal = 0;
 	 * 

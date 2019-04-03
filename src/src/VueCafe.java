@@ -45,7 +45,7 @@ public class VueCafe extends JFrame {
 	private JButton btnSuivant, btnRetour, btnAnnuler;
 	private JButton[] btnOnglets;
 	
-	private JTextField tfLaitPortion;
+	private JTextField tfLaitPortion, tfCremePortion, tfSucrePortion;
 
 	
 
@@ -219,9 +219,11 @@ public class VueCafe extends JFrame {
 	public void setPanelCafe(ArrayList<Taille> tailleList, ArrayList<ComposanteCafe> torefList, Cafe cafe,
 			Integer hauteur, CtrlCafe ctrl) {
 		JPanel taillePane = new JPanel();
+		taillePane.setBackground(Color.WHITE);
 		panelTaille(taillePane, tailleList, ctrl);
 
 		JPanel torefPane = new JPanel();
+		torefPane.setBackground(Color.WHITE);
 		panelToref(torefPane, torefList, hauteur, ctrl);
 
 		taillePane.setLayout(new FlowLayout());
@@ -242,13 +244,19 @@ public class VueCafe extends JFrame {
 		validate();
 	}
 
-	public void setPanelLCS(Lait lait, Creme Creme, Sucre sucre, Integer hauteur, CtrlCafe ctrl) {
+	public void setPanelLCS(Lait lait, Creme creme, Sucre sucre, Integer hauteur, CtrlCafe ctrl) {
 
 		IngredPane pnlLait = new IngredPane(lait,  hauteur, ctrl);
 		tfLaitPortion = pnlLait.getTfPortion();
 		pnlCafe[2].add(pnlLait);
-		pnlCafe[2].add(new IngredPane(Creme,  hauteur, ctrl));
-		pnlCafe[2].add(new IngredPane(sucre,  hauteur, ctrl));
+		
+		IngredPane pnlCreme = new IngredPane(creme,  hauteur, ctrl);
+		tfCremePortion = pnlCreme.getTfPortion();
+		pnlCafe[2].add(pnlCreme);
+		
+		IngredPane pnlSucre = new IngredPane(sucre,  hauteur, ctrl);
+		tfSucrePortion = pnlSucre.getTfPortion();
+		pnlCafe[2].add(pnlSucre);
 
 		validate();
 	}
@@ -298,6 +306,12 @@ public class VueCafe extends JFrame {
 	}
 	public JTextField getTfLaitPortion() {
 		return tfLaitPortion;
+	}
+	public JTextField getTfSucrePortion() {
+		return tfSucrePortion;
+	}
+	public JTextField getTfCremetPortion() {
+		return tfCremePortion;
 	}
 	/*
 	 * public class ResizeListener extends ComponentAdapter {

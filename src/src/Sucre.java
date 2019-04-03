@@ -1,6 +1,5 @@
 package src;
 
-import java.awt.Image;
 
 public class Sucre extends ComposanteCafe {
 
@@ -12,7 +11,7 @@ public class Sucre extends ComposanteCafe {
 	public Sucre(String nom, String path) {
 		super(nom, path);
 		prix = 0.05f;
-		proportionMax = 0.01f;
+		proportionMax = 0.01;
 		
 	}
 	public Sucre(String image, String nom, double prix, double proportionMax) {
@@ -31,5 +30,9 @@ public class Sucre extends ComposanteCafe {
 	
 	public String rapport(int portion) {
 		return portion + " " + getNom() + ((portion > 1)?"s:":":");//Si on a plus de 1 portions, on ajoute un 's'
+	}
+	
+	public int getNbrPortionMax(int tailleCapacite) {
+		return (int) (proportionMax * tailleCapacite);
 	}
 }

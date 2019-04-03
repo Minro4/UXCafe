@@ -37,8 +37,6 @@ public class CtrlCafe implements PropertyChangeListener {
 		jetList.add(new Jet("Vanille", "Images/vanilla.png"));
 		jetList.add(new Jet("Framboise", "Images/raspberry.png"));
 		jetList.add(new Jet("Noisette", "Images/hazelnut.png"));
-	
-		
 
 		Sucre sucre = new Sucre("Sucre", "Images/sugar.png");
 		Lait lait = new Lait("Lait", "Images/lait.png");
@@ -47,17 +45,17 @@ public class CtrlCafe implements PropertyChangeListener {
 		lcsList.add(lait);
 		lcsList.add(creme);
 
-		cafe = new Cafe(tailleList.get(2), torefList.get(1),sucre, lait, creme);
+		cafe = new Cafe(tailleList.get(2), torefList.get(1), sucre, lait, creme);
 		cafe.addPropertyChangeListener(this);
 
 		vueCafe = new VueCafe(jetList, tailleList, torefList);
 		vueCafe.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
 		new NavigationManager(vueCafe);
 
-		vueCafe.setPanelCafe(tailleList, torefList, cafe,40, this);
-		vueCafe.setPanelJet(jetList,  69, this);
-		vueCafe.setPanelLCS(lait, creme, sucre,  69, this);
-		
+		vueCafe.setPanelCafe(tailleList, torefList, cafe, 40, this);
+		vueCafe.setPanelJet(jetList, 69, this);
+		vueCafe.setPanelLCS(lait, creme, sucre, 69, this);
+
 		updateRapport();
 	}
 
@@ -79,43 +77,60 @@ public class CtrlCafe implements PropertyChangeListener {
 			updateRapport();
 		}
 	}
-	
-	public class tailleListener implements ActionListener{
-		
+
+	public class tailleListener implements ActionListener {
+
 		Taille taille;
+
 		public tailleListener(Taille taille) {
 			// TODO Auto-generated constructor stub
 			this.taille = taille;
 		}
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
 			cafe.setTaille(taille);
 			updateRapport();
 			// TODO Auto-generated method stub
-			
+
 		}
 	}
-		public class torefListener implements ActionListener{
-			
-			ComposanteCafe c;
-			
-			public torefListener(ComposanteCafe c) {
-				// TODO Auto-generated constructor stub
-				this.c = c;
-			}
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				cafe.setTorefaction(c);
-				updateRapport();
-				// TODO Auto-generated method stub
-				
-			}
+
+	public class torefListener implements ActionListener {
+
+		ComposanteCafe c;
+
+		public torefListener(ComposanteCafe c) {
+			// TODO Auto-generated constructor stub
+			this.c = c;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			cafe.setTorefaction(c);
+			updateRapport();
+			// TODO Auto-generated method stub
+
+		}
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
-		 vueCafe.getTfLaitPortion().setText(String.valueOf(evt.getNewValue()));
+		switch (evt.getPropertyName()) {
+		case "Lait":
+			vueCafe.getTfLaitPortion().setText(String.valueOf(evt.getNewValue()));
+			break;
+		case "Sucre":
+			vueCafe.getTfSucrePortion().setText(String.valueOf(evt.getNewValue()));
+			break;
+		case "Creme":
+			vueCafe.getTfCremetPortion().setText(String.valueOf(evt.getNewValue()));
+			break;
+
+		default:
+			break;
+		}
 
 	}
 

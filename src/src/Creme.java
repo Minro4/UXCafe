@@ -43,6 +43,11 @@ public class Creme extends ComposanteCafe{
 	public double getPrix(int portion) {
 		return portion * prixParPortion;
 	}
+	
+	public int getNbrPortionMax(int tailleCapacite) {
+		return (int) (proportionMax * tailleCapacite / quantiteParPortion);
+	}
+
 
 	
 }
