@@ -28,7 +28,7 @@ private Taille taille;
 		
 		JLabel lbNom = new JLabel(taille.getNom());
 		lbNom.setFont(lbNom.getFont().deriveFont(12.0f));
-		JLabel lbPrix= new JLabel(String.valueOf(taille.getPrix())+"0$");
+		JLabel lbPrix= new JLabel(String.valueOf(taille.getPrix())+"$");
 		lbPrix.setFont(lbPrix.getFont().deriveFont(12.0f));
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
