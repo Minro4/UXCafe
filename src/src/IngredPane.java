@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-import src.CtrlCafe.ObsAddIng;
 
 public class IngredPane extends JPanel {
 

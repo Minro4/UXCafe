@@ -58,6 +58,7 @@ public class CtrlCafe implements PropertyChangeListener {
 
 		updateRapport();
 	}
+	
 
 	public class ObsAddIng implements ActionListener {
 		ComposanteCafe ing;
