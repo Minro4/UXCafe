@@ -21,11 +21,11 @@ public class CtrlCafe implements PropertyChangeListener {
 	public CtrlCafe() {
 
 		// Cr�ation de l'array de tailles
-		tailleList.add(new Taille("Très petit", 250, 1.55, "Images/coffee.png", 30));
-		tailleList.add(new Taille("Petit", 350, 1.75, "Images/coffee.png", 32));
-		tailleList.add(new Taille("Moyen", 500, 1.95, "Images/coffee.png", 34));
-		tailleList.add(new Taille("Grand", 600, 2.15, "Images/coffee.png", 36));
-		tailleList.add(new Taille("Très Grand", 700, 2.35, "Images/coffee.png", 38));
+		tailleList.add(new Taille("Très petit", 250, 1.55, "Images/cafeTP.png", 34));
+		tailleList.add(new Taille("Petit", 350, 1.75, "Images/cafeP.png", 34));
+		tailleList.add(new Taille("Moyen", 500, 1.95, "Images/cafe.png", 34));
+		tailleList.add(new Taille("Grand", 600, 2.15, "Images/cafeG.png", 34));
+		tailleList.add(new Taille("Très Grand", 700, 2.35, "Images/cafeTG.png", 34));
 		// Cr�ation de l'array de torr�factions
 		torefList.add(new ComposanteCafe("Légère", "Images/coffeeBean.png"));
 		torefList.add(new ComposanteCafe("Normale", "Images/CoffeeBean2.png"));
