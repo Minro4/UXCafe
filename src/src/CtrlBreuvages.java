@@ -18,11 +18,12 @@ public class CtrlBreuvages implements PropertyChangeListener {
 
 	private Cafe cafe;
 	private VueCafe vueCafe;
-
+	private String imgPath="";
 	private ArrayList<Taille> tailleList = new ArrayList<Taille>();
 	private ArrayList<ComposanteBreuvage> torefList = new ArrayList<ComposanteBreuvage>();
 	private ArrayList<Jet> jetList = new ArrayList<Jet>();
 	private ArrayList<ComposanteBreuvage> lcsList = new ArrayList<ComposanteBreuvage>();
+	
 
 	public CtrlBreuvages() {
 
@@ -51,7 +52,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		lcsList.add(lait);
 		lcsList.add(creme);
 
-		cafe = new Cafe(tailleList.get(2), torefList.get(1), sucre, lait, creme);
+		cafe = new Cafe(tailleList.get(2), torefList.get(1), sucre, lait, creme, imgPath);
 		cafe.addPropertyChangeListener(this);
 
 		vueCafe = new VueCafe(jetList, tailleList, torefList);

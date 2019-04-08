@@ -2,19 +2,24 @@ package src;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.AbstractMap;
 import java.util.Map;
 
 public abstract class MdlBoisson {
 	
 	
 	protected Taille taille;
+	protected String imgPath;
 	protected Map.Entry<Lait, Integer> lait;
 	protected Map.Entry<Creme, Integer> creme;
 	
 	protected PropertyChangeSupport support;
 	
-	public MdlBoisson() {
-		
+	public MdlBoisson(Taille ta, Lait la, Creme cr, String pt) {
+		taille=ta;
+		lait=new AbstractMap.SimpleEntry<Lait, Integer>(la, 0);
+		creme=new AbstractMap.SimpleEntry<Creme, Integer>(cr, 0);
+		imgPath=pt;
 	}
 	
 	public Taille getTaille() {
@@ -27,7 +32,7 @@ public abstract class MdlBoisson {
 		CheckAndAdjustLait();
 	}
 	
-	abstract public int addIngredient();
+	abstract public int addIngredient(ComposanteBreuvage ing, int nbrPortion);
 	
 	protected int setCremePortion(int nbrPortion) {
 		if (creme.getKey().valide(nbrPortion, taille.getCapacite())) {
@@ -49,34 +54,17 @@ public abstract class MdlBoisson {
 	// Est utilis� lorsque l'on ajoute un autre ingr�dient, car puisque la quantite
 	// de caf� est r�duite,
 	// il est possible que la quantite de lait ne soit plus valide
-	protected void CheckAndAdjustLait() {
-		while (!lait.getKey().valide(lait.getValue(), getQuantite()) && lait.getValue() > 0) {
-			lait.setValue(lait.getValue()-1);		
-		}
-		support.firePropertyChange("Lait", lait, lait.getValue());
-		//lait.setValue(nbrPortion);
-
-	}
+	abstract protected void CheckAndAdjustLait();
 	
-	private void CheckAndAdjustCreme() {
-		while (!creme.getKey().valide(creme.getValue(), taille.getCapacite()) && creme.getValue() > 0) {
-			creme.setValue(creme.getValue()-1);		
-		}
-		support.firePropertyChange("Creme", creme, creme.getValue());
-
-	}
+	abstract protected void CheckAndAdjustCreme();
 	
 	abstract public int getQuantite();
 	
 	abstract public String[][] getRapport();
 	
-	public void addPropertyChangeListener(PropertyChangeListener pcl) {
-		support.addPropertyChangeListener(pcl);
-	}
 
-	public void removePropertyChangeListener(PropertyChangeListener pcl) {
-		support.removePropertyChangeListener(pcl);
-	}
+
+
 	
 
 }
