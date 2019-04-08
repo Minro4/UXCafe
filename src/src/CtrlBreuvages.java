@@ -14,17 +14,17 @@ import java.util.ArrayList;
 
 import javax.swing.JTextField;
 
-public class CtrlCafe implements PropertyChangeListener {
+public class CtrlBreuvages implements PropertyChangeListener {
 
 	private Cafe cafe;
 	private VueCafe vueCafe;
 
 	private ArrayList<Taille> tailleList = new ArrayList<Taille>();
-	private ArrayList<ComposanteCafe> torefList = new ArrayList<ComposanteCafe>();
+	private ArrayList<ComposanteBreuvage> torefList = new ArrayList<ComposanteBreuvage>();
 	private ArrayList<Jet> jetList = new ArrayList<Jet>();
-	private ArrayList<ComposanteCafe> lcsList = new ArrayList<ComposanteCafe>();
+	private ArrayList<ComposanteBreuvage> lcsList = new ArrayList<ComposanteBreuvage>();
 
-	public CtrlCafe() {
+	public CtrlBreuvages() {
 
 		// Cr�ation de l'array de tailles
 		tailleList.add(new Taille("Très petit", 250, 1.55, "Images/cafeTP.png", 34));
@@ -33,9 +33,9 @@ public class CtrlCafe implements PropertyChangeListener {
 		tailleList.add(new Taille("Grand", 600, 2.15, "Images/cafeG.png", 34));
 		tailleList.add(new Taille("Très Grand", 700, 2.35, "Images/cafeTG.png", 34));
 		// Cr�ation de l'array de torr�factions
-		torefList.add(new ComposanteCafe("Légère", "Images/coffeeBean.png"));
-		torefList.add(new ComposanteCafe("Normale", "Images/CoffeeBean2.png"));
-		torefList.add(new ComposanteCafe("Foncée", "Images/CoffeeBean3.png"));
+		torefList.add(new ComposanteBreuvage("Légère", "Images/coffeeBean.png"));
+		torefList.add(new ComposanteBreuvage("Normale", "Images/CoffeeBean2.png"));
+		torefList.add(new ComposanteBreuvage("Foncée", "Images/CoffeeBean3.png"));
 		// Cr�ation de la liste de jets
 		jetList.add(new Jet("Menthe", "Images/menthepoivre.png"));
 		jetList.add(new Jet("Moka", "Images/chocolate.png"));
@@ -67,11 +67,11 @@ public class CtrlCafe implements PropertyChangeListener {
 	
 
 	public class ObsAddIng implements ActionListener {
-		ComposanteCafe ing;
+		ComposanteBreuvage ing;
 		int nbrPortions; // 1 pour add et -1 pour remove
 		JTextField tfPortions;
 
-		public ObsAddIng(ComposanteCafe ing, JTextField tfPortions, boolean add) {
+		public ObsAddIng(ComposanteBreuvage ing, JTextField tfPortions, boolean add) {
 			this.ing = ing;
 			this.tfPortions = tfPortions;
 			this.nbrPortions = add ? 1 : -1;
@@ -106,9 +106,9 @@ public class CtrlCafe implements PropertyChangeListener {
 
 	public class torefListener implements ActionListener {
 
-		ComposanteCafe c;
+		ComposanteBreuvage c;
 
-		public torefListener(ComposanteCafe c) {
+		public torefListener(ComposanteBreuvage c) {
 			// TODO Auto-generated constructor stub
 			this.c = c;
 		}

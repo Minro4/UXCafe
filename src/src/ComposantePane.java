@@ -21,13 +21,13 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 
-public class IngredPane extends JPanel {
+public class ComposantePane extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private ComposanteCafe ingredient;
+	private ComposanteBreuvage ingredient;
 	private JTextField portions;
 
-	public IngredPane(ComposanteCafe ingred, int imHeight, CtrlCafe ctrl) {
+	public ComposantePane(ComposanteBreuvage ingred, int imHeight, CtrlBreuvages ctrl) {
 
 		this.ingredient = ingred;
 		

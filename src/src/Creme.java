@@ -5,7 +5,7 @@
 //********************************************************************
 package src;
 
-public class Creme extends ComposanteCafe{
+public class Creme extends ComposanteBreuvage{
 
 	private double proportionMax;
 	private int quantiteParPortion;
