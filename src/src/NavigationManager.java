@@ -14,9 +14,9 @@ import javax.swing.JButton;
 
 public class NavigationManager {
 	private int currentOnglet;
-	private VueCafe vueCafe;
+	private VueGenerale vueCafe;
 
-	public NavigationManager(VueCafe vueCafe) {
+	public NavigationManager(VueGenerale vueCafe) {
 		currentOnglet = 0;
 		this.vueCafe = vueCafe;
 		vueCafe.getBtnSuivant().addActionListener(new BouttonSuivantListener());

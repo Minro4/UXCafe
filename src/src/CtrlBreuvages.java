@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 public class CtrlBreuvages implements PropertyChangeListener {
 
 	private Cafe cafe;
-	private VueCafe vueCafe;
+	private VueGenerale vueCafe;
 
 	private ArrayList<Taille> tailleList = new ArrayList<Taille>();
 	private ArrayList<ComposanteBreuvage> torefList = new ArrayList<ComposanteBreuvage>();
@@ -54,7 +54,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		cafe = new Cafe(tailleList.get(2), torefList.get(1), sucre, lait, creme);
 		cafe.addPropertyChangeListener(this);
 
-		vueCafe = new VueCafe(jetList, tailleList, torefList);
+		vueCafe = new VueGenerale(jetList, tailleList, torefList);
 		vueCafe.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
 		new NavigationManager(vueCafe);
 
