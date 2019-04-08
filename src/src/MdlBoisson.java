@@ -5,6 +5,8 @@ import java.beans.PropertyChangeSupport;
 import java.util.AbstractMap;
 import java.util.Map;
 
+import src.CtrlBreuvages.breuvageListener;
+
 public abstract class MdlBoisson {
 	
 	
@@ -61,10 +63,14 @@ public abstract class MdlBoisson {
 	abstract public int getQuantite();
 	
 	abstract public String[][] getRapport();
-	
 
+	public void addPropertyChangeListener(PropertyChangeListener pcl) {
+		support.addPropertyChangeListener(pcl);
+	}
 
-
+	public void removePropertyChangeListener(PropertyChangeListener pcl) {
+		support.removePropertyChangeListener(pcl);
+	}
 	
 
 }

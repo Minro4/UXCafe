@@ -221,14 +221,7 @@ public class Cafe extends MdlBoisson {
 		support.firePropertyChange("Creme", creme, creme.getValue());
 
 	}
-	public void addPropertyChangeListener(PropertyChangeListener pcl) {
-		support.addPropertyChangeListener(pcl);
-	}
-
-	public void removePropertyChangeListener(PropertyChangeListener pcl) {
-		support.removePropertyChangeListener(pcl);
-	}
-
+	
 
 	
 

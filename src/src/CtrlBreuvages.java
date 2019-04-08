@@ -15,9 +15,11 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
+import com.sun.xml.internal.ws.api.addressing.AddressingPropertySet;
+
 public class CtrlBreuvages implements PropertyChangeListener {
 
-	private Cafe cafe;
+	private MdlBoisson breuvage;
 	private VueCafe vueCafe;
 	private String imgPath="";
 	private ArrayList<Taille> tailleList = new ArrayList<Taille>();
@@ -54,8 +56,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		lcsList.add(lait);
 		lcsList.add(creme);
 
-		cafe = new Cafe(tailleList.get(2), torefList.get(1), sucre, lait, creme, imgPath);
-		cafe.addPropertyChangeListener(this);
+		
 
 		vueCafe = new VueCafe(jetList, tailleList, torefList);
 		vueCafe.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
@@ -67,7 +68,9 @@ public class CtrlBreuvages implements PropertyChangeListener {
 
 		updateRapport();
 	}
-	
+	public void addProp(MdlBoisson breuvage) {
+		breuvage.addPropertyChangeListener(this);
+	}
 
 	public class ObsAddIng implements ActionListener {
 		ComposanteBreuvage ing;
@@ -106,7 +109,24 @@ public class CtrlBreuvages implements PropertyChangeListener {
 
 		}
 	}
+	public class breuvageListener implements ActionListener
+	{
 
+		int valeur;
+		
+		public breuvageListener(int valeur) {
+			this.valeur = valeur;
+		}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			if(valeur == 0) {
+				breuvage = new Cafe(tailleList.get(2), torefList.get(1), sucre, lait, creme, imgPath);
+				addProp(breuvage);
+			}
+		}
+		
+	}
 	public class torefListener implements ActionListener {
 
 		ComposanteBreuvage c;
