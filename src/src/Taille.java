@@ -6,7 +6,7 @@
 
 package src;
 
-public class Taille extends ComposanteCafe {
+public class Taille extends ComposanteBreuvage {
 	private int capacite, sizeIm;
 	private double prix;
 	

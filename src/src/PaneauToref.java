@@ -23,7 +23,7 @@ public class PaneauToref extends JPanel{
 	private static final long serialVersionUID = 1L;
 
 
-public PaneauToref(ComposanteCafe cafeComp, ButtonGroup buttonGroup, Integer hauteur, CtrlCafe ctrl){  
+public PaneauToref(ComposanteBreuvage cafeComp, ButtonGroup buttonGroup, Integer hauteur, CtrlBreuvages ctrl){  
 	  
 	  	JToggleButton toggleButton= new JToggleButton(setIcon(cafeComp.getPath(), hauteur));
 	  	toggleButton.setBackground(Color.WHITE);

@@ -16,7 +16,7 @@ import java.util.Map;
 public class Cafe {
 
 	private Taille taille;
-	private ComposanteCafe torefaction;
+	private ComposanteBreuvage torefaction;
 	private Map.Entry<Sucre, Integer> sucre;
 	private Map.Entry<Lait, Integer> lait;
 	private Map.Entry<Creme, Integer> creme;
@@ -25,7 +25,7 @@ public class Cafe {
 
 	private PropertyChangeSupport support;
 
-	public Cafe(Taille taille, ComposanteCafe torefaction, Sucre sucre, Lait lait, Creme creme) {
+	public Cafe(Taille taille, ComposanteBreuvage torefaction, Sucre sucre, Lait lait, Creme creme) {
 		super();
 		this.taille = taille;
 		this.torefaction = torefaction;
@@ -46,7 +46,7 @@ public class Cafe {
 		CheckAndAdjustLait();
 	}
 
-	public void setTorefaction(ComposanteCafe torefaction) {
+	public void setTorefaction(ComposanteBreuvage torefaction) {
 		this.torefaction = torefaction;
 	}
 
@@ -54,7 +54,7 @@ public class Cafe {
 		return jets.get(jet);
 	}
 
-	public int addIngredient(ComposanteCafe ing, int nbrPortion) {
+	public int addIngredient(ComposanteBreuvage ing, int nbrPortion) {
 		if (ing instanceof Jet) {
 			int dj = jets.containsKey(ing) ? jets.get(ing) : 0;
 			return setJetPortion((Jet) ing, nbrPortion + dj);

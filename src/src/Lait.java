@@ -6,7 +6,7 @@
 
 package src;
 
-public class Lait extends ComposanteCafe {
+public class Lait extends ComposanteBreuvage {
 
 	private double proportionMax;
 	private int quantiteParPortion;

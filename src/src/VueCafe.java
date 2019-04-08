@@ -64,7 +64,7 @@ public class VueCafe extends JFrame {
 	private Border unselectedBorder;
 
 	public VueCafe(ArrayList<Jet> jetList, ArrayList<Taille> tailleList,
-			ArrayList<ComposanteCafe> torefList) {
+			ArrayList<ComposanteBreuvage> torefList) {
 		// ‐‐‐‐‐‐‐‐‐‐‐‐‐‐ Fenetre JFrame ‐‐‐‐‐‐‐‐‐‐‐‐‐‐
 		setTitle("Cafe-Expresse");
 		setSize(640, 480);
@@ -223,8 +223,8 @@ public class VueCafe extends JFrame {
 
 	// fonction qui gère chaques panel d'ingrédient en les positionants dans un gros
 	// panel
-	public void setPanelCafe(ArrayList<Taille> tailleList, ArrayList<ComposanteCafe> torefList, Cafe cafe,
-			Integer hauteur, CtrlCafe ctrl) {
+	public void setPanelCafe(ArrayList<Taille> tailleList, ArrayList<ComposanteBreuvage> torefList, Cafe cafe,
+			Integer hauteur, CtrlBreuvages ctrl) {
 		JPanel taillePane = new JPanel();
 		taillePane.setBackground(Color.WHITE);
 		panelTaille(taillePane, tailleList, ctrl);
@@ -241,34 +241,34 @@ public class VueCafe extends JFrame {
 		pnlCafe[0].add(torefPane);
 	}
 
-	public void setPanelJet(ArrayList<Jet> jetList, Integer hauteur, CtrlCafe ctrl) {
+	public void setPanelJet(ArrayList<Jet> jetList, Integer hauteur, CtrlBreuvages ctrl) {
 
 		for (Jet j : jetList) {
 
-			pnlCafe[1].add(new IngredPane(j,  hauteur, ctrl));
+			pnlCafe[1].add(new ComposantePane(j,  hauteur, ctrl));
 
 		}
 		validate();
 	}
 
-	public void setPanelLCS(Lait lait, Creme creme, Sucre sucre, Integer hauteur, CtrlCafe ctrl) {
+	public void setPanelLCS(Lait lait, Creme creme, Sucre sucre, Integer hauteur, CtrlBreuvages ctrl) {
 
-		IngredPane pnlLait = new IngredPane(lait,  hauteur, ctrl);
+		ComposantePane pnlLait = new ComposantePane(lait,  hauteur, ctrl);
 		tfLaitPortion = pnlLait.getTfPortion();
 		pnlCafe[2].add(pnlLait);
 		
-		IngredPane pnlCreme = new IngredPane(creme,  hauteur, ctrl);
+		ComposantePane pnlCreme = new ComposantePane(creme,  hauteur, ctrl);
 		tfCremePortion = pnlCreme.getTfPortion();
 		pnlCafe[2].add(pnlCreme);
 		
-		IngredPane pnlSucre = new IngredPane(sucre,  hauteur, ctrl);
+		ComposantePane pnlSucre = new ComposantePane(sucre,  hauteur, ctrl);
 		tfSucrePortion = pnlSucre.getTfPortion();
 		pnlCafe[2].add(pnlSucre);
 
 		validate();
 	}
 
-	public void panelTaille(JPanel panel, ArrayList<Taille> taille, CtrlCafe ctrl) {
+	public void panelTaille(JPanel panel, ArrayList<Taille> taille, CtrlBreuvages ctrl) {
 		ButtonGroup btnGroup = new ButtonGroup();
 		panel.setLayout(new FlowLayout());
 		panel.setAlignmentY(CENTER_ALIGNMENT);
@@ -278,12 +278,12 @@ public class VueCafe extends JFrame {
 		}
 	}
 
-	public void panelToref(JPanel panel, ArrayList<ComposanteCafe> cc, int hauteur, CtrlCafe ctrl) {
+	public void panelToref(JPanel panel, ArrayList<ComposanteBreuvage> cc, int hauteur, CtrlBreuvages ctrl) {
 		ButtonGroup btnGroup = new ButtonGroup();
 		panel.setLayout(new FlowLayout());
 		panel.setAlignmentY(CENTER_ALIGNMENT);
 
-		for (ComposanteCafe c : cc) {
+		for (ComposanteBreuvage c : cc) {
 			panel.add(new PaneauToref(c, btnGroup, hauteur, ctrl));
 		}
 	}

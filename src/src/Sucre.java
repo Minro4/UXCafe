@@ -7,7 +7,7 @@
 package src;
 
 
-public class Sucre extends ComposanteCafe {
+public class Sucre extends ComposanteBreuvage {
 
 	private double prix;
 	private double proportionMax;

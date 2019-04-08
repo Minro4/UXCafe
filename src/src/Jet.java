@@ -8,7 +8,7 @@ package src;
 
 import java.text.DecimalFormat;
 
-public class Jet extends ComposanteCafe{
+public class Jet extends ComposanteBreuvage{
 	
 	private final static double proportion = 0.05f;
 	private final static double prixParPortion = 0.1f;
