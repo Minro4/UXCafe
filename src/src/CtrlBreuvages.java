@@ -12,6 +12,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JTextField;
 
 public class CtrlBreuvages implements PropertyChangeListener {
@@ -26,6 +27,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 
 	public CtrlBreuvages() {
 
+		JButton[] listeBoutton = new JButton[3];
 		// Cr�ation de l'array de tailles
 		tailleList.add(new Taille("Très petit", 250, 1.55, "Images/cafeTP.png", 34));
 		tailleList.add(new Taille("Petit", 350, 1.75, "Images/cafeP.png", 34));
