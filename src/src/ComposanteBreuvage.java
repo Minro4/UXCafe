@@ -6,14 +6,14 @@
 package src;
 
 
-public class ComposanteCafe {
+public class ComposanteBreuvage {
 	
 
 	private String path; //jsp si cest ca que vs voulez
 	private String nom;
 
 	
-	public ComposanteCafe(String nom,String path) {
+	public ComposanteBreuvage(String nom,String path) {
 	
 		super();
 		this.path = path;

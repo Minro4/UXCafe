@@ -22,7 +22,7 @@ public class PaneauTaille extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 
-public PaneauTaille(Taille taille, ButtonGroup buttonGroup, CtrlCafe ctrl){
+public PaneauTaille(Taille taille, ButtonGroup buttonGroup, CtrlBreuvages ctrl){
 	  
 	  
 	  	JToggleButton toggleButton= new JToggleButton(setIcon(taille.getPath(), taille.getSize()));

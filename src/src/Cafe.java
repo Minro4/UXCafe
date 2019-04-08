@@ -16,7 +16,7 @@ import java.util.Map;
 public class Cafe {
 
 	private Taille taille;
-	private ComposanteCafe torefaction;
+	private ComposanteBreuvage torefaction;
 	private Map.Entry<Sucre, Integer> sucre;
 	private Map.Entry<Lait, Integer> lait;
 	private Map.Entry<Creme, Integer> creme;
@@ -25,7 +25,7 @@ public class Cafe {
 
 	private PropertyChangeSupport support;
 
-	public Cafe(Taille taille, ComposanteCafe torefaction, Sucre sucre, Lait lait, Creme creme) {
+	public Cafe(Taille taille, ComposanteBreuvage torefaction, Sucre sucre, Lait lait, Creme creme) {
 		super();
 		this.taille = taille;
 		this.torefaction = torefaction;
@@ -46,7 +46,7 @@ public class Cafe {
 		CheckAndAdjustLait();
 	}
 
-	public void setTorefaction(ComposanteCafe torefaction) {
+	public void setTorefaction(ComposanteBreuvage torefaction) {
 		this.torefaction = torefaction;
 	}
 
@@ -54,7 +54,7 @@ public class Cafe {
 		return jets.get(jet);
 	}
 
-	public int addIngredient(ComposanteCafe ing, int nbrPortion) {
+	public int addIngredient(ComposanteBreuvage ing, int nbrPortion) {
 		if (ing instanceof Jet) {
 			int dj = jets.containsKey(ing) ? jets.get(ing) : 0;
 			return setJetPortion((Jet) ing, nbrPortion + dj);
@@ -240,45 +240,7 @@ public class Cafe {
 
 		return rapport;
 	}
-	/*
-	 * public ArrayList<String[]> getRapport() { ArrayList<Map.Entry<String,
-	 * Double>> rapport = new ArrayList<Map.Entry<String, Double>>();
-	 * rapport.add(createEntry(getQuantiteCafe() + " ml caf�:", taille.getPrix()));
-	 * 
-	 * double prixTotal = 0;
-	 * 
-	 * { // On ajoute les jets int nbrPrtnJet = nbrTotPortionsJet(); for
-	 * (Map.Entry<Jet, Integer> entry : jets.entrySet()) { double ratio = (double)
-	 * entry.getValue() / nbrPrtnJet; String text = entry.getKey().rapport(ratio,
-	 * taille.getCapacite()); double prix = Jet.getPrix(ratio,
-	 * taille.getCapacite()); prixTotal += prix; rapport.add(createEntry(text,
-	 * prix)); } }
-	 * 
-	 * {// On ajoute le lait, creme et sucre String text =
-	 * lait.getKey().rapport(lait.getValue()); double prix =
-	 * lait.getKey().getPrix(lait.getValue()); prixTotal += prix;
-	 * rapport.add(createEntry(text, prix));
-	 * 
-	 * text = creme.getKey().rapport(creme.getValue()); prix =
-	 * creme.getKey().getPrix(creme.getValue()); prixTotal += prix;
-	 * rapport.add(createEntry(text, prix));
-	 * 
-	 * text = sucre.getKey().rapport(sucre.getValue()); prix =
-	 * sucre.getKey().getPrix(); prixTotal += prix; rapport.add(createEntry(text,
-	 * prix)); }
-	 * 
-	 * Collections.sort(rapport, new Comparator<Map.Entry<String, Double>>() {
-	 * public int compare(Map.Entry<String, Double> e1, Map.Entry<String, Double>
-	 * e2) { if (e1.getValue() > e2.getValue()) return 1; if (e1.getValue() ==
-	 * e2.getValue()) return 0; else return -1; } });
-	 * 
-	 * rapport.add(createEntry("Total", prixTotal));
-	 * 
-	 * return rapport; }
-	 * 
-	 * private Map.Entry<String, Double> createEntry(String key, Double value) {
-	 * return new AbstractMap.SimpleEntry<String, Double>(key, value); }
-	 */
+	
 
 	private int nbrTotPortionsJet() {
 		int sum = 0;
