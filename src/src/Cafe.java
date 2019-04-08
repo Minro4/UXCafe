@@ -13,38 +13,25 @@ import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Cafe {
+public class Cafe extends MdlBoisson {
 
-	private Taille taille;
 	private ComposanteBreuvage torefaction;
 	private Map.Entry<Sucre, Integer> sucre;
-	private Map.Entry<Lait, Integer> lait;
-	private Map.Entry<Creme, Integer> creme;
 
 	private HashMap<Jet, Integer> jets = new HashMap<Jet, Integer>();
 
 	private PropertyChangeSupport support;
 
-	public Cafe(Taille taille, ComposanteBreuvage torefaction, Sucre sucre, Lait lait, Creme creme) {
-		super();
-		this.taille = taille;
-		this.torefaction = torefaction;
-		this.sucre = new AbstractMap.SimpleEntry<Sucre, Integer>(sucre, 0);
-		this.lait = new AbstractMap.SimpleEntry<Lait, Integer>(lait, 0);
-		this.creme = new AbstractMap.SimpleEntry<Creme, Integer>(creme, 0);
+	public Cafe(Taille taille, ComposanteBreuvage to, Sucre su, Lait lait, Creme creme, String imgPath) {
+		super(taille, lait, creme, imgPath);
+		torefaction = to;
+		sucre = new AbstractMap.SimpleEntry<Sucre, Integer>(su, 0);
 		support = new PropertyChangeSupport(this);
 	}
 
-	public Taille getTaille() {
-		return taille;
-	}
+	
 
-	public void setTaille(Taille taille) {
-		this.taille = taille;
-		CheckAndAdjustCreme();
-		CheckAndAdjustSucre();
-		CheckAndAdjustLait();
-	}
+	
 
 	public void setTorefaction(ComposanteBreuvage torefaction) {
 		this.torefaction = torefaction;
@@ -53,7 +40,7 @@ public class Cafe {
 	public int getPortion(Jet jet) {
 		return jets.get(jet);
 	}
-
+	
 	public int addIngredient(ComposanteBreuvage ing, int nbrPortion) {
 		if (ing instanceof Jet) {
 			int dj = jets.containsKey(ing) ? jets.get(ing) : 0;
@@ -92,42 +79,12 @@ public class Cafe {
 		return sucre.getValue();
 	}
 
-	private int setCremePortion(int nbrPortion) {
-		if (creme.getKey().valide(nbrPortion, taille.getCapacite())) {
-			creme.setValue(nbrPortion);
-			CheckAndAdjustLait();
-			return nbrPortion;
-		}
-		return creme.getValue();
-	}
-
-	private int setLaitPortion(int nbrPortion) {
-		if (lait.getKey().valide(nbrPortion, getQuantiteCafe())) {
-			lait.setValue(nbrPortion);
-			return nbrPortion;
-		}
-		return lait.getValue();
-	}
 
 	// Est utilis� lorsque l'on ajoute un autre ingr�dient, car puisque la quantite
 	// de caf� est r�duite,
 	// il est possible que la quantite de lait ne soit plus valide
-	private void CheckAndAdjustLait() {
-		while (!lait.getKey().valide(lait.getValue(), getQuantiteCafe()) && lait.getValue() > 0) {
-			lait.setValue(lait.getValue()-1);		
-		}
-		support.firePropertyChange("Lait", lait, lait.getValue());
-		//lait.setValue(nbrPortion);
 
-	}
-	private void CheckAndAdjustCreme() {
-		while (!creme.getKey().valide(creme.getValue(), taille.getCapacite()) && creme.getValue() > 0) {
-			creme.setValue(creme.getValue()-1);		
-		}
-		support.firePropertyChange("Creme", creme, creme.getValue());
-
-	}
-	private void CheckAndAdjustSucre() {
+	protected void CheckAndAdjustSucre() {
 		while (!sucre.getKey().valide(sucre.getValue(), taille.getCapacite()) && sucre.getValue() > 0) {
 			sucre.setValue(sucre.getValue()-1);		
 		}
@@ -135,7 +92,7 @@ public class Cafe {
 
 	}
 
-	public int getQuantiteCafe() {
+	public int getQuantite() {
 		int quantite = taille.getCapacite();
 		if (jets.size() > 0)
 			quantite -= Jet.getProportion() * taille.getCapacite();
@@ -162,7 +119,7 @@ public class Cafe {
 		int currentIndex = 0;
 		double prixTotal = 0;
 
-		rapport[currentIndex][0] = getQuantiteCafe() + " ml cafe:";
+		rapport[currentIndex][0] = getQuantite() + " ml cafe:";
 		rapport[currentIndex++][1] = formatter.format(taille.getPrix());
 		prixTotal += taille.getPrix();
 
@@ -249,13 +206,23 @@ public class Cafe {
 		}
 		return sum;
 	}
+	protected void CheckAndAdjustLait() {
+		while (!lait.getKey().valide(lait.getValue(), getQuantite()) && lait.getValue() > 0) {
+			lait.setValue(lait.getValue()-1);		
+		}
+		support.firePropertyChange("Lait", lait, lait.getValue());
+		//lait.setValue(nbrPortion);
 
-	public void addPropertyChangeListener(PropertyChangeListener pcl) {
-		support.addPropertyChangeListener(pcl);
 	}
+	protected void CheckAndAdjustCreme() {
+		while (!creme.getKey().valide(creme.getValue(), taille.getCapacite()) && creme.getValue() > 0) {
+			creme.setValue(creme.getValue()-1);		
+		}
+		support.firePropertyChange("Creme", creme, creme.getValue());
 
-	public void removePropertyChangeListener(PropertyChangeListener pcl) {
-		support.removePropertyChangeListener(pcl);
 	}
+	
+
+	
 
 }
