@@ -11,7 +11,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,12 +24,9 @@ import javax.swing.border.LineBorder;
 public class IngredPane extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private ComposanteCafe ingredient;
-	private JTextField portions;
 
-	public IngredPane(ComposanteCafe ingred, int imHeight, CtrlCafe ctrl) {
+	public IngredPane(ActionListener plusListener,ActionListener moinListener,JTextField portions,String ingImPath,String ingNom, int imHeight) {
 
-		this.ingredient = ingred;
 		
 		JLabel nom;
 		JLabel imageIngred;
@@ -63,18 +60,18 @@ public class IngredPane extends JPanel {
 
 		// ajout de bouttonPlusListener aux bouttons plus et moins
 
-		plus.addActionListener(ctrl.new ObsAddIng(ingredient,portions,true));
-		moins.addActionListener(ctrl.new ObsAddIng(ingredient,portions,false));
+		plus.addActionListener(plusListener);
+		moins.addActionListener(moinListener);
 
 		setBackground(Color.white);
 		setPreferredSize(new Dimension(110, 120));
 
 		// set els images d'ingredients
 		imageIngred = new JLabel();
-		imageIngred.setIcon(new ImageIcon(setIc(ingred.getPath(), imHeight).getImage()));
+		imageIngred.setIcon(new ImageIcon(setIc(ingImPath, imHeight).getImage()));
 		imageIngred.setBorder(new LineBorder(Color.BLACK));
 
-		nom = new JLabel(ingred.getNom());
+		nom = new JLabel(ingNom);
 		nom.setFont(nom.getFont().deriveFont(16.0f));
 
 		setLayout(new GridBagLayout());
@@ -122,7 +119,4 @@ public class IngredPane extends JPanel {
 		
 	}
 	
-	public JTextField getTfPortion() {
-		return portions;
-	}
 }
