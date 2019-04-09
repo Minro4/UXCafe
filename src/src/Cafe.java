@@ -91,16 +91,7 @@ public class Cafe extends MdlBoisson {
 	// de caf� est r�duite,
 	// il est possible que la quantite de lait ne soit plus valide
 
-	protected void CheckAndAdjustSucre() {
-		for (Map.Entry<Sucre, Integer> sucre : sucres.entrySet()) {
-
-			while (!sucre.getKey().valide(sucre.getValue(), taille.getCapacite()) && sucre.getValue() > 0) {
-				sucre.setValue(sucre.getValue() - 1);
-			}
-			support.firePropertyChange("Sucre", sucre, sucre.getValue());
-		}
-
-	}
+	
 
 	public int getQuantite() {
 		int quantite = taille.getCapacite();
@@ -218,13 +209,22 @@ public class Cafe extends MdlBoisson {
 		}
 		return sum;
 	}
+	protected void CheckAndAdjustSucre() {
+		for (Map.Entry<Sucre, Integer> sucre : sucres.entrySet()) {
 
+			while (!sucre.getKey().valide(sucre.getValue(), taille.getCapacite()) && sucre.getValue() > 0) {
+				sucre.setValue(sucre.getValue() - 1);
+			}
+			support.firePropertyChange("Sucre", sucre.getKey(), sucre.getValue());
+		}
+
+	}
 	protected void CheckAndAdjustLait() {
 		for (Map.Entry<Lait, Integer> lait : laits.entrySet()) {
 			while (!lait.getKey().valide(lait.getValue(), getQuantite()) && lait.getValue() > 0) {
 				lait.setValue(lait.getValue() - 1);
 			}
-			support.firePropertyChange("Lait", lait, lait.getValue());
+			support.firePropertyChange("Lait", lait.getKey(), lait.getValue());
 		}
 		// lait.setValue(nbrPortion);
 
@@ -235,7 +235,7 @@ public class Cafe extends MdlBoisson {
 			while (!creme.getKey().valide(creme.getValue(), taille.getCapacite()) && creme.getValue() > 0) {
 				creme.setValue(creme.getValue() - 1);
 			}
-			support.firePropertyChange("Creme", creme, creme.getValue());
+			support.firePropertyChange("Creme", creme.getKey(), creme.getValue());
 		}
 
 	}

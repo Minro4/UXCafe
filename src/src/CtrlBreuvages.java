@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -27,6 +28,8 @@ public class CtrlBreuvages implements PropertyChangeListener {
 	private ArrayList<ComposanteBreuvage> torefList = new ArrayList<ComposanteBreuvage>();
 	private ArrayList<Jet> jetList = new ArrayList<Jet>();
 	private ArrayList<ComposanteBreuvage> lcsList = new ArrayList<ComposanteBreuvage>();
+	
+	private HashMap<ComposanteBreuvage, JTextField> tfComposantes = new HashMap<ComposanteBreuvage, JTextField>();
 
 	public CtrlBreuvages() {
 
@@ -119,6 +122,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		for (int i = 0; i < composanteListe.length; i++) {
 			ComposanteBreuvage comp = composanteListe[i];
 			JTextField tfPortions = new JTextField();
+			tfComposantes.put(comp, tfPortions);
 			composantes[i] = new ComposantePane(comp.getNom(), comp.getPath(), tfPortions,
 					new ObsAddIng(comp, tfPortions, true), new ObsAddIng(comp, tfPortions, false));
 		}
@@ -199,20 +203,9 @@ public class CtrlBreuvages implements PropertyChangeListener {
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
-		switch (evt.getPropertyName()) {
-		case "Lait":
-			// vueCafe.getTfLaitPortion().setText(String.valueOf(evt.getNewValue()));
-			break;
-		case "Sucre":
-			// vueCafe.getTfSucrePortion().setText(String.valueOf(evt.getNewValue()));
-			break;
-		case "Creme":
-			// vueCafe.getTfCremetPortion().setText(String.valueOf(evt.getNewValue()));
-			break;
-
-		default:
-			break;
-		}
+		JTextField tf= tfComposantes.get(evt.getOldValue());
+		String vString = String.valueOf(evt.getNewValue());
+		tf.setText(vString);		
 
 	}
 
