@@ -8,21 +8,17 @@ package src;
 
 public class Lait extends ComposanteBreuvage {
 
-	private double proportionMax;
-	private int quantiteParPortion;
+	private static double proportionMax = 1;
+	private static int quantiteParPortion = 15;
 	private double prixParPortion;
 	
 	public Lait(String nom, String path) {
 		super(nom, path);
-		proportionMax = 1;
-		quantiteParPortion = 15;
 		prixParPortion = 0.1;
 	}
 
-	public Lait(String nom, String path, double proportionMax, int quantiteParPortion, double prixParPortion) {
+	public Lait(String nom, String path, double prixParPortion) {
 		super(nom, path);
-		this.proportionMax = proportionMax;
-		this.quantiteParPortion = quantiteParPortion;
 		this.prixParPortion = prixParPortion;
 	}
 	
