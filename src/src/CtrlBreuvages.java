@@ -12,21 +12,21 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import com.sun.xml.internal.ws.api.addressing.AddressingPropertySet;
 
 public class CtrlBreuvages implements PropertyChangeListener {
 
 	private MdlBoisson breuvage;
-	private VueCafe vueCafe;
-	private String imgPath="";
+	private VueGenerale vueGenerale;
+	private PanelCreation pnlCreation;
+//	private String imgPath="";
 	private ArrayList<Taille> tailleList = new ArrayList<Taille>();
 	private ArrayList<ComposanteBreuvage> torefList = new ArrayList<ComposanteBreuvage>();
 	private ArrayList<Jet> jetList = new ArrayList<Jet>();
 	private ArrayList<ComposanteBreuvage> lcsList = new ArrayList<ComposanteBreuvage>();
-	
 
 	public CtrlBreuvages() {
 
@@ -57,19 +57,72 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		lcsList.add(creme);
 
 		
+		vueGenerale = new VueGenerale();
+		creationBreuvage(Cafe.class);
+		// vueCafe = new VueGenerale(jetList, tailleList, torefList);
+		
 
-		vueCafe = new VueGenerale(jetList, tailleList, torefList);
-		vueCafe.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
-		new NavigationManager(vueCafe);
+		// pnlCreation.setPanelCafe(tailleList, torefList, cafe, 40, this);
+		// pnlCreation.setPanelJet(jetList, 69, this);
+		// pnlCreation.setPanelLCS(lait, creme, sucre, 69, this);
 
-		vueCafe.setPanelCafe(tailleList, torefList, cafe, 40, this);
-		vueCafe.setPanelJet(jetList, 69, this);
-		vueCafe.setPanelLCS(lait, creme, sucre, 69, this);
-
-		updateRapport();
+		// updateRapport();
 	}
-	public void addProp(MdlBoisson breuvage) {
+
+	private void creationBreuvage(Class<?> classe) {
+
+		if (classe == Cafe.class) {
+			breuvage = new Cafe(tailleList.get(2), torefList.get(1), "");
+		}
 		breuvage.addPropertyChangeListener(this);
+		pnlCreation = createCreationPanel();
+		updateRapport();
+		vueGenerale.switchToCreation(pnlCreation);
+	}
+
+	private PanelCreation createCreationPanel() {
+		JPanel[] tailles = createTailles();
+		JPanel[] torefs = createTorefs();
+		JPanel[] jets = createComposantes(jetList.toArray(new Jet[jetList.size()]));
+		JPanel[] lcs = createComposantes(lcsList.toArray(new ComposanteBreuvage[lcsList.size()]));
+
+		JPanel[] pnlWindows = VueCafe.getPanels(tailles, torefs, jets, lcs);
+		PanelCreation panelCreation= new PanelCreation(pnlWindows, VueCafe.getOngletNoms(), VueCafe.getNomTitres());
+		panelCreation.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
+		new NavigationManager(panelCreation);
+		return panelCreation;
+	}
+
+	private JPanel[] createTailles() {
+		JPanel[] tailles = new JPanel[tailleList.size()];
+		ButtonGroup bg = new ButtonGroup();
+		for (int i = 0; i < tailleList.size(); i++) {
+			Taille taille = tailleList.get(i);
+			tailles[i] = new PaneauTaille(taille.getNom(), taille.getPath(), taille.getPrix(), taille.getSize(), bg,
+					new tailleListener(taille));
+		}
+		return tailles;
+	}
+
+	private JPanel[] createTorefs() {
+		JPanel[] torefs = new JPanel[torefList.size()];
+		ButtonGroup bg = new ButtonGroup();
+		for (int i = 0; i < torefList.size(); i++) {
+			torefs[i] = new PaneauToref(torefList.get(i).getNom(), torefList.get(i).getPath(), bg,
+					new torefListener(torefList.get(i)));
+		}
+		return torefs;
+	}
+
+	private JPanel[] createComposantes(ComposanteBreuvage[] composanteListe) {
+		JPanel[] composantes = new JPanel[composanteListe.length];
+		for (int i = 0; i < composanteListe.length; i++) {
+			ComposanteBreuvage comp = composanteListe[i];
+			JTextField tfPortions = new JTextField();
+			composantes[i] = new ComposantePane(comp.getNom(), comp.getPath(), tfPortions,
+					new ObsAddIng(comp, tfPortions, true), new ObsAddIng(comp, tfPortions, false));
+		}
+		return composantes;
 	}
 
 	public class ObsAddIng implements ActionListener {
@@ -85,7 +138,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 
 		@Override
 		public void actionPerformed(ActionEvent evt) {
-			int prt = cafe.addIngredient(ing, nbrPortions);
+			int prt = breuvage.addIngredient(ing, nbrPortions);
 			tfPortions.setText(String.valueOf(prt));
 			updateRapport();
 		}
@@ -103,30 +156,29 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			cafe.setTaille(taille);
+			breuvage.setTaille(taille);
 			updateRapport();
 			// TODO Auto-generated method stub
 
 		}
 	}
-	public class breuvageListener implements ActionListener
-	{
 
-		int valeur;
-		
-		public breuvageListener(int valeur) {
-			this.valeur = valeur;
+	public class breuvageListener implements ActionListener {
+
+		Class<?> classe;
+
+		public breuvageListener(Class<?> valeur) {
+			this.classe = valeur;
 		}
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			if(valeur == 0) {
-				breuvage = new Cafe(tailleList.get(2), torefList.get(1), sucre, lait, creme, imgPath);
-				addProp(breuvage);
-			}
+			creationBreuvage(classe);
+
 		}
-		
+
 	}
+
 	public class torefListener implements ActionListener {
 
 		ComposanteBreuvage c;
@@ -139,7 +191,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			cafe.setTorefaction(c);
+			((Cafe) breuvage).setTorefaction(c);
 			updateRapport();
 			// TODO Auto-generated method stub
 
@@ -149,13 +201,13 @@ public class CtrlBreuvages implements PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent evt) {
 		switch (evt.getPropertyName()) {
 		case "Lait":
-			vueCafe.getTfLaitPortion().setText(String.valueOf(evt.getNewValue()));
+			// vueCafe.getTfLaitPortion().setText(String.valueOf(evt.getNewValue()));
 			break;
 		case "Sucre":
-			vueCafe.getTfSucrePortion().setText(String.valueOf(evt.getNewValue()));
+			// vueCafe.getTfSucrePortion().setText(String.valueOf(evt.getNewValue()));
 			break;
 		case "Creme":
-			vueCafe.getTfCremetPortion().setText(String.valueOf(evt.getNewValue()));
+			// vueCafe.getTfCremetPortion().setText(String.valueOf(evt.getNewValue()));
 			break;
 
 		default:
@@ -165,14 +217,14 @@ public class CtrlBreuvages implements PropertyChangeListener {
 	}
 
 	public void updateRapport() {
-		vueCafe.getConfirmationPane().update(cafe.getRapport());
-		vueCafe.validate();
+		pnlCreation.getConfirmationPane().update(breuvage.getRapport());
+		pnlCreation.validate();
 	}
 
 	public class ConfirmerButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			vueCafe.dispose();
+			vueGenerale.dispose();
 		}
 	}
 

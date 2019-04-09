@@ -1,5 +1,5 @@
 //********************************************************************
-// PaneauToref.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde, Guillaume St-Louis
+// PaneauToref.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde
 //
 // Paneau de la torefaction
 //********************************************************************
@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -23,19 +24,19 @@ public class PaneauToref extends JPanel{
 	private static final long serialVersionUID = 1L;
 
 
-public PaneauToref(ComposanteBreuvage cafeComp, ButtonGroup buttonGroup, Integer hauteur, CtrlBreuvages ctrl){  
+public PaneauToref(String nom,String path, ButtonGroup buttonGroup, ActionListener listener){  
 	  
-	  	JToggleButton toggleButton= new JToggleButton(setIcon(cafeComp.getPath(), hauteur));
+	  	JToggleButton toggleButton= new JToggleButton(setIcon(path, 40));
 	  	toggleButton.setBackground(Color.WHITE);
 		setBackground(Color.white);
 		
-		JLabel lbNom = new JLabel(cafeComp.getNom());
+		JLabel lbNom = new JLabel(nom);
 		lbNom.setFont(lbNom.getFont().deriveFont(12.0f));
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		setPreferredSize(new Dimension(100, 100));
 		
-		toggleButton.addActionListener(ctrl.new torefListener(cafeComp));
+		toggleButton.addActionListener(listener);
 		
 		c.gridx=0;
 		c.gridy=0;
@@ -43,7 +44,7 @@ public PaneauToref(ComposanteBreuvage cafeComp, ButtonGroup buttonGroup, Integer
 		c.gridy = 1;
 		add(lbNom,c);
 	  
-		if(cafeComp.getNom().equals("Normale")) {
+		if(nom.equals("Normale")) {
 			toggleButton.setSelected(true);
 		}
 		

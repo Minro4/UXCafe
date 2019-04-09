@@ -25,24 +25,23 @@ public class ComposantePane extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public ComposantePane(ActionListener plusListener,ActionListener moinListener,JTextField portions,String ingImPath,String ingNom, int imHeight) {
+	public ComposantePane(String ingNom,String ingImPath,JTextField tfPortions,ActionListener plusListener,ActionListener moinListener) {
 	
 		JLabel nom;
 		JLabel imageIngred;
 		JButton plus;
 		JButton moins;
-		
-		portions = new JTextField();
 			
-		portions.setText(String.valueOf(0));
+		tfPortions.setText(String.valueOf(0));
 			
+		int imHeight = 69;
 		int btnHeight = imHeight / 3;
 
 		
 	
-		portions.setPreferredSize(new Dimension(btnHeight, btnHeight));
-		portions.setFont(portions.getFont().deriveFont(20.0f));
-		portions.setHorizontalAlignment(JTextField.CENTER);
+		tfPortions.setPreferredSize(new Dimension(btnHeight, btnHeight));
+		tfPortions.setFont(tfPortions.getFont().deriveFont(20.0f));
+		tfPortions.setHorizontalAlignment(JTextField.CENTER);
 
 		plus = new JButton();
 		plus.setPreferredSize(new Dimension(btnHeight, btnHeight));
@@ -85,7 +84,7 @@ public class ComposantePane extends JPanel {
 		c.gridy = 1;
 		c.fill = GridBagConstraints.HORIZONTAL;
 
-		add(portions, c);
+		add(tfPortions, c);
 		c.fill = GridBagConstraints.NONE;
 		c.gridx = 1;
 		c.gridy = 2;

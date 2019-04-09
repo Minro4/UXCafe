@@ -1,37 +1,31 @@
 //********************************************************************
-// Cafe.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde, Guillaume St-Louis
+// Cafe.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde
 //
 // Modèle du café
 //********************************************************************
 
 package src;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.text.NumberFormat;
-import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Cafe extends MdlBoisson {
 
 	private ComposanteBreuvage torefaction;
-	private Map.Entry<Sucre, Integer> sucre;
+	private HashMap<Sucre, Integer> sucres = new HashMap<Sucre, Integer>();
+	private HashMap<Creme, Integer> cremes = new HashMap<Creme, Integer>();
+	// private Map.Entry<Sucre, Integer> sucre;
+	// private Map.Entry<Creme, Integer> creme;
 
 	private HashMap<Jet, Integer> jets = new HashMap<Jet, Integer>();
 
-	private PropertyChangeSupport support;
-
-	public Cafe(Taille taille, ComposanteBreuvage to, Sucre su, Lait lait, Creme creme, String imgPath) {
-		super(taille, lait, creme, imgPath);
-		torefaction = to;
-		sucre = new AbstractMap.SimpleEntry<Sucre, Integer>(su, 0);
-		support = new PropertyChangeSupport(this);
+	public Cafe(Taille taille, ComposanteBreuvage torefaction, String imgPath) {
+		super(taille, imgPath);
+		this.torefaction = torefaction;
+		// this.sucre = new AbstractMap.SimpleEntry<Sucre, Integer>(sucre, 0);
+		//support = new PropertyChangeSupport(this);
 	}
-
-	
-
-	
 
 	public void setTorefaction(ComposanteBreuvage torefaction) {
 		this.torefaction = torefaction;
@@ -40,17 +34,20 @@ public class Cafe extends MdlBoisson {
 	public int getPortion(Jet jet) {
 		return jets.get(jet);
 	}
-	
+
 	public int addIngredient(ComposanteBreuvage ing, int nbrPortion) {
 		if (ing instanceof Jet) {
 			int dj = jets.containsKey(ing) ? jets.get(ing) : 0;
 			return setJetPortion((Jet) ing, nbrPortion + dj);
 		} else if (ing instanceof Lait) {
-			return setLaitPortion(nbrPortion + lait.getValue());
+			int dj = laits.containsKey(ing) ? laits.get(ing) : 0;
+			return setLaitPortion((Lait) ing, nbrPortion + dj);
 		} else if (ing instanceof Creme) {
-			return setCremePortion(nbrPortion + creme.getValue());
+			int dj = cremes.containsKey(ing) ? cremes.get(ing) : 0;
+			return setCremePortion((Creme) ing, nbrPortion + dj);
 		} else if (ing instanceof Sucre) {
-			return setSucrePortion(nbrPortion + sucre.getValue());
+			int dj = sucres.containsKey(ing) ? sucres.get(ing) : 0;
+			return setSucrePortion((Sucre) ing, nbrPortion + dj);
 		}
 		return 0;
 	}
@@ -71,24 +68,37 @@ public class Cafe extends MdlBoisson {
 		return 0;
 	}
 
-	private int setSucrePortion(int prtnSucre) {
-		if (sucre.getKey().valide(prtnSucre, taille.getCapacite())) {
-			sucre.setValue(prtnSucre);
+	private int setSucrePortion(Sucre sucre, int prtnSucre) {
+		if (sucre.valide(prtnSucre, taille.getCapacite())) {
+			sucres.put(sucre, prtnSucre);
+			// sucre.setValue(prtnSucre);
 			return prtnSucre;
 		}
-		return sucre.getValue();
+		return sucres.containsKey(sucre) ? sucres.get(sucre) : 0;
 	}
 
+	private int setCremePortion(Creme creme, int nbrPortion) {
+		if (creme.valide(nbrPortion, taille.getCapacite())) {
+			cremes.put(creme, nbrPortion);
+			// creme.setValue(nbrPortion);
+			CheckAndAdjustLait();
+			return nbrPortion;
+		}
+		return cremes.containsKey(creme) ? cremes.get(creme) : 0;
+	}
 
 	// Est utilis� lorsque l'on ajoute un autre ingr�dient, car puisque la quantite
 	// de caf� est r�duite,
 	// il est possible que la quantite de lait ne soit plus valide
 
 	protected void CheckAndAdjustSucre() {
-		while (!sucre.getKey().valide(sucre.getValue(), taille.getCapacite()) && sucre.getValue() > 0) {
-			sucre.setValue(sucre.getValue()-1);		
+		for (Map.Entry<Sucre, Integer> sucre : sucres.entrySet()) {
+
+			while (!sucre.getKey().valide(sucre.getValue(), taille.getCapacite()) && sucre.getValue() > 0) {
+				sucre.setValue(sucre.getValue() - 1);
+			}
+			support.firePropertyChange("Sucre", sucre, sucre.getValue());
 		}
-		support.firePropertyChange("Sucre", sucre, sucre.getValue());
 
 	}
 
@@ -96,8 +106,12 @@ public class Cafe extends MdlBoisson {
 		int quantite = taille.getCapacite();
 		if (jets.size() > 0)
 			quantite -= Jet.getProportion() * taille.getCapacite();
-		quantite -= lait.getKey().getQuantite(lait.getValue());
-		quantite -= creme.getKey().getQuantite(creme.getValue());
+		for (Map.Entry<Lait, Integer> lait : laits.entrySet()) {
+			quantite -= lait.getKey().getQuantite(lait.getValue());
+		}
+		for (Map.Entry<Creme, Integer> creme : cremes.entrySet()) {
+			quantite -= creme.getKey().getQuantite(creme.getValue());
+		}
 
 		return quantite < 0 ? 0 : quantite;
 	}
@@ -107,13 +121,7 @@ public class Cafe extends MdlBoisson {
 		NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
 		int nbrPrtnJet = nbrTotPortionsJet();
-		int totalLigne = 3 + jets.size() +((jets.size() > 0) ? 1 : 0);
-		if (lait.getValue() > 0)
-			totalLigne++;
-		if (creme.getValue() > 0)
-			totalLigne++;
-		if (sucre.getValue() > 0)
-			totalLigne++;
+		int totalLigne = 3 + jets.size() + ((jets.size() > 0) ? 1 : 0) + laits.size() + sucres.size() + cremes.size();
 
 		String[][] rapport = new String[totalLigne][2];
 		int currentIndex = 0;
@@ -136,14 +144,13 @@ public class Cafe extends MdlBoisson {
 				double ratio = (double) entry.getValue() / nbrPrtnJet;
 				String text = entry.getKey().rapport(ratio, taille.getCapacite());
 				rapport[currentIndex][0] = text;
-				
+
 				if (jets.size() == 1) {
 					double prix = Jet.getPrix(1, taille.getCapacite());
 					prixTotal += prix;
 					rapport[currentIndex++][1] = formatter.format(prix);
-				}
-				else
-				rapport[currentIndex++][1] = "";
+				} else
+					rapport[currentIndex++][1] = "";
 			}
 			if (jets.size() > 1) {
 				double prix = Jet.getPrix(1, taille.getCapacite());
@@ -157,26 +164,32 @@ public class Cafe extends MdlBoisson {
 		{// On ajoute le lait, creme et sucre
 			String text;
 			double prix;
-			if (lait.getValue() > 0) {
-				text = lait.getKey().rapport(lait.getValue());
-				prix = lait.getKey().getPrix(lait.getValue());
-				prixTotal += prix;
-				rapport[currentIndex][0] = text;
-				rapport[currentIndex++][1] = formatter.format(prix);
+			for (Map.Entry<Lait, Integer> lait : laits.entrySet()) {
+				if (lait.getValue() > 0) {
+					text = lait.getKey().rapport(lait.getValue());
+					prix = lait.getKey().getPrix(lait.getValue());
+					prixTotal += prix;
+					rapport[currentIndex][0] = text;
+					rapport[currentIndex++][1] = formatter.format(prix);
+				}
 			}
-			if (creme.getValue() > 0) {
-				text = creme.getKey().rapport(creme.getValue());
-				prix = creme.getKey().getPrix(creme.getValue());
-				prixTotal += prix;
-				rapport[currentIndex][0] = text;
-				rapport[currentIndex++][1] = formatter.format(prix);
+			for (Map.Entry<Creme, Integer> creme : cremes.entrySet()) {
+				if (creme.getValue() > 0) {
+					text = creme.getKey().rapport(creme.getValue());
+					prix = creme.getKey().getPrix(creme.getValue());
+					prixTotal += prix;
+					rapport[currentIndex][0] = text;
+					rapport[currentIndex++][1] = formatter.format(prix);
+				}
 			}
-			if (sucre.getValue() > 0) {
-				text = sucre.getKey().rapport(sucre.getValue());
-				prix = sucre.getKey().getPrix();
-				prixTotal += prix;
-				rapport[currentIndex][0] = text;
-				rapport[currentIndex++][1] = formatter.format(prix);
+			for (Map.Entry<Sucre, Integer> sucre : sucres.entrySet()) {
+				if (sucre.getValue() > 0) {
+					text = sucre.getKey().rapport(sucre.getValue());
+					prix = sucre.getKey().getPrix();
+					prixTotal += prix;
+					rapport[currentIndex][0] = text;
+					rapport[currentIndex++][1] = formatter.format(prix);
+				}
 			}
 		}
 
@@ -197,7 +210,6 @@ public class Cafe extends MdlBoisson {
 
 		return rapport;
 	}
-	
 
 	private int nbrTotPortionsJet() {
 		int sum = 0;
@@ -206,23 +218,26 @@ public class Cafe extends MdlBoisson {
 		}
 		return sum;
 	}
+
 	protected void CheckAndAdjustLait() {
-		while (!lait.getKey().valide(lait.getValue(), getQuantite()) && lait.getValue() > 0) {
-			lait.setValue(lait.getValue()-1);		
+		for (Map.Entry<Lait, Integer> lait : laits.entrySet()) {
+			while (!lait.getKey().valide(lait.getValue(), getQuantite()) && lait.getValue() > 0) {
+				lait.setValue(lait.getValue() - 1);
+			}
+			support.firePropertyChange("Lait", lait, lait.getValue());
 		}
-		support.firePropertyChange("Lait", lait, lait.getValue());
-		//lait.setValue(nbrPortion);
+		// lait.setValue(nbrPortion);
 
 	}
+
 	protected void CheckAndAdjustCreme() {
-		while (!creme.getKey().valide(creme.getValue(), taille.getCapacite()) && creme.getValue() > 0) {
-			creme.setValue(creme.getValue()-1);		
+		for (Map.Entry<Creme, Integer> creme : cremes.entrySet()) {
+			while (!creme.getKey().valide(creme.getValue(), taille.getCapacite()) && creme.getValue() > 0) {
+				creme.setValue(creme.getValue() - 1);
+			}
+			support.firePropertyChange("Creme", creme, creme.getValue());
 		}
-		support.firePropertyChange("Creme", creme, creme.getValue());
 
 	}
-	
-
-	
 
 }
