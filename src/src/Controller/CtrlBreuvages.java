@@ -31,9 +31,14 @@ public class CtrlBreuvages implements PropertyChangeListener {
 	private ArrayList<ComposanteBreuvage> torefList = new ArrayList<ComposanteBreuvage>();
 	private ArrayList<Jet> jetList = new ArrayList<Jet>();
 	private ArrayList<ComposanteBreuvage> lcsList = new ArrayList<ComposanteBreuvage>();
-	
+
 	private HashMap<ComposanteBreuvage, JTextField> tfComposantes = new HashMap<ComposanteBreuvage, JTextField>();
 
+
+	private static String[] nomTitres = { "Sélectionnez la taille de votre café, ainsi que sa torréfaction",
+			"Sélectionnez vos jets de saveur", "Personnaliser le tout" };
+	private static String[] ongletNoms = { "Taille et Torefaction", "Jets de Saveurs", "Lait, Crème et Sucre" };
+	
 	public CtrlBreuvages() {
 
 		JButton[] listeBoutton = new JButton[3];
@@ -62,11 +67,9 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		lcsList.add(lait);
 		lcsList.add(creme);
 
-		
 		vueGenerale = new VueGenerale();
 		creationBreuvage(Cafe.class);
 		// vueCafe = new VueGenerale(jetList, tailleList, torefList);
-		
 
 		// pnlCreation.setPanelCafe(tailleList, torefList, cafe, 40, this);
 		// pnlCreation.setPanelJet(jetList, 69, this);
@@ -79,21 +82,50 @@ public class CtrlBreuvages implements PropertyChangeListener {
 
 		if (classe == Cafe.class) {
 			breuvage = new Cafe(tailleList.get(2), torefList.get(1), "");
+			pnlCreation = createCafePanel();
 		}
+		else if(classe == )
 		breuvage.addPropertyChangeListener(this);
-		pnlCreation = createCreationPanel();
+		
 		updateRapport();
 		vueGenerale.switchToCreation(pnlCreation);
 	}
 
-	private PanelCreation createCreationPanel() {
+	private PanelCreation createCafePanel() {
 		JPanel[] tailles = createTailles();
 		JPanel[] torefs = createTorefs();
 		JPanel[] jets = createComposantes(jetList.toArray(new Jet[jetList.size()]));
 		JPanel[] lcs = createComposantes(lcsList.toArray(new ComposanteBreuvage[lcsList.size()]));
 
-		JPanel[] pnlWindows = VueCafe.getPanels(tailles, torefs, jets, lcs);
-		PanelCreation panelCreation= new PanelCreation(pnlWindows, VueCafe.getOngletNoms(), VueCafe.getNomTitres());
+		JPanel[] pnlWindows = new JPanel[3];
+		pnlWindows[0] = PanelCreation.getMultiplePanel(tailles, torefs);
+		pnlWindows[1] = PanelCreation.getGenericPanel(jets);
+		pnlWindows[2] = PanelCreation.getGenericPanel(lcs);
+
+		PanelCreation panelCreation = new PanelCreation(pnlWindows, ongletNoms, nomTitres);
+		panelCreation.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
+		new NavigationManager(panelCreation);
+		return panelCreation;
+	}
+	private PanelCreation createThePanel() {
+		JPanel[] tailles = createTailles();
+		JPanel[] lcs = createComposantes(lcsList.toArray(new ComposanteBreuvage[lcsList.size()]));
+
+		JPanel[] pnlWindows = new JPanel[3];
+		pnlWindows[0] = PanelCreation.getGenericPanel(tailles);
+		pnlWindows[1] = PanelCreation.getGenericPanel(lcs);
+
+		PanelCreation panelCreation = new PanelCreation(pnlWindows, ongletNoms, nomTitres);
+		panelCreation.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
+		new NavigationManager(panelCreation);
+		return panelCreation;
+	}
+	private PanelCreation createChocolatPanel() {
+		JPanel[] tailles = createTailles();
+		JPanel[] lcs = createComposantes(lcsList.toArray(new ComposanteBreuvage[lcsList.size()]));
+
+	
+		PanelCreation panelCreation = new PanelCreation(pnlWindows, ongletNoms, nomTitres);
 		panelCreation.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
 		new NavigationManager(panelCreation);
 		return panelCreation;
@@ -206,9 +238,9 @@ public class CtrlBreuvages implements PropertyChangeListener {
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
-		JTextField tf= tfComposantes.get(evt.getOldValue());
+		JTextField tf = tfComposantes.get(evt.getOldValue());
 		String vString = String.valueOf(evt.getNewValue());
-		tf.setText(vString);		
+		tf.setText(vString);
 
 	}
 
