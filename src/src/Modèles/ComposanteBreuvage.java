@@ -3,7 +3,7 @@
 //
 // Composante formant un café
 //********************************************************************
-package src;
+package src.Modèles;
 
 
 public class ComposanteBreuvage {

@@ -4,7 +4,7 @@
 // Modèle de jet
 //********************************************************************
 
-package src;
+package src.Modèles;
 
 import java.text.DecimalFormat;
 

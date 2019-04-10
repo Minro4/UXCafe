@@ -1,13 +1,11 @@
-package src;
+package src.Modèles;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MdlThe extends MdlBoisson {
-	private HashMap<Sucre, Integer> sucres = new HashMap<Sucre, Integer>();
-
+public class MdlChocolatChaut extends MdlBoisson {
 	
-	public MdlThe(Taille taille, String imgPath) {
+	public MdlChocolatChaut(Taille taille, String imgPath) {
 		super(taille, imgPath);
 		
 	}
@@ -15,27 +13,13 @@ public class MdlThe extends MdlBoisson {
 		this.taille = taille;
 		CheckAndAdjustLait();
 	}
-	
 	public int addIngredient(ComposanteBreuvage ing, int nbrPortion) {
 		if (ing instanceof Lait) {
 			int dj = laits.containsKey(ing) ? laits.get(ing) : 0;
 			return setLaitPortion((Lait) ing, nbrPortion + dj);
-		} else if (ing instanceof Sucre) {
-			int dj = sucres.containsKey(ing) ? sucres.get(ing) : 0;
-			return setSucrePortion((Sucre) ing, nbrPortion + dj);
 		}
 		return 0;
 	}
-	
-	private int setSucrePortion(Sucre sucre, int prtnSucre) {
-		if (sucre.valide(prtnSucre, taille.getCapacite())) {
-			sucres.put(sucre, prtnSucre);
-			// sucre.setValue(prtnSucre);
-			return prtnSucre;
-		}
-		return sucres.containsKey(sucre) ? sucres.get(sucre) : 0;
-	}
-	
 	public int getQuantite() {
 		int quantite = taille.getCapacite();
 		
@@ -51,7 +35,7 @@ public class MdlThe extends MdlBoisson {
 		NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
 		
-		int totalLigne = 3+ laits.size() + sucres.size();
+		int totalLigne = 3+ laits.size();
 
 		String[][] rapport = new String[totalLigne][2];
 		int currentIndex = 0;
@@ -76,32 +60,11 @@ public class MdlThe extends MdlBoisson {
 					rapport[currentIndex++][1] = formatter.format(prix);
 				}
 			}
-			
-			for (Map.Entry<Sucre, Integer> sucre : sucres.entrySet()) {
-				if (sucre.getValue() > 0) {
-					text = sucre.getKey().rapport(sucre.getValue());
-					prix = sucre.getKey().getPrix();
-					prixTotal += prix;
-					rapport[currentIndex][0] = text;
-					rapport[currentIndex++][1] = formatter.format(prix);
-				}
-			}
 		}
 		rapport[currentIndex][0] = "Total:";
 		rapport[currentIndex++][1] = formatter.format(prixTotal);
 
 		return rapport;
-	}
-	
-	protected void CheckAndAdjustSucre() {
-		for (Map.Entry<Sucre, Integer> sucre : sucres.entrySet()) {
-
-			while (!sucre.getKey().valide(sucre.getValue(), taille.getCapacite()) && sucre.getValue() > 0) {
-				sucre.setValue(sucre.getValue() - 1);
-			}
-			support.firePropertyChange("Sucre", sucre.getKey(), sucre.getValue());
-		}
-
 	}
 	
 	protected void CheckAndAdjustLait() {
@@ -114,6 +77,5 @@ public class MdlThe extends MdlBoisson {
 		// lait.setValue(nbrPortion);
 
 	}
-	
 
 }

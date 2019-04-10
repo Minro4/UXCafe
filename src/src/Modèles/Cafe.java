@@ -4,7 +4,7 @@
 // Modèle du café
 //********************************************************************
 
-package src;
+package src.Modèles;
 
 import java.text.NumberFormat;
 import java.util.HashMap;
@@ -30,6 +30,7 @@ public class Cafe extends MdlBoisson {
 		this.taille = taille;
 		CheckAndAdjustLait();
 		CheckAndAdjustCreme();
+		CheckAndAdjustSucre();
 	}
 
 	public void setTorefaction(ComposanteBreuvage torefaction) {

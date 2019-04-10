@@ -3,7 +3,7 @@
 //
 // Vue du café qui s'occupe de créer l'interface
 //********************************************************************	
-package src;
+package src.Vue;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -177,7 +177,7 @@ public class PanelCreation extends JPanel {
 	}
 
 	// Change l'aspect visuel de l'onglet lorsqu'il est sélectionné
-	void selectOnglet(int index) {
+	public void selectOnglet(int index) {
 		btnOnglets[index].setBackground(selectedColor);
 		btnOnglets[index].setBorder(selectedBorder);
 	}

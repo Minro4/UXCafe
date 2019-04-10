@@ -4,7 +4,7 @@
 // Controleur du cafe
 //********************************************************************
 
-package src;
+package src.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +17,9 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import src.Vue.*;
+import src.Modèles.*;
 
 public class CtrlBreuvages implements PropertyChangeListener {
 

@@ -3,7 +3,7 @@
 //
 // Modèle de creme
 //********************************************************************
-package src;
+package src.Modèles;
 
 public class Creme extends ComposanteBreuvage{
 

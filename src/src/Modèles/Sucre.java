@@ -4,7 +4,7 @@
 // Modèle du sucre
 //********************************************************************
 
-package src;
+package src.Modèles;
 
 
 public class Sucre extends ComposanteBreuvage {

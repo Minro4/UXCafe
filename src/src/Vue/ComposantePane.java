@@ -4,7 +4,7 @@
 // Paneau qui représente un composant du café
 //********************************************************************
 
-package src;
+package src.Vue;
 
 import java.awt.Color;
 import java.awt.Dimension;

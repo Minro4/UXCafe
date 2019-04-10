@@ -1,10 +1,10 @@
 //********************************************************************
-// PaneauToref.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde
+// PaneauTaille.java 		Auteur: William O'Sullivan-Dargis, Simon Paradis, Jimmy Houde, Guillaume St-Louis
 //
-// Paneau de la torefaction
+// Paneau de la taille
 //********************************************************************
 
-package src;
+package src.Vue;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,22 +19,25 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 
-public class PaneauToref extends JPanel{
+public class PaneauTaille extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 
-
-public PaneauToref(String nom,String path, ButtonGroup buttonGroup, ActionListener listener){  
+public PaneauTaille(String nom,String path,Double prix, int size,ButtonGroup buttonGroup, ActionListener listener){
 	  
-	  	JToggleButton toggleButton= new JToggleButton(setIcon(path, 40));
+	  
+	  	JToggleButton toggleButton= new JToggleButton(setIcon(path, size));
 	  	toggleButton.setBackground(Color.WHITE);
 		setBackground(Color.white);
 		
+		
 		JLabel lbNom = new JLabel(nom);
 		lbNom.setFont(lbNom.getFont().deriveFont(12.0f));
+		JLabel lbPrix= new JLabel(String.valueOf(prix)+"$");
+		lbPrix.setFont(lbPrix.getFont().deriveFont(12.0f));
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		setPreferredSize(new Dimension(100, 100));
+		setPreferredSize(new Dimension(75, 80));
 		
 		toggleButton.addActionListener(listener);
 		
@@ -43,16 +46,17 @@ public PaneauToref(String nom,String path, ButtonGroup buttonGroup, ActionListen
 		add(toggleButton,c);
 		c.gridy = 1;
 		add(lbNom,c);
+		c.gridy=2;
+		add(lbPrix,c);
 	  
-		if(nom.equals("Normale")) {
+		if(nom.equals("Moyen")) {
 			toggleButton.setSelected(true);
 		}
 		
 	  buttonGroup.add(toggleButton);
 	}
  
-  
-  public ImageIcon setIcon(String path, int resizeX) {
+    public ImageIcon setIcon(String path, int resizeX) {
 		
 		ImageIcon imageI = new ImageIcon(path);
 		
@@ -63,5 +67,6 @@ public PaneauToref(String nom,String path, ButtonGroup buttonGroup, ActionListen
 		return imageI;
 		
 	}
+
 }
 

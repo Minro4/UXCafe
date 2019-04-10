@@ -1,4 +1,4 @@
-package src;
+package src.Modèles;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -6,7 +6,7 @@ import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
 
-import src.CtrlBreuvages.breuvageListener;
+import src.Controller.CtrlBreuvages.breuvageListener;
 
 public abstract class MdlBoisson {
 	
@@ -29,7 +29,11 @@ public abstract class MdlBoisson {
 		return taille;
 	}
 	
-	abstract public void setTaille(Taille taille);
+	public void setTaille(Taille taille) {
+		this.taille=taille;
+		CheckAndAdjustLait();
+		
+	}
 	
 	abstract public int addIngredient(ComposanteBreuvage ing, int nbrPortion);
 	

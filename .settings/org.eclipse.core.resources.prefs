@@ -1,5 +1,5 @@
 eclipse.preferences.version=1
-encoding//src/src/ConfirmationPane.java=UTF-8
-encoding//src/src/NavigationManager.java=UTF-8
-encoding//src/src/VueGenerale.java=UTF-8
+encoding//src/src/Controller/NavigationManager.java=UTF-8
+encoding//src/src/Vue/ConfirmationPane.java=UTF-8
+encoding//src/src/Vue/VueGenerale.java=UTF-8
 encoding/<project>=UTF-8
