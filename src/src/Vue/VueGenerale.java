@@ -4,7 +4,7 @@
 // Vue du café qui s'occupe de créer l'interface
 //********************************************************************
 
-package src;
+package src.Vue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

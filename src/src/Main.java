@@ -6,6 +6,8 @@
 
 package src;
 
+import src.Controller.CtrlBreuvages;
+
 public class Main {
 
 	public static void main(String[] args) {

@@ -4,7 +4,7 @@
 // Modèle de la taille
 //********************************************************************
 
-package src;
+package src.Modèles;
 
 public class Taille extends ComposanteBreuvage {
 	private int capacite, sizeIm;

@@ -4,7 +4,7 @@
 // Modèle du café
 //********************************************************************
 
-package src;
+package src.Modèles;
 
 import java.text.NumberFormat;
 import java.util.HashMap;

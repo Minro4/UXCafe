@@ -1,4 +1,4 @@
-package src;
+package src.Vue;
 
 import javax.swing.JPanel;
 

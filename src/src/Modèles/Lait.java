@@ -4,7 +4,7 @@
 // Modèle de lait
 //********************************************************************
 
-package src;
+package src.Modèles;
 
 public class Lait extends ComposanteBreuvage {
 

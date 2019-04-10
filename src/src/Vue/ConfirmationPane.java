@@ -4,7 +4,7 @@
 // Paneau de Compte-rendu
 //********************************************************************
 
-package src;
+package src.Vue;
 
 import javax.swing.*;
 
