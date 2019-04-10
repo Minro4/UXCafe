@@ -102,7 +102,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		pnlWindows[1] = PanelCreation.getGenericPanel(jets);
 		pnlWindows[2] = PanelCreation.getGenericPanel(lcs);
 
-		PanelCreation panelCreation = new PanelCreation(pnlWindows, VueCafe.getOngletNoms(), VueCafe.getNomTitres());
+		PanelCreation panelCreation = new PanelCreation(pnlWindows, ongletNoms, nomTitres);
 		panelCreation.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
 		new NavigationManager(panelCreation);
 		return panelCreation;
@@ -115,7 +115,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		pnlWindows[0] = PanelCreation.getGenericPanel(tailles);
 		pnlWindows[1] = PanelCreation.getGenericPanel(lcs);
 
-		PanelCreation panelCreation = new PanelCreation(pnlWindows, VueCafe.getOngletNoms(), VueCafe.getNomTitres());
+		PanelCreation panelCreation = new PanelCreation(pnlWindows, ongletNoms, nomTitres);
 		panelCreation.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
 		new NavigationManager(panelCreation);
 		return panelCreation;
@@ -124,11 +124,8 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		JPanel[] tailles = createTailles();
 		JPanel[] lcs = createComposantes(lcsList.toArray(new ComposanteBreuvage[lcsList.size()]));
 
-		JPanel[] pnlWindows = new JPanel[3];
-		pnlWindows[0] = PanelCreation.getGenericPanel(tailles);
-		pnlWindows[1] = PanelCreation.getGenericPanel(lcs);
-
-		PanelCreation panelCreation = new PanelCreation(pnlWindows, VueCafe.getOngletNoms(), VueCafe.getNomTitres());
+	
+		PanelCreation panelCreation = new PanelCreation(pnlWindows, ongletNoms, nomTitres);
 		panelCreation.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
 		new NavigationManager(panelCreation);
 		return panelCreation;
