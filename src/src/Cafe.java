@@ -26,6 +26,11 @@ public class Cafe extends MdlBoisson {
 		// this.sucre = new AbstractMap.SimpleEntry<Sucre, Integer>(sucre, 0);
 		//support = new PropertyChangeSupport(this);
 	}
+	public void setTaille(Taille taille) {
+		this.taille = taille;
+		CheckAndAdjustLait();
+		CheckAndAdjustCreme();
+	}
 
 	public void setTorefaction(ComposanteBreuvage torefaction) {
 		this.torefaction = torefaction;

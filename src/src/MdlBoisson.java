@@ -29,11 +29,7 @@ public abstract class MdlBoisson {
 		return taille;
 	}
 	
-	public void setTaille(Taille taille) {
-		this.taille = taille;
-		CheckAndAdjustCreme();
-		CheckAndAdjustLait();
-	}
+	abstract public void setTaille(Taille taille);
 	
 	abstract public int addIngredient(ComposanteBreuvage ing, int nbrPortion);
 	
@@ -53,7 +49,7 @@ public abstract class MdlBoisson {
 	// il est possible que la quantite de lait ne soit plus valide
 	abstract protected void CheckAndAdjustLait();
 	
-	abstract protected void CheckAndAdjustCreme();
+	
 	
 	abstract public int getQuantite();
 	
