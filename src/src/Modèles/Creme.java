@@ -7,24 +7,20 @@ package src.Modèles;
 
 public class Creme extends ComposanteBreuvage{
 
-	private double proportionMax;
-	private int quantiteParPortion;
+	private static double proportionMax = 0.1f;
+	private static int quantiteParPortion = 15;
 	private double prixParPortion;
 	
 	public Creme(String nom, String path) {
 		super(nom, path);
 
-		proportionMax = 0.1f;
-		quantiteParPortion = 15;
 		prixParPortion = 0.15;
 	}
 	
 
-	public Creme(String image, String nom, float proportionMax, int quantiteParPortion, double prixParPortion) {
+	public Creme(String image, String nom, double prixParPortion) {
 		super(image, nom);
-		
-		this.proportionMax = proportionMax;
-		this.quantiteParPortion = quantiteParPortion;
+
 		this.prixParPortion = prixParPortion;
 	}
 

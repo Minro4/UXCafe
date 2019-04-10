@@ -218,16 +218,17 @@ public class Cafe extends MdlBoisson {
 	protected void CheckAndAdjustSucre() {
 		for (Map.Entry<Sucre, Integer> sucre : sucres.entrySet()) {
 
-			while (!sucre.getKey().valide(sucre.getValue(), taille.getCapacite()) && sucre.getValue() > 0) {
+			while (!sucre.getKey().valide(getTotal(sucres), taille.getCapacite()) && sucre.getValue() > 0) {
 				sucre.setValue(sucre.getValue() - 1);
 			}
 			support.firePropertyChange("Sucre", sucre.getKey(), sucre.getValue());
 		}
 
 	}
+	
 	protected void CheckAndAdjustLait() {
 		for (Map.Entry<Lait, Integer> lait : laits.entrySet()) {
-			while (!lait.getKey().valide(lait.getValue(), getQuantite()) && lait.getValue() > 0) {
+			while (!lait.getKey().valide(getTotal(laits), getQuantite()) && lait.getValue() > 0) {
 				lait.setValue(lait.getValue() - 1);
 			}
 			support.firePropertyChange("Lait", lait.getKey(), lait.getValue());
@@ -238,12 +239,19 @@ public class Cafe extends MdlBoisson {
 
 	protected void CheckAndAdjustCreme() {
 		for (Map.Entry<Creme, Integer> creme : cremes.entrySet()) {
-			while (!creme.getKey().valide(creme.getValue(), taille.getCapacite()) && creme.getValue() > 0) {
+			while (!creme.getKey().valide(getTotal(cremes), taille.getCapacite()) && creme.getValue() > 0) {
 				creme.setValue(creme.getValue() - 1);
 			}
 			support.firePropertyChange("Creme", creme.getKey(), creme.getValue());
 		}
 
+	}
+	protected <T> int getTotal(HashMap<T, Integer> map) {
+		int sum = 0;
+		for (Map.Entry<T, Integer> entry : map.entrySet()) {
+				sum += entry.getValue();
+		}
+		return sum;
 	}
 
 }
