@@ -34,11 +34,10 @@ public class CtrlBreuvages implements PropertyChangeListener {
 
 	private HashMap<ComposanteBreuvage, JTextField> tfComposantes = new HashMap<ComposanteBreuvage, JTextField>();
 
-
 	private static String[] nomTitres = { "Sélectionnez la taille de votre café, ainsi que sa torréfaction",
 			"Sélectionnez vos jets de saveur", "Personnaliser le tout" };
 	private static String[] ongletNoms = { "Taille et Torefaction", "Jets de Saveurs", "Lait, Crème et Sucre" };
-	
+
 	public CtrlBreuvages() {
 
 		JButton[] listeBoutton = new JButton[3];
@@ -80,55 +79,49 @@ public class CtrlBreuvages implements PropertyChangeListener {
 
 	private void creationBreuvage(Class<?> classe) {
 
+		JPanel[] pnlWindows;
 		if (classe == Cafe.class) {
-			breuvage = new Cafe(tailleList.get(2), torefList.get(1), "");
-			pnlCreation = createCafePanel();
+			Cafe cafe = new Cafe(tailleList.get(2), torefList.get(1), "");
+			breuvage = cafe;
+			pnlWindows = createCafePanels(cafe);
+		} else if (classe == MdlThe.class) {
+			MdlThe the = new MdlThe(tailleList.get(2), "");
+			breuvage = the;
+			pnlWindows = createThePanels(the);
+		} else {
+			MdlChocolatChaut chocolatChaud = new MdlChocolatChaut(tailleList.get(2), "");
+			breuvage = chocolatChaud;
+			pnlWindows = createChocolatPanels(chocolatChaud);
 		}
-		else if(classe == )
 		breuvage.addPropertyChangeListener(this);
 		
-		updateRapport();
+		pnlCreation = new PanelCreation(pnlWindows, ongletNoms, nomTitres);
+		pnlCreation.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
 		vueGenerale.switchToCreation(pnlCreation);
+
+		updateRapport();
+		
 	}
 
-	private PanelCreation createCafePanel() {
-		JPanel[] tailles = createTailles();
-		JPanel[] torefs = createTorefs();
-		JPanel[] jets = createComposantes(jetList.toArray(new Jet[jetList.size()]));
-		JPanel[] lcs = createComposantes(lcsList.toArray(new ComposanteBreuvage[lcsList.size()]));
-
-		JPanel[] pnlWindows = new JPanel[3];
-		pnlWindows[0] = PanelCreation.getMultiplePanel(tailles, torefs);
-		pnlWindows[1] = PanelCreation.getGenericPanel(jets);
-		pnlWindows[2] = PanelCreation.getGenericPanel(lcs);
-
-		PanelCreation panelCreation = new PanelCreation(pnlWindows, ongletNoms, nomTitres);
-		panelCreation.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
-		new NavigationManager(panelCreation);
-		return panelCreation;
+	private JPanel[] createCafePanels(Cafe cafe) {
+		return VueGenerationBoisson.getCafePanels(createTailles(), createTorefs(cafe),
+				createComposantes(jetList.toArray(new Jet[jetList.size()])),
+				createComposantes(lcsList.toArray(new ComposanteBreuvage[lcsList.size()])));
 	}
-	private PanelCreation createThePanel() {
+
+	private JPanel[] createThePanels(MdlThe the) {
+
 		JPanel[] tailles = createTailles();
 		JPanel[] lcs = createComposantes(lcsList.toArray(new ComposanteBreuvage[lcsList.size()]));
+		return VueGenerationBoisson.getGenericPanels(tailles, lcs);
 
-		JPanel[] pnlWindows = new JPanel[3];
-		pnlWindows[0] = PanelCreation.getGenericPanel(tailles);
-		pnlWindows[1] = PanelCreation.getGenericPanel(lcs);
-
-		PanelCreation panelCreation = new PanelCreation(pnlWindows, ongletNoms, nomTitres);
-		panelCreation.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
-		new NavigationManager(panelCreation);
-		return panelCreation;
 	}
-	private PanelCreation createChocolatPanel() {
+
+	private JPanel[] createChocolatPanels(MdlChocolatChaut chocolatChaut) {
 		JPanel[] tailles = createTailles();
 		JPanel[] lcs = createComposantes(lcsList.toArray(new ComposanteBreuvage[lcsList.size()]));
+		return VueGenerationBoisson.getGenericPanels(tailles, lcs);
 
-	
-		PanelCreation panelCreation = new PanelCreation(pnlWindows, ongletNoms, nomTitres);
-		panelCreation.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
-		new NavigationManager(panelCreation);
-		return panelCreation;
 	}
 
 	private JPanel[] createTailles() {
@@ -142,7 +135,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		return tailles;
 	}
 
-	private JPanel[] createTorefs() {
+	private JPanel[] createTorefs(Cafe cafe) {
 		JPanel[] torefs = new JPanel[torefList.size()];
 		ButtonGroup bg = new ButtonGroup();
 		for (int i = 0; i < torefList.size(); i++) {
@@ -245,6 +238,8 @@ public class CtrlBreuvages implements PropertyChangeListener {
 	}
 
 	public void updateRapport() {
+		if (pnlCreation == null)
+			return;
 		pnlCreation.getConfirmationPane().update(breuvage.getRapport());
 		pnlCreation.validate();
 	}

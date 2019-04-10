@@ -160,7 +160,8 @@ public class PanelCreation extends JPanel {
 		lbTitre.setText(nomPanels[0]);
 
 		
-	
+		new NavigationManager(this);
+		
 		validate();
 
 	}
