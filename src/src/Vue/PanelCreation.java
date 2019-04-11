@@ -13,6 +13,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -24,7 +25,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;import com.sun.org.apache.xml.internal.utils.SuballocatedByteVector;
+import javax.swing.border.EmptyBorder;
+
+import com.sun.corba.se.spi.orbutil.fsm.Action;
+import com.sun.org.apache.xml.internal.utils.SuballocatedByteVector;
 
 public class PanelCreation extends JPanel {
 
@@ -248,9 +252,23 @@ public class PanelCreation extends JPanel {
 	}
 
 
+	public static JPanel getSeparatedPanel(JPanel[] jets, int nbPref,ActionListener suivant, ActionListener precedant) {
+		JPanel paneHolder = new JPanel();
+		JPanel buttonHolder = new JPanel();
+		ArrayList<JPanel> listSousPane = getSubListPanel(jets, nbPref);
+		
+		JButton next = new JButton();
+		next.setIcon(new ImageIcon("Images/arrowRight.png"));
+		JButton previous = new JButton();
+		previous.setIcon(new ImageIcon("Images/arrowLeft.png"));
+		
+		buttonHolder.add(next);
+		buttonHolder.add(previous);
+		
+		return paneHolder;	
+	}
 
-	public static JPanel getSeparatedPanel(JPanel[] jets,int nbPrefPerPanel) {
-		JPanel jPanel = new JPanel(new FlowLayout());
+	private static ArrayList<JPanel> getSubListPanel(JPanel[] jets,int nbPrefPerPanel) {
 		ArrayList<JPanel> subPanesList = new ArrayList<JPanel>();
 		
 		for(int i = 0; i<nbPrefPerPanel; i++) {
@@ -269,10 +287,8 @@ public class PanelCreation extends JPanel {
 			}	
 		}
 		
-		for(JPanel pnl: subPanesList) {
-			jPanel.add(pnl);
-		}
-		return jPanel;	
-		}
+		
+		return subPanesList;	
+	}
 
 }
