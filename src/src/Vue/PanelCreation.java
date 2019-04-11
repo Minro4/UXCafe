@@ -263,11 +263,15 @@ public class PanelCreation extends JPanel {
 						subPanesList.add(j);
 					}
 			}
-			else
+			else {
 				subPanesList.add(j);
 				break;
+			}	
 		}
 		
+		for(JPanel pnl: subPanesList) {
+			jPanel.add(pnl);
+		}
 		return jPanel;	
 		}
 

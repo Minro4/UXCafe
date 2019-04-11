@@ -33,8 +33,6 @@ public class CtrlBreuvages implements PropertyChangeListener {
 	private JPanel pnlChoix;
 //	private String imgPath="";
 
-
-	private ArrayList<Jet> jetList = new ArrayList<Jet>();
 	
 
 	private HashMap<ComposanteBreuvage, JTextField> tfComposantes = new HashMap<ComposanteBreuvage, JTextField>();
