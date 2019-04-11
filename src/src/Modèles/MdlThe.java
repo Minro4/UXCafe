@@ -6,10 +6,22 @@ import java.util.Map;
 public class MdlThe extends MdlBoisson {
 	private HashMap<Sucre, Integer> sucres = new HashMap<Sucre, Integer>();
 
-	
 	public MdlThe(Taille taille, String imgPath) {
-		super(taille, imgPath);
+		super(imgPath);
 		
+		
+	}
+	
+	public MdlThe(String imgPath) {
+		super(imgPath);
+		
+		listTaille.add(new Taille("Très petit", 250, 1.40, "Images/cafeTP.png", 34));
+		listTaille.add(new Taille("Petit", 350, 1.55, "Images/cafeP.png", 34));
+		listTaille.add(new Taille("Moyen", 500, 1.75, "Images/cafe.png", 34));
+		listTaille.add(new Taille("Grand", 600, 1.90, "Images/cafeG.png", 34));
+		listTaille.add(new Taille("Très Grand", 700, 2.10, "Images/cafeTG.png", 34));
+		Sucre sucre = new Sucre("Sucre", "Images/sugar.png");
+		lcsList.add(sucre);
 	}
 	public void setTaille(Taille taille) {
 		this.taille = taille;

@@ -6,8 +6,13 @@ import java.util.Map;
 public class MdlChocolatChaut extends MdlBoisson {
 	
 	public MdlChocolatChaut(Taille taille, String imgPath) {
-		super(taille, imgPath);
+		super(imgPath);
 		
+		listTaille.add(new Taille("Très petit", 250, 1.00, "Images/cafeTP.png", 34));
+		listTaille.add(new Taille("Petit", 350, 1.15, "Images/cafeP.png", 34));
+		listTaille.add(new Taille("Moyen", 500, 1.30, "Images/cafe.png", 34));
+		listTaille.add(new Taille("Grand", 600, 1.45, "Images/cafeG.png", 34));
+		listTaille.add(new Taille("Très Grand", 700, 1.60, "Images/cafeTG.png", 34));
 	}
 	public void setTaille(Taille taille) {
 		this.taille = taille;

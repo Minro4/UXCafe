@@ -32,10 +32,10 @@ public class CtrlBreuvages implements PropertyChangeListener {
 	private PanelCreation pnlCreation;
 	private JPanel pnlChoix;
 //	private String imgPath="";
-	private ArrayList<Taille> tailleList = new ArrayList<Taille>();
-	private ArrayList<ComposanteBreuvage> torefList = new ArrayList<ComposanteBreuvage>();
+
+
 	private ArrayList<Jet> jetList = new ArrayList<Jet>();
-	private ArrayList<ComposanteBreuvage> lcsList = new ArrayList<ComposanteBreuvage>();
+	
 
 	private HashMap<ComposanteBreuvage, JTextField> tfComposantes = new HashMap<ComposanteBreuvage, JTextField>();
 
@@ -54,29 +54,13 @@ public class CtrlBreuvages implements PropertyChangeListener {
 	
 		
 		// Cr�ation de l'array de tailles
-		tailleList.add(new Taille("Très petit", 250, 1.55, "Images/cafeTP.png", 34));
-		tailleList.add(new Taille("Petit", 350, 1.75, "Images/cafeP.png", 34));
-		tailleList.add(new Taille("Moyen", 500, 1.95, "Images/cafe.png", 34));
-		tailleList.add(new Taille("Grand", 600, 2.15, "Images/cafeG.png", 34));
-		tailleList.add(new Taille("Très Grand", 700, 2.35, "Images/cafeTG.png", 34));
-		// Cr�ation de l'array de torr�factions
-		torefList.add(new ComposanteBreuvage("Légère", "Images/coffeeBean.png"));
-		torefList.add(new ComposanteBreuvage("Normale", "Images/CoffeeBean2.png"));
-		torefList.add(new ComposanteBreuvage("Foncée", "Images/CoffeeBean3.png"));
-		// Cr�ation de la liste de jets
-		jetList.add(new Jet("Menthe", "Images/menthepoivre.png"));
-		jetList.add(new Jet("Moka", "Images/chocolate.png"));
-		jetList.add(new Jet("Caramel", "Images/caramel.jpg"));
-		jetList.add(new Jet("Vanille", "Images/vanilla.png"));
-		jetList.add(new Jet("Framboise", "Images/raspberry.png"));
-		jetList.add(new Jet("Noisette", "Images/hazelnut.png"));
 
-		Sucre sucre = new Sucre("Sucre", "Images/sugar.png");
-		Lait lait = new Lait("Lait", "Images/lait.png");
-		Creme creme = new Creme("Creme", "Images/creme.png");
-		lcsList.add(sucre);
-		lcsList.add(lait);
-		lcsList.add(creme);
+		// Cr�ation de l'array de torr�factions
+
+		// Cr�ation de la liste de jets
+	
+
+
 
 		setChoixPanel(listeBoutton);
 		vueGenerale = new VueGenerale(pnlChoix);
@@ -124,18 +108,17 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		JPanel[] pnlWindows;
 		if (classe == Cafe.class) {
 
-			Cafe cafe = new Cafe(tailleList.get(2), torefList.get(1), "");
+			Cafe cafe = new Cafe(cafe.getListTaille().get(2), cafe.getListToref().get(1), "");
 			breuvage = cafe;
 			pnlWindows = createCafePanels(cafe);
 		} else if (classe == MdlThe.class) {
-			MdlThe the = new MdlThe(tailleList.get(2), "");
+			MdlThe the = new MdlThe(the.getListTaille().get(2), "");
 			breuvage = the;
 			pnlWindows = createThePanels(the);
 		} else {
-			MdlChocolatChaut chocolatChaud = new MdlChocolatChaut(tailleList.get(2), "");
+			MdlChocolatChaut chocolatChaud = new MdlChocolatChaut(chocolatChaud.getListTaille().get(2), "");
 			breuvage = chocolatChaud;
 			pnlWindows = createChocolatPanels(chocolatChaud);
-			breuvage = new Cafe(tailleList.get(2), torefList.get(1), "Images/cafe.png");
 		}
 		breuvage.addPropertyChangeListener(this);
 		
@@ -175,10 +158,10 @@ public class CtrlBreuvages implements PropertyChangeListener {
 	}
 
 	private JPanel[] createTailles() {
-		JPanel[] tailles = new JPanel[tailleList.size()];
+		JPanel[] tailles = new JPanel[breuvage.getListTaille().size()];
 		ButtonGroup bg = new ButtonGroup();
-		for (int i = 0; i < tailleList.size(); i++) {
-			Taille taille = tailleList.get(i);
+		for (int i = 0; i < breuvage.getListTaille().size(); i++) {
+			Taille taille = breuvage.getListTaille().get(i);
 			tailles[i] = new PaneauTaille(taille.getNom(), taille.getPath(), taille.getPrix(), taille.getSize(), bg,
 					new tailleListener(taille));
 		}

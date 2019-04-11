@@ -25,5 +25,7 @@ public class Taille extends ComposanteBreuvage {
 	public int getSize() {
 		return this.sizeIm;
 	}
+	
+	
 }
 

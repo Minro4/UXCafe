@@ -16,15 +16,44 @@ public class Cafe extends MdlBoisson {
 	private ComposanteBreuvage torefaction;
 	private HashMap<Sucre, Integer> sucres = new HashMap<Sucre, Integer>();
 	private HashMap<Creme, Integer> cremes = new HashMap<Creme, Integer>();
+	protected ArrayList<ComposanteBreuvage> listToref=new ArrayList<ComposanteBreuvage>();
+	protected ArrayList<Jet> listJet=new ArrayList<Jet>();
 	// private Map.Entry<Sucre, Integer> sucre;
 	// private Map.Entry<Creme, Integer> creme;
 	
 	private HashMap<Jet, Integer> jets = new HashMap<Jet, Integer>();
 
+
 	public Cafe(Taille taille, ComposanteBreuvage torefaction, String imgPath) {
-		super(taille, imgPath);
+		super(imgPath);
 		this.torefaction = torefaction;
 		
+	}
+	public Cafe(String imgPath) {
+		super(imgPath);
+		
+		
+		listTaille.add(new Taille("Très petit", 250, 1.55, "Images/cafeTP.png", 34));
+		listTaille.add(new Taille("Petit", 350, 1.75, "Images/cafeP.png", 34));
+		listTaille.add(new Taille("Moyen", 500, 1.95, "Images/cafe.png", 34));
+		listTaille.add(new Taille("Grand", 600, 2.15, "Images/cafeG.png", 34));
+		listTaille.add(new Taille("Très Grand", 700, 2.35, "Images/cafeTG.png", 34));
+		listToref.add(new ComposanteBreuvage("Légère", "Images/coffeeBean.png"));
+		listToref.add(new ComposanteBreuvage("Normale", "Images/CoffeeBean2.png"));
+		listToref.add(new ComposanteBreuvage("Foncée", "Images/CoffeeBean3.png"));
+		listJet.add(new Jet("Menthe", "Images/menthepoivre.png"));
+		listJet.add(new Jet("Moka", "Images/chocolate.png"));
+		listJet.add(new Jet("Caramel", "Images/caramel.jpg"));
+		listJet.add(new Jet("Vanille", "Images/vanilla.png"));
+		listJet.add(new Jet("Framboise", "Images/raspberry.png"));
+		listJet.add(new Jet("Noisette", "Images/hazelnut.png"));
+		Sucre sucre = new Sucre("Sucre", "Images/sugar.png");
+		Creme creme = new Creme("Creme", "Images/creme.png");
+		lcsList.add(sucre);
+		lcsList.add(creme);
+		taille=listTaille.get(2);
+		torefaction=listToref.get(1);
+
 		// this.sucre = new AbstractMap.SimpleEntry<Sucre, Integer>(sucre, 0);
 		//support = new PropertyChangeSupport(this);
 	}
@@ -42,6 +71,15 @@ public class Cafe extends MdlBoisson {
 	public int getPortion(Jet jet) {
 		return jets.get(jet);
 	}
+	public ArrayList<ComposanteBreuvage> getListToref(){
+		return listToref;
+	}
+	public ArrayList<Jet> getListJet(){
+		return listJet;
+	}
+	
+	
+	
 
 	public int addIngredient(ComposanteBreuvage ing, int nbrPortion) {
 		if (ing instanceof Jet) {

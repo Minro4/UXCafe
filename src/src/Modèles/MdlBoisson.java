@@ -3,6 +3,7 @@ package src.Modèles;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import src.Controller.CtrlBreuvages.breuvageListener;
@@ -13,14 +14,15 @@ public abstract class MdlBoisson {
 	
 	protected Taille taille;
 	protected String imgPath;
+	protected ArrayList<ComposanteBreuvage> lcsList = new ArrayList<ComposanteBreuvage>();
 	protected HashMap<Lait, Integer> laits = new HashMap<Lait, Integer>();
-	
+	protected ArrayList<Taille> listTaille=new ArrayList<Taille>();
 	protected PropertyChangeSupport support;
 	
-	public MdlBoisson(Taille taille, String path) {
-		this.taille=taille;
-		//lait=new AbstractMap.SimpleEntry<Lait, Integer>(la, 0);
-		//creme=new AbstractMap.SimpleEntry<Creme, Integer>(cr, 0);
+	public MdlBoisson(String path) {
+		
+		Lait lait = new Lait("Lait", "Images/lait.png");
+		lcsList.add(lait);
 		this.imgPath=path;
 		support = new PropertyChangeSupport(this);
 	}
@@ -28,7 +30,12 @@ public abstract class MdlBoisson {
 	public Taille getTaille() {
 		return taille;
 	}
-	
+	public ArrayList<Taille> getListTaille(){
+		return listTaille;
+	}
+	public ArrayList<ComposanteBreuvage> getListLcs(){
+		return lcsList;
+	}
 	public void setTaille(Taille taille) {
 		this.taille=taille;
 		CheckAndAdjustLait();
