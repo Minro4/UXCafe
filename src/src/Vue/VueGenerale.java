@@ -20,7 +20,7 @@ public class VueGenerale extends JFrame {
 	private JPanel pnlCreation,pnlAccueil; // Panel qui contient tout les autres panels qui forment l'interface de création
 
 
-	public VueGenerale(JPanel pnlCreate) {
+	public VueGenerale(JPanel pnlChoix) {
 		setTitle("Cafe-Expresse"); 
 		setSize(640, 480); 
 		setVisible(true); 

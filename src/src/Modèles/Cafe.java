@@ -7,6 +7,7 @@
 package src.Modèles;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,12 +18,13 @@ public class Cafe extends MdlBoisson {
 	private HashMap<Creme, Integer> cremes = new HashMap<Creme, Integer>();
 	// private Map.Entry<Sucre, Integer> sucre;
 	// private Map.Entry<Creme, Integer> creme;
-
+	
 	private HashMap<Jet, Integer> jets = new HashMap<Jet, Integer>();
 
 	public Cafe(Taille taille, ComposanteBreuvage torefaction, String imgPath) {
 		super(taille, imgPath);
 		this.torefaction = torefaction;
+		
 		// this.sucre = new AbstractMap.SimpleEntry<Sucre, Integer>(sucre, 0);
 		//support = new PropertyChangeSupport(this);
 	}

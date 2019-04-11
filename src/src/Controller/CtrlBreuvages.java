@@ -30,6 +30,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 	private MdlBoisson breuvage;
 	private VueGenerale vueGenerale;
 	private PanelCreation pnlCreation;
+	private JPanel pnlChoix;
 //	private String imgPath="";
 	private ArrayList<Taille> tailleList = new ArrayList<Taille>();
 	private ArrayList<ComposanteBreuvage> torefList = new ArrayList<ComposanteBreuvage>();
@@ -77,8 +78,8 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		lcsList.add(lait);
 		lcsList.add(creme);
 
-		setCreationPanel(listeBoutton);
-		vueGenerale = new VueGenerale(pnlCreation);
+		setChoixPanel(listeBoutton);
+		vueGenerale = new VueGenerale(pnlChoix);
 		creationBreuvage(Cafe.class);
 		// vueCafe = new VueGenerale(jetList, tailleList, torefList);
 
@@ -145,10 +146,10 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		updateRapport();
 		
 	}
-	private void setCreationPanel(JToggleButton[] jl) {
+	private void setChoixPanel(JToggleButton[] jl) {
 		pnlCreation.setLayout(new FlowLayout());
 		for(JToggleButton t: jl) {
-			pnlCreation.add(t);
+			pnlChoix.add(t);
 		}
 	}	
 	private JPanel[] createCafePanels(Cafe cafe) {
