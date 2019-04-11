@@ -147,7 +147,8 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		
 	}
 	private void setChoixPanel(JToggleButton[] jl) {
-		pnlCreation.setLayout(new FlowLayout());
+		pnlChoix = new JPanel();
+		pnlChoix.setLayout(new FlowLayout());
 		for(JToggleButton t: jl) {
 			pnlChoix.add(t);
 		}

@@ -28,6 +28,7 @@ public class VueGenerale extends JFrame {
 		setResizable(false); 
 		
 		pnlCreation = new JPanel();
+		pnlAccueil = pnlChoix;
 		
 		validate();
 
