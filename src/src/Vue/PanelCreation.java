@@ -13,6 +13,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -23,7 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.EmptyBorder;import com.sun.org.apache.xml.internal.utils.SuballocatedByteVector;
 
 public class PanelCreation extends JPanel {
 
@@ -245,5 +246,29 @@ public class PanelCreation extends JPanel {
 	public ConfirmationPane getConfirmationPane() {
 		return confirmationPane;
 	}
+
+
+
+	public static JPanel getSeparatedPanel(JPanel[] jets,int nbPrefPerPanel) {
+		JPanel jPanel = new JPanel(new FlowLayout());
+		ArrayList<JPanel> subPanesList = new ArrayList<JPanel>();
+		
+		for(int i = 0; i<nbPrefPerPanel; i++) {
+			JPanel j = new JPanel();
+			int position = i+(subPanesList.size() * nbPrefPerPanel);
+			
+			if(position < jets.length - 1) {
+				j.add(jets[i+(subPanesList.size() * nbPrefPerPanel)]);
+					if(i == nbPrefPerPanel -1) {
+						subPanesList.add(j);
+					}
+			}
+			else
+				subPanesList.add(j);
+				break;
+		}
+		
+		return jPanel;	
+		}
 
 }
