@@ -34,7 +34,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 //	private String imgPath="";
 
 
-	private ArrayList<Jet> jetList = new ArrayList<Jet>();
+	
 	
 
 	private HashMap<ComposanteBreuvage, JTextField> tfComposantes = new HashMap<ComposanteBreuvage, JTextField>();
@@ -48,7 +48,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		JToggleButton[] listeBoutton = new JToggleButton[3];
 		setButton("Café", "Images/cafe.png", listeBoutton[0], Cafe.class);
 		setButton("Thé", "Images/cup.png", listeBoutton[0], MdlThe.class);
-		setButton("Chocolat chaud", "Images/latte.png", listeBoutton[0],MdlChocolatChaut.class);
+		setButton("Chocolat chaud", "Images/latte.png", listeBoutton[0],MdlChocolatChaud.class);
 		
 		createToggleGroup(listeBoutton);
 	
@@ -108,15 +108,15 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		JPanel[] pnlWindows;
 		if (classe == Cafe.class) {
 
-			Cafe cafe = new Cafe(cafe.getListTaille().get(2), cafe.getListToref().get(1), "");
+			Cafe cafe = new Cafe(Cafe.getListTaille().get(2), Cafe.getListToref().get(1), "");
 			breuvage = cafe;
 			pnlWindows = createCafePanels(cafe);
 		} else if (classe == MdlThe.class) {
-			MdlThe the = new MdlThe(the.getListTaille().get(2), "");
+			MdlThe the = new MdlThe(MdlThe.getListTaille().get(2), "");
 			breuvage = the;
 			pnlWindows = createThePanels(the);
 		} else {
-			MdlChocolatChaut chocolatChaud = new MdlChocolatChaut(chocolatChaud.getListTaille().get(2), "");
+			MdlChocolatChaud chocolatChaud = new MdlChocolatChaud(MdlChocolatChaud.getListTaille().get(2), "");
 			breuvage = chocolatChaud;
 			pnlWindows = createChocolatPanels(chocolatChaud);
 		}
@@ -137,22 +137,23 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		}
 	}	
 	private JPanel[] createCafePanels(Cafe cafe) {
+	
 		return VueGenerationBoisson.getCafePanels(createTailles(), createTorefs(cafe),
-				createComposantes(jetList.toArray(new Jet[jetList.size()])),
-				createComposantes(lcsList.toArray(new ComposanteBreuvage[lcsList.size()])));
+				createComposantes(Cafe.getListJet().toArray(new Jet[Cafe.getListJet().size()])),
+				createComposantes(Cafe.getListLcs().toArray(new ComposanteBreuvage[Cafe.getListLcs().size()])));
 	}
 
 	private JPanel[] createThePanels(MdlThe the) {
 
 		JPanel[] tailles = createTailles();
-		JPanel[] lcs = createComposantes(lcsList.toArray(new ComposanteBreuvage[lcsList.size()]));
+		JPanel[] lcs = createComposantes(MdlThe.getListLcs().toArray(new ComposanteBreuvage[MdlThe.getListLcs().size()]));
 		return VueGenerationBoisson.getGenericPanels(tailles, lcs);
 
 	}
 
-	private JPanel[] createChocolatPanels(MdlChocolatChaut chocolatChaut) {
+	private JPanel[] createChocolatPanels(MdlChocolatChaud chocolatChaut) {
 		JPanel[] tailles = createTailles();
-		JPanel[] lcs = createComposantes(lcsList.toArray(new ComposanteBreuvage[lcsList.size()]));
+		JPanel[] lcs = createComposantes(MdlChocolatChaud.getListLcs().toArray(new ComposanteBreuvage[MdlChocolatChaud.getListLcs().size()]));
 		return VueGenerationBoisson.getGenericPanels(tailles, lcs);
 
 	}
@@ -169,11 +170,11 @@ public class CtrlBreuvages implements PropertyChangeListener {
 	}
 
 	private JPanel[] createTorefs(Cafe cafe) {
-		JPanel[] torefs = new JPanel[torefList.size()];
+		JPanel[] torefs = new JPanel[Cafe.getListToref().size()];
 		ButtonGroup bg = new ButtonGroup();
-		for (int i = 0; i < torefList.size(); i++) {
-			torefs[i] = new PaneauToref(torefList.get(i).getNom(), torefList.get(i).getPath(), bg,
-					new torefListener(torefList.get(i)));
+		for (int i = 0; i < Cafe.getListToref().size(); i++) {
+			torefs[i] = new PaneauToref(Cafe.getListToref().get(i).getNom(), Cafe.getListToref().get(i).getPath(), bg,
+					new torefListener(Cafe.getListToref().get(i)));
 		}
 		return torefs;
 	}

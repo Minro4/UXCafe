@@ -14,9 +14,9 @@ public abstract class MdlBoisson {
 	
 	protected Taille taille;
 	protected String imgPath;
-	protected ArrayList<ComposanteBreuvage> lcsList = new ArrayList<ComposanteBreuvage>();
+	protected static ArrayList<ComposanteBreuvage> lcsList = new ArrayList<ComposanteBreuvage>();
 	protected HashMap<Lait, Integer> laits = new HashMap<Lait, Integer>();
-	protected ArrayList<Taille> listTaille=new ArrayList<Taille>();
+	protected static ArrayList<Taille> listTaille=new ArrayList<Taille>();
 	protected PropertyChangeSupport support;
 	
 	public MdlBoisson(String path) {
@@ -30,10 +30,10 @@ public abstract class MdlBoisson {
 	public Taille getTaille() {
 		return taille;
 	}
-	public ArrayList<Taille> getListTaille(){
+	public static ArrayList<Taille> getListTaille(){
 		return listTaille;
 	}
-	public ArrayList<ComposanteBreuvage> getListLcs(){
+	public static ArrayList<ComposanteBreuvage> getListLcs(){
 		return lcsList;
 	}
 	public void setTaille(Taille taille) {

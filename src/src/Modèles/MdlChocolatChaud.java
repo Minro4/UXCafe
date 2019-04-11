@@ -3,9 +3,9 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MdlChocolatChaut extends MdlBoisson {
+public class MdlChocolatChaud extends MdlBoisson {
 	
-	public MdlChocolatChaut(Taille taille, String imgPath) {
+	public MdlChocolatChaud(Taille taille, String imgPath) {
 		super(imgPath);
 		
 		listTaille.add(new Taille("Très petit", 250, 1.00, "Images/cafeTP.png", 34));

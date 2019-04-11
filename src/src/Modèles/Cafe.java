@@ -16,8 +16,8 @@ public class Cafe extends MdlBoisson {
 	private ComposanteBreuvage torefaction;
 	private HashMap<Sucre, Integer> sucres = new HashMap<Sucre, Integer>();
 	private HashMap<Creme, Integer> cremes = new HashMap<Creme, Integer>();
-	protected ArrayList<ComposanteBreuvage> listToref=new ArrayList<ComposanteBreuvage>();
-	protected ArrayList<Jet> listJet=new ArrayList<Jet>();
+	protected static ArrayList<ComposanteBreuvage> listToref=new ArrayList<ComposanteBreuvage>();
+	protected static ArrayList<Jet> listJet=new ArrayList<Jet>();
 	// private Map.Entry<Sucre, Integer> sucre;
 	// private Map.Entry<Creme, Integer> creme;
 	
@@ -71,10 +71,10 @@ public class Cafe extends MdlBoisson {
 	public int getPortion(Jet jet) {
 		return jets.get(jet);
 	}
-	public ArrayList<ComposanteBreuvage> getListToref(){
+	public static ArrayList<ComposanteBreuvage> getListToref(){
 		return listToref;
 	}
-	public ArrayList<Jet> getListJet(){
+	public static ArrayList<Jet> getListJet(){
 		return listJet;
 	}
 	
