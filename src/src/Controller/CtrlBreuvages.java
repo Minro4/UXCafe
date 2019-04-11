@@ -6,6 +6,8 @@
 
 package src.Controller;
 
+import java.awt.Button;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -14,9 +16,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 
 import src.Vue.*;
 import src.Modèles.*;
@@ -40,7 +44,14 @@ public class CtrlBreuvages implements PropertyChangeListener {
 
 	public CtrlBreuvages() {
 
-		JButton[] listeBoutton = new JButton[3];
+		JToggleButton[] listeBoutton = new JToggleButton[3];
+		setButton("Café", "Images/cafe.png", listeBoutton[0], Cafe.class);
+		setButton("Thé", "Images/cup.png", listeBoutton[0], MdlThe.class);
+		setButton("Chocolat chaud", "Images/latte.png", listeBoutton[0],MdlChocolatChaut.class);
+		
+		createToggleGroup(listeBoutton);
+	
+		
 		// Cr�ation de l'array de tailles
 		tailleList.add(new Taille("Très petit", 250, 1.55, "Images/cafeTP.png", 34));
 		tailleList.add(new Taille("Petit", 350, 1.75, "Images/cafeP.png", 34));
@@ -66,7 +77,8 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		lcsList.add(lait);
 		lcsList.add(creme);
 
-		vueGenerale = new VueGenerale();
+		setCreationPanel(listeBoutton);
+		vueGenerale = new VueGenerale(pnlCreation);
 		creationBreuvage(Cafe.class);
 		// vueCafe = new VueGenerale(jetList, tailleList, torefList);
 
@@ -76,11 +88,41 @@ public class CtrlBreuvages implements PropertyChangeListener {
 
 		// updateRapport();
 	}
-
+	public void setButton(String txt, String path, JToggleButton button,Class<?> valeur) {
+		
+		button.setText(txt);
+		button.setIcon(setIcon(path, 45));
+		button.addActionListener(new breuvageListener(valeur));
+		
+	}
+	
+	public void createToggleGroup(JToggleButton[] buttonList) {
+		
+		ButtonGroup buttonGroup = new ButtonGroup();
+		
+		for(JToggleButton button: buttonList) {
+			
+			buttonGroup.add(button);
+			
+		}	
+	}
+	
+	public ImageIcon setIcon(String path, int resizeX) {
+			
+			ImageIcon imageI = new ImageIcon(path);
+			
+			java.awt.Image oof = imageI.getImage();
+			java.awt.Image resized = oof.getScaledInstance(resizeX, resizeX, java.awt.Image.SCALE_SMOOTH);
+			imageI.setImage(resized);		
+			
+			return imageI;
+			
+		}
 	private void creationBreuvage(Class<?> classe) {
 
 		JPanel[] pnlWindows;
 		if (classe == Cafe.class) {
+
 			Cafe cafe = new Cafe(tailleList.get(2), torefList.get(1), "");
 			breuvage = cafe;
 			pnlWindows = createCafePanels(cafe);
@@ -92,6 +134,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 			MdlChocolatChaut chocolatChaud = new MdlChocolatChaut(tailleList.get(2), "");
 			breuvage = chocolatChaud;
 			pnlWindows = createChocolatPanels(chocolatChaud);
+			breuvage = new Cafe(tailleList.get(2), torefList.get(1), "Images/cafe.png");
 		}
 		breuvage.addPropertyChangeListener(this);
 		
@@ -102,7 +145,12 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		updateRapport();
 		
 	}
-
+	private void setCreationPanel(JToggleButton[] jl) {
+		pnlCreation.setLayout(new FlowLayout());
+		for(JToggleButton t: jl) {
+			pnlCreation.add(t);
+		}
+	}	
 	private JPanel[] createCafePanels(Cafe cafe) {
 		return VueGenerationBoisson.getCafePanels(createTailles(), createTorefs(cafe),
 				createComposantes(jetList.toArray(new Jet[jetList.size()])),

@@ -5,11 +5,11 @@ import java.beans.PropertyChangeSupport;
 import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
-
 import src.Controller.CtrlBreuvages.breuvageListener;
+import jdk.internal.dynalink.beans.StaticClass;
+
 
 public abstract class MdlBoisson {
-	
 	
 	protected Taille taille;
 	protected String imgPath;

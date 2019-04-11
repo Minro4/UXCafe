@@ -20,7 +20,7 @@ public class VueGenerale extends JFrame {
 	private JPanel pnlCreation,pnlAccueil; // Panel qui contient tout les autres panels qui forment l'interface de création
 
 
-	public VueGenerale(JToggleButton[] jList) {
+	public VueGenerale(JPanel pnlCreate) {
 		setTitle("Cafe-Expresse"); 
 		setSize(640, 480); 
 		setVisible(true); 
@@ -28,17 +28,11 @@ public class VueGenerale extends JFrame {
 		setResizable(false); 
 		
 		pnlCreation = new JPanel();
-		setCreation(jList);
 		
 		validate();
 
 	}
-	public void setCreation(JToggleButton[] jl) {
-		pnlCreation.setLayout(new FlowLayout());
-		for(JToggleButton t: jl) {
-			pnlCreation.add(t);
-		}
-	}
+	
 	public void switchToCreation(JPanel creation) {
 		if (pnlCreation == null)
 			add(creation);
