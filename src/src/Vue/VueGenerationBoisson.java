@@ -11,7 +11,7 @@ public class VueGenerationBoisson {
 	public static JPanel[] getCafePanels(JPanel[] tailles, JPanel[] torefs, JPanel[] jets, JPanel[] lcs) {
 		JPanel[] pnlWindows = new JPanel[3];
 		pnlWindows[0] = PanelCreation.getMultiplePanel(tailles, torefs);
-		pnlWindows[1] = PanelCreation.getGenericPanel(jets);
+		pnlWindows[1] = PanelCreation.getSeparatedPanel(jets,6);
 		pnlWindows[2] = PanelCreation.getGenericPanel(lcs);
 
 		return pnlWindows;

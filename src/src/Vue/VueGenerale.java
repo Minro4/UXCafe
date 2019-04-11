@@ -27,13 +27,25 @@ public class VueGenerale extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		setResizable(false); 
 		
+		
+		
+		setAccueil(pnlChoix);
+		
 		pnlCreation = new JPanel();
-		pnlAccueil = pnlChoix;
+	
 		
 		validate();
 
 	}
 	
+	private void setAccueil(JPanel pnlChoix) {
+		// TODO Auto-generated method stub
+		pnlAccueil = pnlChoix;
+		add(pnlAccueil);
+		pnlAccueil.setVisible(true);
+		
+	}
+
 	public void switchToCreation(JPanel creation) {
 		if (pnlCreation == null)
 			add(creation);
