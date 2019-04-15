@@ -22,5 +22,9 @@ public class JPanelTradInterm extends JPanelTrad{
 		}
 		
 	}
+	
+	public void addTrad(JPanelTrad p) {
+		pnlTrads.add(p);
+	}
 
 }
