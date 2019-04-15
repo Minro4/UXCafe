@@ -31,8 +31,8 @@ public class CtrlJetsNav {
 	public void OnClickBtnOnglet(int index) {
 		if(index < 0)
 			ctr = 0;
-		else if(index > sp.getNbPane())
-			ctr = sp.getNbPane();
+		else if(index > sp.getNbPane() -1)
+			ctr = sp.getNbPane() -1;
 		else
 			ctr = index;
 		

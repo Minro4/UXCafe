@@ -58,9 +58,10 @@ public class SeparatedPanel extends JPanel{
 		GridBagConstraints c = new GridBagConstraints();
 		
 		c.gridy= 0;
-		add(paneJets);
+		add(paneJets,c);
 		c.gridy =1;
-		add(buttonHolder);
+		c.weighty =0.1;
+		add(buttonHolder,c);
 		
 	}
 	public int getNbPane() {
