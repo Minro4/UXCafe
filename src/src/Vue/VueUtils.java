@@ -10,6 +10,11 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
+
+import com.sun.imageio.plugins.common.SingleTileRenderedImage;
+
+import src.Controller.CtrlBreuvages.breuvageListener;
 
 public class VueUtils {
 	public static JPanel getGenericPanel(JPanel[] composantes) {
@@ -34,8 +39,11 @@ public class VueUtils {
 
 		return jPanel;
 	}
-	public static JPanel getSeparatedPanel(JPanel[] jets, int nbPref, ActionListener suivant,
-			ActionListener precedant) {
+
+	public static JPanel getSeparatedPanel(JPanel[] jets,
+			int nbPref/*
+						 * , ActionListener suivant, ActionListener precedant
+						 */) {
 		JPanel paneHolder = new JPanel();
 		JPanel buttonHolder = new JPanel();
 		ArrayList<JPanel> listSousPane = getSubListPanel(jets, nbPref);
@@ -70,5 +78,40 @@ public class VueUtils {
 		}
 
 		return subPanesList;
+	}
+
+	public static JPanel generatePanelSelection(String[] noms, String[] paths, ActionListener[] actionListeners) {
+		JToggleButton[] listeBoutton = new JToggleButton[3];
+		for (int i = 0; i < listeBoutton.length; i++) {
+			listeBoutton[i] = new JToggleButton();
+		}
+		JPanel pnlSelection = new JPanel();
+		pnlSelection.setBackground(new Color(166, 124, 88));
+		pnlSelection.setLayout(new FlowLayout(FlowLayout.CENTER));
+		for (int i =0; i<listeBoutton.length;i++) {
+			setButton(noms[i], paths[i], listeBoutton[i], actionListeners[i]);
+			pnlSelection.add(listeBoutton[i]);
+		}
+
+		return pnlSelection;
+	}
+
+	private static void setButton(String txt, String path, JToggleButton button, ActionListener actionListener) {
+
+		button.setText(txt);
+		button.setIcon(setIcon(path, 75));
+		button.addActionListener(actionListener);
+
+	}
+	private static ImageIcon setIcon(String path, int resizeX) {
+		
+		ImageIcon imageI = new ImageIcon(path);
+		
+		java.awt.Image oof = imageI.getImage();
+		java.awt.Image resized = oof.getScaledInstance(resizeX, resizeX, java.awt.Image.SCALE_SMOOTH);
+		imageI.setImage(resized);		
+		
+		return imageI;
+		
 	}
 }

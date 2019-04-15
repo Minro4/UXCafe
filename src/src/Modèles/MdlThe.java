@@ -138,7 +138,11 @@ public class MdlThe extends MdlBoisson {
 
 	@Override
 	public ComposanteBreuvage[] getListLcs() {		
-		return (ComposanteBreuvage[]) Misc.combine(MdlComposantesDB.getLaits(),MdlComposantesDB.getSucres());
+		return Misc.combine(MdlComposantesDB.getLaits(),MdlComposantesDB.getSucres());
+	}
+	
+	public static String getPath(){
+		return "Images/cup.png";
 	}
 	
 

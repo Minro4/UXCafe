@@ -20,7 +20,7 @@ public class VueGenerationBoisson {
 	public static JPanel[] getGenericPanels(JPanel[] ... panels) {
 		JPanel[] pnlWindows = new JPanel[panels.length];
 		for (int i = 0; i < pnlWindows.length; i++) {
-			pnlWindows[0] = VueUtils.getGenericPanel(panels[i]);
+			pnlWindows[i] = VueUtils.getGenericPanel(panels[i]);
 		}
 		return pnlWindows;
 	}

@@ -333,7 +333,11 @@ public class MdlCafe extends MdlBoisson {
 
 	@Override
 	public ComposanteBreuvage[] getListLcs() {
-		return (ComposanteBreuvage[]) Misc.combine(MdlComposantesDB.getSucres(),MdlComposantesDB.getCremes(),MdlComposantesDB.getSucres());
+		return  Misc.combine(MdlComposantesDB.getSucres(),MdlComposantesDB.getCremes(),MdlComposantesDB.getSucres());
 	}	
+	
+	public static String getPath() {
+		return "Images/cafe.png";
+	}
 
 }

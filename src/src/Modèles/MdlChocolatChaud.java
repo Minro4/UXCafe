@@ -88,5 +88,12 @@ public class MdlChocolatChaud extends MdlBoisson {
 	public ComposanteBreuvage[] getListLcs() {
 		return MdlComposantesDB.getLaits();
 	}
+	public static String getPath(){
+		return "Images/latte.png";
+	}
+	
+	
+		
+	
 
 }

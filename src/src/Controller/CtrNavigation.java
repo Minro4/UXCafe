@@ -12,15 +12,18 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import src.Vue.PanelCreation;
+import src.Vue.VueGenerale;
 
 
 public class CtrNavigation {
 	private int currentOnglet;
 	private PanelCreation panelCreation;
+	private VueGenerale vueGenerale;
 
-	public CtrNavigation(PanelCreation panelCreation) {
+	public CtrNavigation(PanelCreation panelCreation,VueGenerale vueGenerale) {
 		currentOnglet = 0;
 		this.panelCreation = panelCreation;
+		this.vueGenerale = vueGenerale;
 		panelCreation.getBtnSuivant().addActionListener(new BouttonSuivantListener());
 		panelCreation.getBtnRetour().addActionListener(new BouttonRetourListener());
 		panelCreation.getBtnAnnuler().addActionListener(new BouttonAnnulerListener());
@@ -77,8 +80,7 @@ public class CtrNavigation {
 	public class BouttonAnnulerListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//interfaceCreationSoupe.dispose();
-			//Main.MenuAccueil();
+			vueGenerale.switchToAccueil();
 
 		}
 	}

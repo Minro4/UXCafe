@@ -6,7 +6,6 @@
 
 package src.Controller;
 
-import java.awt.Button;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +16,6 @@ import java.util.HashMap;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
@@ -30,12 +28,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 	private MdlBoisson breuvage;
 	private VueGenerale vueGenerale;
 	private PanelCreation pnlCreation;
-	private JPanel pnlChoix;
 //	private String imgPath="";
-
-
-	
-	
 
 	private HashMap<ComposanteBreuvage, JTextField> tfComposantes = new HashMap<ComposanteBreuvage, JTextField>();
 
@@ -45,29 +38,27 @@ public class CtrlBreuvages implements PropertyChangeListener {
 
 	public CtrlBreuvages() {
 
-		JToggleButton[] listeBoutton = new JToggleButton[3];
-		for (int i = 0; i < listeBoutton.length; i++) {
-			listeBoutton[i] = new JToggleButton();
-		}
-		setButton("Café", "Images/cafe.png", listeBoutton[0], MdlCafe.class);
+		/*setButton("Café", "Images/cafe.png", listeBoutton[0], MdlCafe.class);
 		setButton("Thé", "Images/cup.png", listeBoutton[1], MdlThe.class);
-		setButton("Chocolat chaud", "Images/latte.png", listeBoutton[2],MdlChocolatChaud.class);
-		
-		createToggleGroup(listeBoutton);
-	
-		
+		setButton("Chocolat chaud", "Images/latte.png", listeBoutton[2], MdlChocolatChaud.class);
+
+		createToggleGroup(listeBoutton);*/
+
 		// Cr�ation de l'array de tailles
 
 		// Cr�ation de l'array de torr�factions
 
 		// Cr�ation de la liste de jets
-	
 
+		String[] noms = { "Café", "Thé", "Chocolat chaud" };
+		String[] paths = { MdlCafe.getPath(), MdlThe.getPath(), MdlChocolatChaud.getPath() };
+		ActionListener[] actionListeners = { new breuvageListener(MdlCafe.class), new breuvageListener(MdlThe.class),
+				new breuvageListener(MdlChocolatChaud.class) };
 
+		vueGenerale = new VueGenerale(VueUtils.generatePanelSelection(noms, paths, actionListeners
 
-		setChoixPanel(listeBoutton);
-		vueGenerale = new VueGenerale(pnlChoix);
-		//creationBreuvage(MdlThe.class);
+		));
+		// creationBreuvage(MdlThe.class);
 		// vueCafe = new VueGenerale(jetList, tailleList, torefList);
 
 		// pnlCreation.setPanelCafe(tailleList, torefList, cafe, 40, this);
@@ -76,36 +67,38 @@ public class CtrlBreuvages implements PropertyChangeListener {
 
 		// updateRapport();
 	}
-	public void setButton(String txt, String path, JToggleButton button,Class<?> valeur) {
-		
+
+	/*public void setButton(String txt, String path, JToggleButton button, Class<?> valeur) {
+
 		button.setText(txt);
 		button.setIcon(setIcon(path, 45));
 		button.addActionListener(new breuvageListener(valeur));
-		
+
 	}
-	
+
 	public void createToggleGroup(JToggleButton[] buttonList) {
-		
+
 		ButtonGroup buttonGroup = new ButtonGroup();
-		
-		for(JToggleButton button: buttonList) {
-			
+
+		for (JToggleButton button : buttonList) {
+
 			buttonGroup.add(button);
-			
-		}	
-	}
-	
-	public ImageIcon setIcon(String path, int resizeX) {
-			
-			ImageIcon imageI = new ImageIcon(path);
-			
-			java.awt.Image oof = imageI.getImage();
-			java.awt.Image resized = oof.getScaledInstance(resizeX, resizeX, java.awt.Image.SCALE_SMOOTH);
-			imageI.setImage(resized);		
-			
-			return imageI;
-			
+
 		}
+	}
+
+	public ImageIcon setIcon(String path, int resizeX) {
+
+		ImageIcon imageI = new ImageIcon(path);
+
+		java.awt.Image oof = imageI.getImage();
+		java.awt.Image resized = oof.getScaledInstance(resizeX, resizeX, java.awt.Image.SCALE_SMOOTH);
+		imageI.setImage(resized);
+
+		return imageI;
+
+	}*/
+
 	private void creationBreuvage(Class<?> classe) {
 
 		JPanel[] pnlWindows;
@@ -123,26 +116,19 @@ public class CtrlBreuvages implements PropertyChangeListener {
 			pnlWindows = createChocolatPanels(chocolatChaud);
 		}
 		breuvage.addPropertyChangeListener(this);
-		
+
 		pnlCreation = new PanelCreation(pnlWindows, ongletNoms, nomTitres);
 		pnlCreation.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
 		vueGenerale.switchToCreation(pnlCreation);
-		new CtrNavigation(pnlCreation);
+		new CtrNavigation(pnlCreation, vueGenerale);
 		updateRapport();
-		
+
 	}
-	private void setChoixPanel(JToggleButton[] jl) {
-		pnlChoix = new JPanel();
-		pnlChoix.setLayout(new FlowLayout());
-		for(JToggleButton t: jl) {
-			pnlChoix.add(t);
-		}
-	}	
+
 	private JPanel[] createCafePanels(MdlCafe cafe) {
-	
+
 		return VueGenerationBoisson.getCafePanels(createTailles(), createTorefs(cafe),
-				createComposantes(cafe.getListJet()),
-				createComposantes(cafe.getListLcs()));
+				createComposantes(cafe.getListJet()), createComposantes(cafe.getListLcs()));
 	}
 
 	private JPanel[] createThePanels(MdlThe the) {
