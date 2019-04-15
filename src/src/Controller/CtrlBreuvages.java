@@ -144,8 +144,11 @@ public class CtrlBreuvages implements PropertyChangeListener {
 
 	private JPanelTrad[] createCafePanels(MdlCafe cafe) {
 
+		SeparatedPanel sp = new SeparatedPanel(createComposantes(cafe.getListJet()), 6);
+		CtrlJetsNav cj = new CtrlJetsNav(0, sp);
+		
 		return VueGenerationBoisson.getCafePanels(createTailles(), createTorefs(cafe),
-				createComposantes(cafe.getListJet()), createComposantes(cafe.getListLcs()));
+				createComposantes(cafe.getListLcs()),sp);
 	}
 
 	private JPanelTrad[] createThePanels(MdlThe the) {
@@ -153,14 +156,12 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		JPanelTrad[] tailles = createTailles();
 		JPanelTrad[] lcs = createComposantes(the.getListLcs());
 		return VueGenerationBoisson.getGenericPanels(tailles, lcs);
-
 	}
 
 	private JPanelTrad[] createChocolatPanels(MdlChocolatChaud chocolatChaut) {
 		JPanelTrad[] tailles = createTailles();
 		JPanelTrad[] lcs = createComposantes(chocolatChaut.getListLcs());
 		return VueGenerationBoisson.getGenericPanels(tailles, lcs);
-
 	}
 
 	private JPanelTrad[] createTailles() {

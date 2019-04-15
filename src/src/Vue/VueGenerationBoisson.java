@@ -1,6 +1,13 @@
 package src.Vue;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
+
+import com.sun.glass.ui.TouchInputSupport;
+import com.sun.org.apache.bcel.internal.generic.NEW;
+
+import src.Controller.CtrlJetsNav;
 
 public class VueGenerationBoisson {
 
@@ -12,11 +19,13 @@ public class VueGenerationBoisson {
 	 * "Lait, Crème et Sucre" };
 	 */
 
+	public static JPanel[] getCafePanels(JPanel[] tailles, JPanel[] torefs, JPanel[] lcs, SeparatedPanel sp) {
+		JPanel[] pnlWindows = new JPanel[3];
 	public static JPanelTrad[] getCafePanels(JPanelTrad[] tailles, JPanelTrad[] torefs, JPanelTrad[] jets,
 			JPanelTrad[] lcs) {
 		JPanelTrad[] pnlWindows = new JPanelTrad[3];
 		pnlWindows[0] = VueUtils.getMultiplePanel(tailles, torefs);
-		pnlWindows[1] = (JPanelTrad) VueUtils.getSeparatedPanel(jets, 6);
+		pnlWindows[1] = sp;
 		pnlWindows[2] = VueUtils.getGenericPanel(lcs);
 
 		return pnlWindows;

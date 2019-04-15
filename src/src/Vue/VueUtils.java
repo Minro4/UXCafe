@@ -33,45 +33,6 @@ public class VueUtils {
 		return jPanel;
 	}
 
-	public static JPanel getSeparatedPanel(JPanelTrad[] jets,
-			int nbPref/*
-						 * , ActionListener suivant, ActionListener precedant
-						 */) {
-		JPanel paneHolder = new JPanel();
-		JPanel buttonHolder = new JPanel();
-		ArrayList<JPanel> listSousPane = getSubListPanel(jets, nbPref);
-
-		JButton next = new JButton();
-		next.setIcon(new ImageIcon("Images/arrowRight.png"));
-		JButton previous = new JButton();
-		previous.setIcon(new ImageIcon("Images/arrowLeft.png"));
-
-		buttonHolder.add(next);
-		buttonHolder.add(previous);
-
-		return paneHolder;
-	}
-
-	private static ArrayList<JPanel> getSubListPanel(JPanel[] jets, int nbPrefPerPanel) {
-		ArrayList<JPanel> subPanesList = new ArrayList<JPanel>();
-
-		for (int i = 0; i < nbPrefPerPanel; i++) {
-			JPanel j = new JPanel();
-			int position = i + (subPanesList.size() * nbPrefPerPanel);
-
-			if (position < jets.length - 1) {
-				j.add(jets[i + (subPanesList.size() * nbPrefPerPanel)]);
-				if (i == nbPrefPerPanel - 1) {
-					subPanesList.add(j);
-				}
-			} else {
-				subPanesList.add(j);
-				break;
-			}
-		}
-
-		return subPanesList;
-	}
 
 	
 	public static ImageIcon setIcon(String path, int resizeX) {
