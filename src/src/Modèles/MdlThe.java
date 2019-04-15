@@ -14,8 +14,7 @@ public class MdlThe extends MdlBoisson {
 	public MdlThe(String imgPath) {
 		super(imgPath);
 		taille = MdlComposantesDB.getTaillesThe()[2];
-		
-		
+			
 	}
 	
 	/*public MdlThe(String imgPath) {

@@ -10,8 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class VueUtils {
-	public static JPanel getGenericPanel(JPanel[] composantes) {
-		JPanel jPanel = new JPanel();
+	public static JPanelTradInterm getGenericPanel(JPanelTrad[] composantes) {
+		JPanelTradInterm jPanel = new JPanelTradInterm(composantes);
 		jPanel.setLayout(new FlowLayout());
 		jPanel.setBackground(Color.white);
 		for (JPanel composante : composantes) {
@@ -21,8 +21,8 @@ public class VueUtils {
 		return jPanel;
 	}
 
-	public static JPanel getMultiplePanel(JPanel[]... composantes) {
-		JPanel jPanel = new JPanel();
+	public static JPanelTradInterm getMultiplePanel(JPanelTrad[]... composantes) {
+		JPanelTradInterm jPanel = new JPanelTradInterm(composantes);
 		jPanel.setLayout(new GridLayout(composantes.length, 1));
 		jPanel.setBackground(Color.white);
 
@@ -33,7 +33,7 @@ public class VueUtils {
 		return jPanel;
 	}
 
-	public static JPanel getSeparatedPanel(JPanel[] jets,
+	public static JPanel getSeparatedPanel(JPanelTrad[] jets,
 			int nbPref/*
 						 * , ActionListener suivant, ActionListener precedant
 						 */) {

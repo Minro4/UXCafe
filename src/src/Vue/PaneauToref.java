@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -19,18 +20,21 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 
-public class PaneauToref extends JPanel{
+public class PaneauToref extends JPanelTrad{
 
 	private static final long serialVersionUID = 1L;
 
+	private JLabel lbNom;
+	private String nomKey;
 
-public PaneauToref(String nom,String path, ButtonGroup buttonGroup, ActionListener listener){  
+public PaneauToref(String nomKey,String path, ButtonGroup buttonGroup, boolean selected,ActionListener listener){  
 	  
+	this.nomKey = nomKey;
 	  	JToggleButton toggleButton= new JToggleButton(setIcon(path, 40));
 	  	toggleButton.setBackground(Color.WHITE);
 		setBackground(Color.white);
 		
-		JLabel lbNom = new JLabel(nom);
+		lbNom = new JLabel();
 		lbNom.setFont(lbNom.getFont().deriveFont(12.0f));
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -44,9 +48,8 @@ public PaneauToref(String nom,String path, ButtonGroup buttonGroup, ActionListen
 		c.gridy = 1;
 		add(lbNom,c);
 	  
-		if(nom.equals("Normale")) {
-			toggleButton.setSelected(true);
-		}
+			toggleButton.setSelected(selected);
+		
 		
 	  buttonGroup.add(toggleButton);
 	}
@@ -63,5 +66,9 @@ public PaneauToref(String nom,String path, ButtonGroup buttonGroup, ActionListen
 		return imageI;
 		
 	}
+  @Override
+  public void setTexte(ResourceBundle bdlLangue) {
+	  lbNom.setText(bdlLangue.getString(nomKey));
+  }
 }
 

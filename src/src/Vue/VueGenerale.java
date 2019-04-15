@@ -6,6 +6,8 @@
 
 package src.Vue;
 
+import java.util.ResourceBundle;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -13,27 +15,27 @@ public class VueGenerale extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	private JPanel pnlCreation, pnlAccueil; // Panel qui contient tout les autres panels qui forment l'interface de
-											// création
+	private VuePanelSelection pnlAccueil;
+	private PanelCreation pnlCreation;
 
 	private final static int hSize = 640;
 	private final static int vSize = 480;
 
-	public VueGenerale(JPanel pnlChoix) {
+	public VueGenerale(VuePanelSelection pnlAccueil) {
 		setTitle("Cafe-Expresse");
 		setSize(hSize, vSize);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 
-		setAccueil(pnlChoix);
+		setAccueil(pnlAccueil);
 
 		validate();
 
 	}
 
-	private void setAccueil(JPanel pnlChoix) {
-		pnlAccueil = pnlChoix;
+	private void setAccueil(VuePanelSelection pnlAccueil) {
+		this.pnlAccueil = pnlAccueil;
 		add(pnlAccueil);
 		pnlAccueil.setVisible(true);
 
@@ -44,7 +46,7 @@ public class VueGenerale extends JFrame {
 		pnlCreation.setVisible(false);
 	}
 
-	public void switchToCreation(JPanel creation) {
+	public void switchToCreation(PanelCreation creation) {
 
 		if (pnlCreation != null)
 			remove(pnlCreation);
@@ -57,6 +59,12 @@ public class VueGenerale extends JFrame {
 
 		validate();
 		repaint();
+	}
+
+	public void setTexte(ResourceBundle bdlLangue) {
+		pnlAccueil.setTexte(bdlLangue);
+		if (pnlCreation != null)
+			pnlCreation.setTexte(bdlLangue);
 	}
 
 	public static int getHsize() {

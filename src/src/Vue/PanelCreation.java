@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -23,7 +24,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
 
-public class PanelCreation extends JPanel {
+public class PanelCreation extends JPanelTrad {
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,24 +34,28 @@ public class PanelCreation extends JPanel {
 
 	private ConfirmationPane confirmationPane;
 
-	private JPanel[] pnlWindows; // Taille, Bouillon Légume, Viande, Nouille, Comfirmation
+	private JPanelTrad[] pnlWindows; // Taille, Bouillon Légume, Viande, Nouille, Comfirmation
 	private static final int panelWidth = 402;
 	private JLabel lbTitre;
 
-	private String[] nomPanels;
+	
 
 	// --------------Navigation--------------------------
 	private JPanel pnlSuivRet; // Panel qui contient les bouttons suivant et retour
 
 	private JButton btnSuivant, btnRetour, btnAnnuler;
 	private JButton[] btnOnglets;
+	private String[] keyNomOnglets;
+	private String[] keyNomPanels;
+	private int currentKeyIndex = 0;
+	private String[] nomPanels;
 
 	private Color selectedColor;
 	private Color unselectedColor;
 	private Border selectedBorder;
 	private Border unselectedBorder;
 
-	public PanelCreation(JPanel[] pnlWindows, String[] nomOnglets, String[] nomPanels) {
+	public PanelCreation(JPanelTrad[] pnlWindows, String[] keyNomOnglets, String[] keyNomPanels) {
 
 		setLayout(new BorderLayout());
 		pnlOnglets = new JPanel(new GridBagLayout());
@@ -110,10 +115,10 @@ public class PanelCreation extends JPanel {
 
 		// ---- Onglet ----
 		{
-			btnOnglets = new JButton[nomOnglets.length];
+			btnOnglets = new JButton[keyNomOnglets.length];
 
 			for (int i = 0; i < btnOnglets.length; i++) {
-				btnOnglets[i] = new JButton(nomOnglets[i]);
+				btnOnglets[i] = new JButton();
 				unselectOnglet(i);
 				btnOnglets[i].setPreferredSize(new Dimension(0, 40));
 			}
@@ -140,7 +145,8 @@ public class PanelCreation extends JPanel {
 		// --------------------------------------------------------------
 
 		this.pnlWindows = pnlWindows;
-		this.nomPanels = nomPanels;
+		this.keyNomOnglets = keyNomOnglets;
+		this.keyNomPanels = keyNomPanels;
 
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.fill = GridBagConstraints.BOTH;
@@ -155,7 +161,7 @@ public class PanelCreation extends JPanel {
 			panel.setVisible(false);
 		}
 		pnlWindows[0].setVisible(true);
-		lbTitre.setText(nomPanels[0]);
+	//	lbTitre.setText(nomPanels[0]);
 
 		validate();
 
@@ -166,6 +172,7 @@ public class PanelCreation extends JPanel {
 		pnlWindows[oldPnlIndex].setVisible(false);
 		pnlWindows[newPnlIndex].setVisible(true);
 		lbTitre.setText(nomPanels[newPnlIndex]);
+		currentKeyIndex = newPnlIndex;
 		validate();
 		repaint();
 	}
@@ -212,6 +219,30 @@ public class PanelCreation extends JPanel {
 		return image;
 	}
 
+	@Override
+	public void setTexte(ResourceBundle bdlLangue) {
+		btnSuivant.setText(bdlLangue.getString("suivant"));
+		btnRetour.setText(bdlLangue.getString("retour")); 
+		btnAnnuler.setText(bdlLangue.getString("annuler"));
+		
+		for (int i = 0; i < btnOnglets.length; i++) {
+			btnOnglets[i].setText(bdlLangue.getString(keyNomOnglets[i]));;
+		}
+		
+		nomPanels = new String[keyNomPanels.length];
+		for (int i = 0; i < nomPanels.length; i++) {
+			nomPanels[i] = bdlLangue.getString(keyNomPanels[i]);
+		}
+		
+		lbTitre.setText(bdlLangue.getString(keyNomPanels[currentKeyIndex]));
+		
+		confirmationPane.setTexte(bdlLangue);
+		
+		for (JPanelTrad pnlWindow : pnlWindows) {
+			pnlWindow.setTexte(bdlLangue);
+		}
+		
+	}
 	
 
 	public JButton getBtnSuivant() {
@@ -237,6 +268,7 @@ public class PanelCreation extends JPanel {
 	public ConfirmationPane getConfirmationPane() {
 		return confirmationPane;
 	}
+
 
 	
 

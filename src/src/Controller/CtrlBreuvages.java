@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -28,9 +30,19 @@ public class CtrlBreuvages implements PropertyChangeListener {
 
 	private HashMap<ComposanteBreuvage, JTextField> tfComposantes = new HashMap<ComposanteBreuvage, JTextField>();
 
-	private static String[] nomTitres = { "Sélectionnez la taille de votre café, ainsi que sa torréfaction",
+	Locale lclLangue = Locale.FRENCH;
+	
+	private String[] ongletsNomCafe = { "onglet_cafe1", "onglet_cafe2", "onglet_cafe3"};
+	private String[] ongletsNomThe = { "onglet_taille", "onglet_the"};
+	private String[] ongletsNomCC = { "onglet_taille", "onglet_chocolat_chaud"};
+	private String[] titresCafe = { "titre_cafe1", "titre_cafe2", "titre_cafe3"};
+	private String[] titresThe = { "titre_taille", "titre_perso"};
+	private String[] titresCC = { "titre_taille", "titre_perso"};
+	private String[] noms = { "cafe", "the", "chocolat_chaud" };
+	
+	/*private static String[] nomTitres = { "Sélectionnez la taille de votre café, ainsi que sa torréfaction",
 			"Sélectionnez vos jets de saveur", "Personnaliser le tout" };
-	private static String[] ongletNoms = { "Taille et Torefaction", "Jets de Saveurs", "Lait, Crème et Sucre" };
+	private static String[] ongletNoms = { "Taille et Torefaction", "Jets de Saveurs", "Lait, Crème et Sucre" };*/
 
 	public CtrlBreuvages() {
 
@@ -46,13 +58,14 @@ public class CtrlBreuvages implements PropertyChangeListener {
 
 		// Cr�ation de la liste de jets
 
-		String[] noms = { "Café", "Thé", "Chocolat chaud" };
+		
 		String[] paths = { MdlCafe.getPath(), MdlThe.getPath(), MdlChocolatChaud.getPath() };
 		ActionListener[] actionListeners = { new breuvageListener(MdlCafe.class), new breuvageListener(MdlThe.class),
 				new breuvageListener(MdlChocolatChaud.class) };
 
 		vueGenerale = new VueGenerale(new VuePanelSelection(noms, paths, actionListeners));
 		// creationBreuvage(MdlThe.class);
+		vueGenerale.setTexte(ResourceBundle.getBundle("src.properties.langue", lclLangue));
 		// vueCafe = new VueGenerale(jetList, tailleList, torefList);
 
 		// pnlCreation.setPanelCafe(tailleList, torefList, cafe, 40, this);
@@ -95,74 +108,84 @@ public class CtrlBreuvages implements PropertyChangeListener {
 
 	private void creationBreuvage(Class<?> classe) {
 
-		JPanel[] pnlWindows;
+		String[] ongletNoms;
+		String[] nomTitres;
+		JPanelTrad[] pnlWindows;
 		if (classe == MdlCafe.class) {
 			MdlCafe cafe = new MdlCafe("");
 			breuvage = cafe;
 			pnlWindows = createCafePanels(cafe);
+			ongletNoms = ongletsNomCafe;
+			nomTitres = titresCafe;
+			
 		} else if (classe == MdlThe.class) {
 			MdlThe the = new MdlThe("");
 			breuvage = the;
 			pnlWindows = createThePanels(the);
+			ongletNoms = ongletsNomThe;
+			nomTitres = titresThe;
 		} else {
 			MdlChocolatChaud chocolatChaud = new MdlChocolatChaud("");
 			breuvage = chocolatChaud;
 			pnlWindows = createChocolatPanels(chocolatChaud);
+			ongletNoms = ongletsNomCC;
+			nomTitres = titresCC;
 		}
 		breuvage.addPropertyChangeListener(this);
 
 		pnlCreation = new PanelCreation(pnlWindows, ongletNoms, nomTitres);
 		pnlCreation.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
 		vueGenerale.switchToCreation(pnlCreation);
+		pnlCreation.setTexte(ResourceBundle.getBundle("src.properties.langue", lclLangue));
 		new CtrNavigation(pnlCreation, vueGenerale);
 		updateRapport();
 
 	}
 
-	private JPanel[] createCafePanels(MdlCafe cafe) {
+	private JPanelTrad[] createCafePanels(MdlCafe cafe) {
 
 		return VueGenerationBoisson.getCafePanels(createTailles(), createTorefs(cafe),
 				createComposantes(cafe.getListJet()), createComposantes(cafe.getListLcs()));
 	}
 
-	private JPanel[] createThePanels(MdlThe the) {
+	private JPanelTrad[] createThePanels(MdlThe the) {
 
-		JPanel[] tailles = createTailles();
-		JPanel[] lcs = createComposantes(the.getListLcs());
+		JPanelTrad[] tailles = createTailles();
+		JPanelTrad[] lcs = createComposantes(the.getListLcs());
 		return VueGenerationBoisson.getGenericPanels(tailles, lcs);
 
 	}
 
-	private JPanel[] createChocolatPanels(MdlChocolatChaud chocolatChaut) {
-		JPanel[] tailles = createTailles();
-		JPanel[] lcs = createComposantes(chocolatChaut.getListLcs());
+	private JPanelTrad[] createChocolatPanels(MdlChocolatChaud chocolatChaut) {
+		JPanelTrad[] tailles = createTailles();
+		JPanelTrad[] lcs = createComposantes(chocolatChaut.getListLcs());
 		return VueGenerationBoisson.getGenericPanels(tailles, lcs);
 
 	}
 
-	private JPanel[] createTailles() {
-		JPanel[] tailles = new JPanel[breuvage.getListTaille().length];
+	private JPanelTrad[] createTailles() {
+		PaneauTaille[] tailles = new PaneauTaille[breuvage.getListTaille().length];
 		ButtonGroup bg = new ButtonGroup();
 		for (int i = 0; i < breuvage.getListTaille().length; i++) {
 			Taille taille = breuvage.getListTaille()[i];
-			tailles[i] = new PaneauTaille(taille.getNom(), taille.getPath(), taille.getPrix(), taille.getSize(), bg,
+			tailles[i] = new PaneauTaille(taille.getNom(), taille.getPath(), taille.getPrix(), taille.getSize(), bg,i==2,
 					new tailleListener(taille));
 		}
 		return tailles;
 	}
 
-	private JPanel[] createTorefs(MdlCafe cafe) {
-		JPanel[] torefs = new JPanel[MdlCafe.getListToref().length];
+	private JPanelTrad[] createTorefs(MdlCafe cafe) {
+		PaneauToref[] torefs = new PaneauToref[MdlCafe.getListToref().length];
 		ButtonGroup bg = new ButtonGroup();
 		for (int i = 0; i < MdlCafe.getListToref().length; i++) {
-			torefs[i] = new PaneauToref(MdlCafe.getListToref()[i].getNom(), MdlCafe.getListToref()[i].getPath(), bg,
+			torefs[i] = new PaneauToref(MdlCafe.getListToref()[i].getNom(), MdlCafe.getListToref()[i].getPath(), bg,i==1,
 					new torefListener(MdlCafe.getListToref()[i]));
 		}
 		return torefs;
 	}
 
-	private JPanel[] createComposantes(ComposanteBreuvage[] composanteListe) {
-		JPanel[] composantes = new JPanel[composanteListe.length];
+	private JPanelTrad[] createComposantes(ComposanteBreuvage[] composanteListe) {
+		ComposantePane[] composantes = new ComposantePane[composanteListe.length];
 		for (int i = 0; i < composanteListe.length; i++) {
 			ComposanteBreuvage comp = composanteListe[i];
 			JTextField tfPortions = new JTextField();

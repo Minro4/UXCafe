@@ -21,7 +21,7 @@ public class Sucre extends ComposanteBreuvage {
 		
 	}
 	public Sucre(String nom,String image,  double prix, boolean calcUnite) {
-		super(image, nom);
+		super(nom,image);
 		this.prix = prix;
 		this.calcUnite = calcUnite;
 	}

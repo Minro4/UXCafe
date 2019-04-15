@@ -14,13 +14,16 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.ResourceBundle;
 
-public class ConfirmationPane extends JPanel {
+public class ConfirmationPane extends JPanelTrad {
 
 	private static final long serialVersionUID = 1L;
 	private JButton btnConfirm;
 
 	private JPanel panelRapport;
+	
+	JLabel lbTitre;
 	
 //	private Font font;
 	
@@ -28,10 +31,10 @@ public class ConfirmationPane extends JPanel {
 	public ConfirmationPane() {
 
 		setPreferredSize(new Dimension(203, 0));
-		JLabel lbTitre = new JLabel("Votre Cafe");
+		lbTitre = new JLabel();
 		lbTitre.setFont(lbTitre.getFont().deriveFont(20f));
 		
-		btnConfirm = new JButton("Confirmer");
+		btnConfirm = new JButton();
 		btnConfirm.setPreferredSize(new Dimension(140,40));
 		btnConfirm.setFont(btnConfirm.getFont().deriveFont(16f));
 		
@@ -128,6 +131,10 @@ public class ConfirmationPane extends JPanel {
 		return btnConfirm;
 	}
 	
-	
+	@Override
+	public void setTexte(ResourceBundle bdlLangue) {
+		lbTitre.setText(bdlLangue.getString("votre_boisson"));
+		btnConfirm.setText(bdlLangue.getString("confirmer"));
+	}
 	
 }

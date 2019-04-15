@@ -17,63 +17,12 @@ public class MdlCafe extends MdlBoisson {
 	private ComposanteBreuvage torefaction;
 	private HashMap<Sucre, Integer> sucres = new HashMap<Sucre, Integer>();
 	private HashMap<Creme, Integer> cremes = new HashMap<Creme, Integer>();
-	//protected static ArrayList<Jet> listJet=new ArrayList<Jet>();
-	// private Map.Entry<Sucre, Integer> sucre;
-	// private Map.Entry<Creme, Integer> creme;
-	
-	/*private static Taille[] listTaille = {
-			new Taille("Très petit", 250, 1.55, "Images/cafeTP.png", 34),
-			new Taille("Petit", 350, 1.75, "Images/cafeP.png", 34),
-			new Taille("Moyen", 500, 1.95, "Images/cafe.png", 34),
-			new Taille("Grand", 600, 2.15, "Images/cafeG.png", 34),
-			new Taille("Très Grand", 700, 2.35, "Images/cafeTG.png", 34)
-	};
-	private static ComposanteBreuvage[] listToref = {
-			new ComposanteBreuvage("Légère", "Images/coffeeBean.png"),
-			new ComposanteBreuvage("Normale", "Images/CoffeeBean2.png"),
-			new ComposanteBreuvage("Foncée", "Images/CoffeeBean3.png")
-	};
-	private static Jet[] listJet = {
-			new Jet("Menthe", "Images/menthepoivre.png"),
-			new Jet("Moka", "Images/chocolate.png"),
-			new Jet("Caramel", "Images/caramel.jpg"),
-			new Jet("Vanille", "Images/vanilla.png"),
-			new Jet("Framboise", "Images/raspberry.png"),
-			new Jet("Noisette", "Images/hazelnut.png")
-	};
-	private static ComposanteBreuvage[] listLCS = {
-			new Lait("Lait", "Images/lait.png"),
-			new Creme("Creme", "Images/creme.png"),
-			new Sucre("Sucre", "Images/sugar.png"),
-			new Sucre("Miel","Images/miel.png",0.05f,true),
-			new Sucre("Cassonade", "Images/cassonade.png",0.1f,false),
-			new Sucre("Édulcorant", "Images/edulcorant.png",0.05f,true)		
-	};*/
 	
 	private HashMap<Jet, Integer> jets = new HashMap<Jet, Integer>();	
-
-	/*public Cafe(Taille taille, ComposanteBreuvage torefaction, String imgPath) {
-		super(imgPath);
-		this.torefaction = torefaction;
-		
-	}*/
 	
 	public MdlCafe(String imgPath) {
 		super(imgPath);
 		
-		
-		/*listTaille.add(new Taille("Très petit", 250, 1.55, "Images/cafeTP.png", 34));
-		listTaille.add(new Taille("Petit", 350, 1.75, "Images/cafeP.png", 34));
-		listTaille.add(new Taille("Moyen", 500, 1.95, "Images/cafe.png", 34));
-		listTaille.add(new Taille("Grand", 600, 2.15, "Images/cafeG.png", 34));
-		listTaille.add(new Taille("Très Grand", 700, 2.35, "Images/cafeTG.png", 34));*/
-
-		/*listJet.add(new Jet("Menthe", "Images/menthepoivre.png"));
-		listJet.add(new Jet("Moka", "Images/chocolate.png"));
-		listJet.add(new Jet("Caramel", "Images/caramel.jpg"));
-		listJet.add(new Jet("Vanille", "Images/vanilla.png"));
-		listJet.add(new Jet("Framboise", "Images/raspberry.png"));
-		listJet.add(new Jet("Noisette", "Images/hazelnut.png"));*/
 		Sucre sucre = new Sucre("Sucre", "Images/sugar.png");
 		Creme creme = new Creme("Creme", "Images/creme.png");
 		lcsList.add(sucre);

@@ -12,6 +12,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,13 +22,16 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 
-public class ComposantePane extends JPanel {
+public class ComposantePane extends JPanelTrad{
 
 	private static final long serialVersionUID = 1L;
-
-	public ComposantePane(String ingNom,String ingImPath,JTextField tfPortions,ActionListener plusListener,ActionListener moinListener) {
 	
-		JLabel nom;
+	String nomKey;
+	JLabel lbNom;
+
+	public ComposantePane(String ingNomKey,String ingImPath,JTextField tfPortions,ActionListener plusListener,ActionListener moinListener) {
+	
+		this.nomKey = ingNomKey;
 		JLabel imageIngred;
 		JButton plus;
 		JButton moins;
@@ -69,8 +73,8 @@ public class ComposantePane extends JPanel {
 		imageIngred.setIcon(new ImageIcon(setIc(ingImPath, imHeight).getImage()));
 		imageIngred.setBorder(new LineBorder(Color.BLACK));
 
-		nom = new JLabel(ingNom);
-		nom.setFont(nom.getFont().deriveFont(16.0f));
+		lbNom = new JLabel();
+		lbNom.setFont(lbNom.getFont().deriveFont(16.0f));
 
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -94,7 +98,7 @@ public class ComposantePane extends JPanel {
 		c.gridx = 0;
 		c.gridy = 3;
 
-		add(nom, c);
+		add(lbNom, c);
 
 		c.anchor = GridBagConstraints.NORTH;
 		c.gridx = 0;
@@ -115,5 +119,10 @@ public class ComposantePane extends JPanel {
 		
 		return imageI;
 		
+	}
+	
+	@Override
+	public void setTexte(ResourceBundle bdlLangue) {
+		lbNom.setText(bdlLangue.getString(nomKey));
 	}
 }

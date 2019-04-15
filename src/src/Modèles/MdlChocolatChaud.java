@@ -36,7 +36,6 @@ public class MdlChocolatChaud extends MdlBoisson {
 
 		NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
-		
 		int totalLigne = 3+ laits.size();
 
 		String[][] rapport = new String[totalLigne][2];

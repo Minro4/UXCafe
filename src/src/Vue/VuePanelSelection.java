@@ -13,24 +13,25 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class VuePanelSelection extends JPanel{
+public class VuePanelSelection extends JPanelTrad{
 
 	private static final long serialVersionUID = 1L;
 	private ArrayList<PnlChoix> pnlChoixs = new ArrayList<PnlChoix>();
 	
-	public VuePanelSelection(String[] noms, String[] paths, ActionListener[] actionListeners) {
+	public VuePanelSelection(String[] keys, String[] paths, ActionListener[] actionListeners) {
 		
 		Color bgColor = new Color(250, 200, 155);
 		setBackground(bgColor);
 		setLayout(new FlowLayout(FlowLayout.CENTER,40,100));
 		
-		for (int i = 0; i < noms.length; i++) {
-			PnlChoix pnlChoix = new PnlChoix(noms[i], paths[i],bgColor, actionListeners[i]);
+		for (int i = 0; i < keys.length; i++) {
+			PnlChoix pnlChoix = new PnlChoix(keys[i], paths[i],bgColor, actionListeners[i]);
 			pnlChoixs.add(pnlChoix);	
 			add(pnlChoix);
 		}		
 	}
 	
+	@Override
 	public void setTexte(ResourceBundle bdlLangue) {
 		for (PnlChoix pnlChoix : pnlChoixs) {
 			pnlChoix.setTexte(bdlLangue);
@@ -45,11 +46,11 @@ public class VuePanelSelection extends JPanel{
 		private JLabel lbTexte;
 		private String langueKey;
 		
-		public PnlChoix(String txt, String path,Color bgColor, ActionListener actionListener) {
-			langueKey = txt;
+		public PnlChoix(String key, String path,Color bgColor, ActionListener actionListener) {
+			langueKey = key;
 			setBackground(bgColor);
 			JButton button = new JButton();
-			lbTexte = new JLabel(txt);
+			lbTexte = new JLabel();
 			lbTexte.setFont(lbTexte.getFont().deriveFont(20.0f));
 			//button.setText(txt);
 			button.setIcon(VueUtils.setIcon(path, 100));
