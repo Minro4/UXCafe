@@ -27,8 +27,7 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
-import com.sun.corba.se.spi.orbutil.fsm.Action;
-import com.sun.org.apache.xml.internal.utils.SuballocatedByteVector;
+import src.Controller.CtrNavigation;
 
 public class PanelCreation extends JPanel {
 
@@ -57,7 +56,6 @@ public class PanelCreation extends JPanel {
 	private Border selectedBorder;
 	private Border unselectedBorder;
 
-	
 	public PanelCreation(JPanel[] pnlWindows, String[] nomOnglets, String[] nomPanels) {
 
 		setLayout(new BorderLayout());
@@ -122,11 +120,11 @@ public class PanelCreation extends JPanel {
 
 			for (int i = 0; i < btnOnglets.length; i++) {
 				btnOnglets[i] = new JButton(nomOnglets[i]);
-				UnselectOnglet(i);
+				unselectOnglet(i);
 				btnOnglets[i].setPreferredSize(new Dimension(0, 40));
 			}
 			selectOnglet(0);
-			
+
 			GridBagConstraints constraints = new GridBagConstraints();
 			constraints.fill = GridBagConstraints.HORIZONTAL;
 			constraints.weightx = 1;
@@ -146,7 +144,7 @@ public class PanelCreation extends JPanel {
 		}
 		// ----------- END NAVIGATION
 		// --------------------------------------------------------------
-		
+
 		this.pnlWindows = pnlWindows;
 		this.nomPanels = nomPanels;
 
@@ -159,19 +157,15 @@ public class PanelCreation extends JPanel {
 		constraints.insets = new Insets(15, 10, 10, 10);
 		for (JPanel panel : pnlWindows) {
 			pnlConteneurIng.add(panel, constraints);
+			panel.setPreferredSize(new Dimension(panelWidth, 1));
 			panel.setVisible(false);
 		}
 		pnlWindows[0].setVisible(true);
 		lbTitre.setText(nomPanels[0]);
 
-		
-		new NavigationManager(this);
-		
 		validate();
 
 	}
-
-	
 
 	// Change le panel de sélection (lorsque l'utilisateur change d'onglet)
 	public void ChangePanelIngrediant(int oldPnlIndex, int newPnlIndex) {
@@ -182,6 +176,28 @@ public class PanelCreation extends JPanel {
 		repaint();
 	}
 
+	public void changePanel(int oldIndex, int newIndex) {
+		if (oldIndex != newIndex) {
+			unselectOnglet(oldIndex);
+			selectOnglet(newIndex);
+			ChangePanelIngrediant(oldIndex, newIndex);
+
+			if (newIndex == 0) { // Si le nouvel onglet est le premier, on enlève le btn retour
+				btnRetour.setEnabled(false);
+			} else if (oldIndex == 0) { // Si l'onglet était le premier, on ajoute le boutton retour
+				btnRetour.setEnabled(true);
+			}
+
+			if (newIndex == btnOnglets.length - 1) { // Si le nouvel onglet est le dernier, on change le texte du
+														// boutton
+				// suivant pour "Confirmer"
+				btnSuivant.setEnabled(false);
+				// confirmationPane.update();
+			} else if (oldIndex == btnOnglets.length - 1)
+				btnSuivant.setEnabled(true);
+		}
+	}
+
 	// Change l'aspect visuel de l'onglet lorsqu'il est sélectionné
 	public void selectOnglet(int index) {
 		btnOnglets[index].setBackground(selectedColor);
@@ -189,7 +205,7 @@ public class PanelCreation extends JPanel {
 	}
 
 	// Change l'aspect visuel de l'onglet lorsqu'il est désélectionné
-	public void UnselectOnglet(int index) {
+	public void unselectOnglet(int index) {
 		btnOnglets[index].setBackground(unselectedColor);
 		btnOnglets[index].setBorder(unselectedBorder);
 	}
@@ -203,29 +219,6 @@ public class PanelCreation extends JPanel {
 	}
 
 	
-	public static JPanel getGenericPanel(JPanel[] composantes) {
-		JPanel jPanel = new JPanel();
-		jPanel.setLayout(new FlowLayout());
-		jPanel.setBackground(Color.white);
-		jPanel.setPreferredSize(new Dimension(panelWidth, 1));
-		for (JPanel composante : composantes) {
-			jPanel.add(composante);
-		}
-
-		return jPanel;
-	}
-
-	public static JPanel getMultiplePanel(JPanel[]... composantes) {
-		JPanel jPanel = new JPanel();
-		jPanel.setLayout(new GridLayout(composantes.length, 1));
-		jPanel.setBackground(Color.white);
-
-		for (int i = 0; i < composantes.length; i++) {
-			jPanel.add(getGenericPanel(composantes[i]));
-		}
-
-		return jPanel;
-	}
 
 	public JButton getBtnSuivant() {
 		return btnSuivant;
@@ -251,44 +244,6 @@ public class PanelCreation extends JPanel {
 		return confirmationPane;
 	}
 
-
-	public static JPanel getSeparatedPanel(JPanel[] jets, int nbPref,ActionListener suivant, ActionListener precedant) {
-		JPanel paneHolder = new JPanel();
-		JPanel buttonHolder = new JPanel();
-		ArrayList<JPanel> listSousPane = getSubListPanel(jets, nbPref);
-		
-		JButton next = new JButton();
-		next.setIcon(new ImageIcon("Images/arrowRight.png"));
-		JButton previous = new JButton();
-		previous.setIcon(new ImageIcon("Images/arrowLeft.png"));
-		
-		buttonHolder.add(next);
-		buttonHolder.add(previous);
-		
-		return paneHolder;	
-	}
-
-	private static ArrayList<JPanel> getSubListPanel(JPanel[] jets,int nbPrefPerPanel) {
-		ArrayList<JPanel> subPanesList = new ArrayList<JPanel>();
-		
-		for(int i = 0; i<nbPrefPerPanel; i++) {
-			JPanel j = new JPanel();
-			int position = i+(subPanesList.size() * nbPrefPerPanel);
-			
-			if(position < jets.length - 1) {
-				j.add(jets[i+(subPanesList.size() * nbPrefPerPanel)]);
-					if(i == nbPrefPerPanel -1) {
-						subPanesList.add(j);
-					}
-			}
-			else {
-				subPanesList.add(j);
-				break;
-			}	
-		}
-		
-		
-		return subPanesList;	
-	}
+	
 
 }

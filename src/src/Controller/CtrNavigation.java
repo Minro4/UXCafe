@@ -4,26 +4,28 @@
 // S'occupe de la navigation de la vue
 //********************************************************************
 
-package src.Vue;
+package src.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import src.Vue.PanelCreation;
 
-public class NavigationManager {
+
+public class CtrNavigation {
 	private int currentOnglet;
-	private PanelCreation vueCafe;
+	private PanelCreation panelCreation;
 
-	public NavigationManager(PanelCreation vueCafe) {
+	public CtrNavigation(PanelCreation panelCreation) {
 		currentOnglet = 0;
-		this.vueCafe = vueCafe;
-		vueCafe.getBtnSuivant().addActionListener(new BouttonSuivantListener());
-		vueCafe.getBtnRetour().addActionListener(new BouttonRetourListener());
-		vueCafe.getBtnAnnuler().addActionListener(new BouttonAnnulerListener());
+		this.panelCreation = panelCreation;
+		panelCreation.getBtnSuivant().addActionListener(new BouttonSuivantListener());
+		panelCreation.getBtnRetour().addActionListener(new BouttonRetourListener());
+		panelCreation.getBtnAnnuler().addActionListener(new BouttonAnnulerListener());
 		
-		JButton[] btnOnglets = vueCafe.getBtnOnglets();
+		JButton[] btnOnglets = panelCreation.getBtnOnglets();
 		for (int i = 0; i < btnOnglets.length; i++) {
 			btnOnglets[i].addActionListener(new BouttonOngletListener(i));
 		}
@@ -32,27 +34,8 @@ public class NavigationManager {
 
 	// Lorsque l'onglet change (index du nouvel onglet)
 	public void OnClickBtnOnglet(int index) {
-		if (index != currentOnglet) {
-			vueCafe.UnselectOnglet(currentOnglet);
-			vueCafe.selectOnglet(index);
-			vueCafe.ChangePanelIngrediant(currentOnglet, index);
-
-			if (index == 0) { // Si le nouvel onglet est le premier, on enlève le btn retour
-				vueCafe.getBtnRetour().setEnabled(false);
-			} else if (currentOnglet == 0) { // Si l'onglet était le premier, on ajoute le boutton retour
-				vueCafe.getBtnRetour().setEnabled(true);
-			}
-
-			if (index == vueCafe.getBtnOnglets().length - 1) { // Si le nouvel onglet est le dernier, on change le texte du boutton
-												// suivant pour "Confirmer"
-				vueCafe.getBtnSuivant().setEnabled(false);
-				//confirmationPane.update();
-			}
-			else if (currentOnglet == vueCafe.getBtnOnglets().length - 1)
-				vueCafe.getBtnSuivant().setEnabled(true);
-
-			currentOnglet = index;
-		}
+		panelCreation.changePanel(currentOnglet, index);
+		currentOnglet = index;
 	}
 
 	public void OnClickSuivant() {

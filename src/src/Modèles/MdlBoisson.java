@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import src.Controller.CtrlBreuvages.breuvageListener;
-import jdk.internal.dynalink.beans.StaticClass;
 
 
 public abstract class MdlBoisson {
@@ -15,8 +14,7 @@ public abstract class MdlBoisson {
 	protected Taille taille;
 	protected String imgPath;
 	protected static ArrayList<ComposanteBreuvage> lcsList = new ArrayList<ComposanteBreuvage>();
-	protected HashMap<Lait, Integer> laits = new HashMap<Lait, Integer>();
-	protected static ArrayList<Taille> listTaille=new ArrayList<Taille>();
+	protected HashMap<Lait, Integer> laits = new HashMap<Lait, Integer>();	
 	protected PropertyChangeSupport support;
 	
 	public MdlBoisson(String path) {
@@ -30,12 +28,10 @@ public abstract class MdlBoisson {
 	public Taille getTaille() {
 		return taille;
 	}
-	public static ArrayList<Taille> getListTaille(){
-		return listTaille;
-	}
-	public static ArrayList<ComposanteBreuvage> getListLcs(){
-		return lcsList;
-	}
+	public abstract Taille[] getListTaille();
+	
+	abstract public ComposanteBreuvage[] getListLcs();
+	
 	public void setTaille(Taille taille) {
 		this.taille=taille;
 		CheckAndAdjustLait();

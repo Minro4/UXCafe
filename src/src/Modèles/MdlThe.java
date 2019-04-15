@@ -3,26 +3,29 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
+import src.Misc;
+
 public class MdlThe extends MdlBoisson {
+	
+	
+	
 	private HashMap<Sucre, Integer> sucres = new HashMap<Sucre, Integer>();
 
-	public MdlThe(Taille taille, String imgPath) {
+	public MdlThe(String imgPath) {
 		super(imgPath);
+		taille = MdlComposantesDB.getTaillesThe()[2];
 		
 		
 	}
 	
-	public MdlThe(String imgPath) {
+	/*public MdlThe(String imgPath) {
 		super(imgPath);
 		
-		listTaille.add(new Taille("Très petit", 250, 1.40, "Images/cafeTP.png", 34));
-		listTaille.add(new Taille("Petit", 350, 1.55, "Images/cafeP.png", 34));
-		listTaille.add(new Taille("Moyen", 500, 1.75, "Images/cafe.png", 34));
-		listTaille.add(new Taille("Grand", 600, 1.90, "Images/cafeG.png", 34));
-		listTaille.add(new Taille("Très Grand", 700, 2.10, "Images/cafeTG.png", 34));
 		Sucre sucre = new Sucre("Sucre", "Images/sugar.png");
 		lcsList.add(sucre);
-	}
+	}*/
 	public void setTaille(Taille taille) {
 		this.taille = taille;
 		CheckAndAdjustLait();
@@ -93,7 +96,7 @@ public class MdlThe extends MdlBoisson {
 			for (Map.Entry<Sucre, Integer> sucre : sucres.entrySet()) {
 				if (sucre.getValue() > 0) {
 					text = sucre.getKey().rapport(sucre.getValue());
-					prix = sucre.getKey().getPrix();
+					prix = sucre.getKey().getPrix(sucre.getValue());
 					prixTotal += prix;
 					rapport[currentIndex][0] = text;
 					rapport[currentIndex++][1] = formatter.format(prix);
@@ -126,6 +129,16 @@ public class MdlThe extends MdlBoisson {
 		}
 		// lait.setValue(nbrPortion);
 
+	}
+
+	@Override
+	public Taille[] getListTaille() {
+		return MdlComposantesDB.getTaillesThe();
+	}
+
+	@Override
+	public ComposanteBreuvage[] getListLcs() {		
+		return (ComposanteBreuvage[]) Misc.combine(MdlComposantesDB.getLaits(),MdlComposantesDB.getSucres());
 	}
 	
 

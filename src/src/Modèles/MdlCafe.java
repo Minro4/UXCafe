@@ -11,52 +11,84 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Cafe extends MdlBoisson {
+import com.sun.jmx.mbeanserver.Util;
+import com.sun.org.apache.xml.internal.serializer.utils.Utils;
+
+import src.Misc;
+
+public class MdlCafe extends MdlBoisson {
 
 	private ComposanteBreuvage torefaction;
 	private HashMap<Sucre, Integer> sucres = new HashMap<Sucre, Integer>();
 	private HashMap<Creme, Integer> cremes = new HashMap<Creme, Integer>();
-	protected static ArrayList<ComposanteBreuvage> listToref=new ArrayList<ComposanteBreuvage>();
-	protected static ArrayList<Jet> listJet=new ArrayList<Jet>();
+	//protected static ArrayList<Jet> listJet=new ArrayList<Jet>();
 	// private Map.Entry<Sucre, Integer> sucre;
 	// private Map.Entry<Creme, Integer> creme;
 	
-	private HashMap<Jet, Integer> jets = new HashMap<Jet, Integer>();
+	/*private static Taille[] listTaille = {
+			new Taille("Très petit", 250, 1.55, "Images/cafeTP.png", 34),
+			new Taille("Petit", 350, 1.75, "Images/cafeP.png", 34),
+			new Taille("Moyen", 500, 1.95, "Images/cafe.png", 34),
+			new Taille("Grand", 600, 2.15, "Images/cafeG.png", 34),
+			new Taille("Très Grand", 700, 2.35, "Images/cafeTG.png", 34)
+	};
+	private static ComposanteBreuvage[] listToref = {
+			new ComposanteBreuvage("Légère", "Images/coffeeBean.png"),
+			new ComposanteBreuvage("Normale", "Images/CoffeeBean2.png"),
+			new ComposanteBreuvage("Foncée", "Images/CoffeeBean3.png")
+	};
+	private static Jet[] listJet = {
+			new Jet("Menthe", "Images/menthepoivre.png"),
+			new Jet("Moka", "Images/chocolate.png"),
+			new Jet("Caramel", "Images/caramel.jpg"),
+			new Jet("Vanille", "Images/vanilla.png"),
+			new Jet("Framboise", "Images/raspberry.png"),
+			new Jet("Noisette", "Images/hazelnut.png")
+	};
+	private static ComposanteBreuvage[] listLCS = {
+			new Lait("Lait", "Images/lait.png"),
+			new Creme("Creme", "Images/creme.png"),
+			new Sucre("Sucre", "Images/sugar.png"),
+			new Sucre("Miel","Images/miel.png",0.05f,true),
+			new Sucre("Cassonade", "Images/cassonade.png",0.1f,false),
+			new Sucre("Édulcorant", "Images/edulcorant.png",0.05f,true)		
+	};*/
+	
+	private HashMap<Jet, Integer> jets = new HashMap<Jet, Integer>();	
 
-
-	public Cafe(Taille taille, ComposanteBreuvage torefaction, String imgPath) {
+	/*public Cafe(Taille taille, ComposanteBreuvage torefaction, String imgPath) {
 		super(imgPath);
 		this.torefaction = torefaction;
 		
-	}
-	public Cafe(String imgPath) {
+	}*/
+	
+	public MdlCafe(String imgPath) {
 		super(imgPath);
 		
 		
-		listTaille.add(new Taille("Très petit", 250, 1.55, "Images/cafeTP.png", 34));
+		/*listTaille.add(new Taille("Très petit", 250, 1.55, "Images/cafeTP.png", 34));
 		listTaille.add(new Taille("Petit", 350, 1.75, "Images/cafeP.png", 34));
 		listTaille.add(new Taille("Moyen", 500, 1.95, "Images/cafe.png", 34));
 		listTaille.add(new Taille("Grand", 600, 2.15, "Images/cafeG.png", 34));
-		listTaille.add(new Taille("Très Grand", 700, 2.35, "Images/cafeTG.png", 34));
-		listToref.add(new ComposanteBreuvage("Légère", "Images/coffeeBean.png"));
-		listToref.add(new ComposanteBreuvage("Normale", "Images/CoffeeBean2.png"));
-		listToref.add(new ComposanteBreuvage("Foncée", "Images/CoffeeBean3.png"));
-		listJet.add(new Jet("Menthe", "Images/menthepoivre.png"));
+		listTaille.add(new Taille("Très Grand", 700, 2.35, "Images/cafeTG.png", 34));*/
+
+		/*listJet.add(new Jet("Menthe", "Images/menthepoivre.png"));
 		listJet.add(new Jet("Moka", "Images/chocolate.png"));
 		listJet.add(new Jet("Caramel", "Images/caramel.jpg"));
 		listJet.add(new Jet("Vanille", "Images/vanilla.png"));
 		listJet.add(new Jet("Framboise", "Images/raspberry.png"));
-		listJet.add(new Jet("Noisette", "Images/hazelnut.png"));
+		listJet.add(new Jet("Noisette", "Images/hazelnut.png"));*/
 		Sucre sucre = new Sucre("Sucre", "Images/sugar.png");
 		Creme creme = new Creme("Creme", "Images/creme.png");
 		lcsList.add(sucre);
 		lcsList.add(creme);
-		taille=listTaille.get(2);
-		torefaction=listToref.get(1);
+		taille=MdlComposantesDB.getTaillesCafe()[2];
+		torefaction=MdlComposantesDB.getTorefs()[1];
 
 		// this.sucre = new AbstractMap.SimpleEntry<Sucre, Integer>(sucre, 0);
 		//support = new PropertyChangeSupport(this);
 	}
+	
 	public void setTaille(Taille taille) {
 		this.taille = taille;
 		CheckAndAdjustLait();
@@ -71,11 +103,11 @@ public class Cafe extends MdlBoisson {
 	public int getPortion(Jet jet) {
 		return jets.get(jet);
 	}
-	public static ArrayList<ComposanteBreuvage> getListToref(){
-		return listToref;
+	public static ComposanteBreuvage[] getListToref(){
+		return MdlComposantesDB.getTorefs();
 	}
-	public static ArrayList<Jet> getListJet(){
-		return listJet;
+	public static Jet[] getListJet(){
+		return MdlComposantesDB.getJets();
 	}
 	
 	
@@ -222,7 +254,7 @@ public class Cafe extends MdlBoisson {
 			for (Map.Entry<Sucre, Integer> sucre : sucres.entrySet()) {
 				if (sucre.getValue() > 0) {
 					text = sucre.getKey().rapport(sucre.getValue());
-					prix = sucre.getKey().getPrix();
+					prix = sucre.getKey().getPrix(sucre.getValue());
 					prixTotal += prix;
 					rapport[currentIndex][0] = text;
 					rapport[currentIndex++][1] = formatter.format(prix);
@@ -293,5 +325,15 @@ public class Cafe extends MdlBoisson {
 		}
 		return sum;
 	}
+
+	@Override
+	public Taille[] getListTaille() {
+		return MdlComposantesDB.getTaillesCafe();
+	}
+
+	@Override
+	public ComposanteBreuvage[] getListLcs() {
+		return (ComposanteBreuvage[]) Misc.combine(MdlComposantesDB.getSucres(),MdlComposantesDB.getCremes(),MdlComposantesDB.getSucres());
+	}	
 
 }

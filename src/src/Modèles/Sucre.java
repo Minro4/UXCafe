@@ -11,21 +11,23 @@ public class Sucre extends ComposanteBreuvage {
 
 	private double prix;
 	private static double proportionMax = 0.01;
-	
+	private boolean calcUnite;
 	
 
 	public Sucre(String nom, String path) {
 		super(nom, path);
 		prix = 0.05f;
+		calcUnite = false;
 		
 	}
-	public Sucre(String image, String nom, double prix) {
+	public Sucre(String nom,String image,  double prix, boolean calcUnite) {
 		super(image, nom);
 		this.prix = prix;
+		this.calcUnite = calcUnite;
 	}
 	
-	public double getPrix() {
-		return prix;
+	public double getPrix(int portions) {
+		return calcUnite? prix*portions:prix;
 	}
 
 	public boolean valide(int portions,int tailleCapacite) {
