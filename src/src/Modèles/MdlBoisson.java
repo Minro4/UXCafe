@@ -2,11 +2,8 @@ package src.Modèles;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import src.Controller.CtrlBreuvages.breuvageListener;
 
 
 public abstract class MdlBoisson {

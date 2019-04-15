@@ -1,6 +1,5 @@
 package src.Modèles;
 import java.text.NumberFormat;
-import java.util.HashMap;
 import java.util.Map;
 
 public class MdlChocolatChaud extends MdlBoisson {

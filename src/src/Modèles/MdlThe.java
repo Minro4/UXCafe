@@ -3,8 +3,6 @@ import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-
 import src.Misc;
 
 public class MdlThe extends MdlBoisson {

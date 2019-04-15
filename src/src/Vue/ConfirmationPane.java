@@ -40,7 +40,7 @@ public class ConfirmationPane extends JPanel {
 		panelRapport.setBackground(Color.lightGray);
 		setBackground(Color.lightGray);
 
-		Font font = new Font("Dialog", Font.BOLD,24);		
+		//Font font = new Font("Dialog", Font.BOLD,24);		
 		
 
 		setLayout(new GridBagLayout());

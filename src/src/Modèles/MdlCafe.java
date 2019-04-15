@@ -7,12 +7,8 @@
 package src.Modèles;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.sun.jmx.mbeanserver.Util;
-import com.sun.org.apache.xml.internal.serializer.utils.Utils;
 
 import src.Misc;
 

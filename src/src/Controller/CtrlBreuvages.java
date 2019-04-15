@@ -6,19 +6,15 @@
 
 package src.Controller;
 
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 
 import src.Vue.*;
 import src.Modèles.*;
@@ -55,9 +51,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		ActionListener[] actionListeners = { new breuvageListener(MdlCafe.class), new breuvageListener(MdlThe.class),
 				new breuvageListener(MdlChocolatChaud.class) };
 
-		vueGenerale = new VueGenerale(VueUtils.generatePanelSelection(noms, paths, actionListeners
-
-		));
+		vueGenerale = new VueGenerale(new VuePanelSelection(noms, paths, actionListeners));
 		// creationBreuvage(MdlThe.class);
 		// vueCafe = new VueGenerale(jetList, tailleList, torefList);
 

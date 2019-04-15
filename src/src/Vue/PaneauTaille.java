@@ -11,9 +11,9 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
@@ -26,14 +26,15 @@ public class PaneauTaille extends JPanel{
 public PaneauTaille(String nom,String path,Double prix, int size,ButtonGroup buttonGroup, ActionListener listener){
 	  
 	  
-	  	JToggleButton toggleButton= new JToggleButton(setIcon(path, size));
+	  	JToggleButton toggleButton= new JToggleButton(VueUtils.setIcon(path, size));
 	  	toggleButton.setBackground(Color.WHITE);
 		setBackground(Color.white);
 		
 		
 		JLabel lbNom = new JLabel(nom);
 		lbNom.setFont(lbNom.getFont().deriveFont(12.0f));
-		JLabel lbPrix= new JLabel(String.valueOf(prix)+"$");
+		NumberFormat formatter = NumberFormat.getCurrencyInstance();
+		JLabel lbPrix= new JLabel(formatter.format(prix));
 		lbPrix.setFont(lbPrix.getFont().deriveFont(12.0f));
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -56,17 +57,6 @@ public PaneauTaille(String nom,String path,Double prix, int size,ButtonGroup but
 	  buttonGroup.add(toggleButton);
 	}
  
-    public ImageIcon setIcon(String path, int resizeX) {
-		
-		ImageIcon imageI = new ImageIcon(path);
-		
-		java.awt.Image oof = imageI.getImage();
-		java.awt.Image resized = oof.getScaledInstance(resizeX, resizeX, java.awt.Image.SCALE_SMOOTH);
-		imageI.setImage(resized);		
-		
-		return imageI;
-		
-	}
-
+   
 }
 
