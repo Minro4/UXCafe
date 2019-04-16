@@ -12,8 +12,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import com.sun.org.apache.bcel.internal.generic.DMUL;
-
 
 public class SeparatedPanel extends JPanelTrad {
 
@@ -140,7 +138,9 @@ public class SeparatedPanel extends JPanelTrad {
 
 	@Override
 	public void setTexte(ResourceBundle bdlLangue) {
-		// TODO Auto-generated method stub
+		for (JPanelTrad jPanelTrad : listSousPane) {
+			jPanelTrad.setTexte(bdlLangue);
+		}
 
 	}
 
