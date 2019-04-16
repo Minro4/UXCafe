@@ -9,6 +9,7 @@ package src.Modèles;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import src.Misc;
 
@@ -92,7 +93,9 @@ public class MdlCafe extends MdlBoisson {
 	}
 
 	private int setSucrePortion(Sucre sucre, int prtnSucre) {
-		if (sucre.valide(prtnSucre, taille.getCapacite())) {
+		int totalSucre = getTotal(sucres);
+		int diff = prtnSucre - sucres.get(sucre);
+		if (sucre.valide(totalSucre + diff, taille.getCapacite())) {
 			sucres.put(sucre, prtnSucre);
 			// sucre.setValue(prtnSucre);
 			return prtnSucre;
@@ -130,7 +133,7 @@ public class MdlCafe extends MdlBoisson {
 		return quantite < 0 ? 0 : quantite;
 	}
 
-	public String[][] getRapport() {
+	public String[][] getRapport(ResourceBundle bdlLangue) {
 
 		NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
@@ -156,7 +159,7 @@ public class MdlCafe extends MdlBoisson {
 
 			for (Map.Entry<Jet, Integer> entry : jets.entrySet()) {
 				double ratio = (double) entry.getValue() / nbrPrtnJet;
-				String text = entry.getKey().rapport(ratio, taille.getCapacite());
+				String text = entry.getKey().rapport(ratio, taille.getCapacite(),bdlLangue);
 				rapport[currentIndex][0] = text;
 
 				if (jets.size() == 1) {
@@ -180,7 +183,7 @@ public class MdlCafe extends MdlBoisson {
 			double prix;
 			for (Map.Entry<Lait, Integer> lait : laits.entrySet()) {
 				if (lait.getValue() > 0) {
-					text = lait.getKey().rapport(lait.getValue());
+					text = lait.getKey().rapport(lait.getValue(),bdlLangue);
 					prix = lait.getKey().getPrix(lait.getValue());
 					prixTotal += prix;
 					rapport[currentIndex][0] = text;
@@ -189,7 +192,7 @@ public class MdlCafe extends MdlBoisson {
 			}
 			for (Map.Entry<Creme, Integer> creme : cremes.entrySet()) {
 				if (creme.getValue() > 0) {
-					text = creme.getKey().rapport(creme.getValue());
+					text = creme.getKey().rapport(creme.getValue(),bdlLangue);
 					prix = creme.getKey().getPrix(creme.getValue());
 					prixTotal += prix;
 					rapport[currentIndex][0] = text;
@@ -198,7 +201,7 @@ public class MdlCafe extends MdlBoisson {
 			}
 			for (Map.Entry<Sucre, Integer> sucre : sucres.entrySet()) {
 				if (sucre.getValue() > 0) {
-					text = sucre.getKey().rapport(sucre.getValue());
+					text = sucre.getKey().rapport(sucre.getValue(),bdlLangue);
 					prix = sucre.getKey().getPrix(sucre.getValue());
 					prixTotal += prix;
 					rapport[currentIndex][0] = text;
@@ -262,14 +265,7 @@ public class MdlCafe extends MdlBoisson {
 			support.firePropertyChange("Creme", creme.getKey(), creme.getValue());
 		}
 
-	}
-	protected <T> int getTotal(HashMap<T, Integer> map) {
-		int sum = 0;
-		for (Map.Entry<T, Integer> entry : map.entrySet()) {
-				sum += entry.getValue();
-		}
-		return sum;
-	}
+	}	
 
 	@Override
 	public Taille[] getListTaille() {

@@ -1,6 +1,7 @@
 package src.Modèles;
 import java.text.NumberFormat;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 public class MdlChocolatChaud extends MdlBoisson {
 		
@@ -32,7 +33,7 @@ public class MdlChocolatChaud extends MdlBoisson {
 		return quantite < 0 ? 0 : quantite;
 	}
 	
-	public String[][] getRapport() {
+	public String[][] getRapport(ResourceBundle bdlLangue) {
 
 		NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
@@ -54,7 +55,7 @@ public class MdlChocolatChaud extends MdlBoisson {
 			double prix;
 			for (Map.Entry<Lait, Integer> lait : laits.entrySet()) {
 				if (lait.getValue() > 0) {
-					text = lait.getKey().rapport(lait.getValue());
+					text = lait.getKey().rapport(lait.getValue(),bdlLangue);
 					prix = lait.getKey().getPrix(lait.getValue());
 					prixTotal += prix;
 					rapport[currentIndex][0] = text;
@@ -68,9 +69,10 @@ public class MdlChocolatChaud extends MdlBoisson {
 		return rapport;
 	}
 	
+
 	protected void CheckAndAdjustLait() {
 		for (Map.Entry<Lait, Integer> lait : laits.entrySet()) {
-			while (!lait.getKey().valide(lait.getValue(), getQuantite()) && lait.getValue() > 0) {
+			while (!lait.getKey().valide(getTotal(laits), getQuantite()) && lait.getValue() > 0) {
 				lait.setValue(lait.getValue() - 1);
 			}
 			support.firePropertyChange("Lait", lait.getKey(), lait.getValue());
@@ -78,6 +80,7 @@ public class MdlChocolatChaud extends MdlBoisson {
 		// lait.setValue(nbrPortion);
 
 	}
+
 	@Override
 	public Taille[] getListTaille() {
 		return MdlComposantesDB.getTaillesThe();

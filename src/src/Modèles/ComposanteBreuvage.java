@@ -10,18 +10,18 @@ public class ComposanteBreuvage {
 	
 
 	private String path; //jsp si cest ca que vs voulez
-	private String nom;
+	private String nomKey;
 
 	
 	public ComposanteBreuvage(String nom,String path) {
 	
 		super();
 		this.path = path;
-		this.nom = nom;
+		this.nomKey = nom;
 	}
 
 	public String getNom() {
-		return nom;
+		return nomKey;
 	}
 
 	public String getPath() {

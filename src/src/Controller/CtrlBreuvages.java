@@ -40,6 +40,8 @@ public class CtrlBreuvages implements PropertyChangeListener {
 	private String[] titresCC = { "titre_taille", "titre_perso"};
 	private String[] noms = { "cafe", "the", "chocolat_chaud" };
 	
+	private ResourceBundle bdlLangue;
+	
 	/*private static String[] nomTitres = { "Sélectionnez la taille de votre café, ainsi que sa torréfaction",
 			"Sélectionnez vos jets de saveur", "Personnaliser le tout" };
 	private static String[] ongletNoms = { "Taille et Torefaction", "Jets de Saveurs", "Lait, Crème et Sucre" };*/
@@ -65,7 +67,8 @@ public class CtrlBreuvages implements PropertyChangeListener {
 
 		vueGenerale = new VueGenerale(new VuePanelSelection(noms, paths, actionListeners));
 		// creationBreuvage(MdlThe.class);
-		vueGenerale.setTexte(ResourceBundle.getBundle("src.properties.langue", lclLangue));
+		bdlLangue = ResourceBundle.getBundle("src.properties.langue", lclLangue);
+		vueGenerale.setTexte(bdlLangue);
 		// vueCafe = new VueGenerale(jetList, tailleList, torefList);
 
 		// pnlCreation.setPanelCafe(tailleList, torefList, cafe, 40, this);
@@ -136,7 +139,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		pnlCreation = new PanelCreation(pnlWindows, ongletNoms, nomTitres);
 		pnlCreation.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
 		vueGenerale.switchToCreation(pnlCreation);
-		pnlCreation.setTexte(ResourceBundle.getBundle("src.properties.langue", lclLangue));
+		pnlCreation.setTexte(bdlLangue);
 		new CtrNavigation(pnlCreation, vueGenerale);
 		updateRapport();
 
@@ -280,7 +283,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 	public void updateRapport() {
 		if (pnlCreation == null)
 			return;
-		pnlCreation.getConfirmationPane().update(breuvage.getRapport());
+		pnlCreation.getConfirmationPane().update(breuvage.getRapport(bdlLangue));
 		pnlCreation.validate();
 	}
 

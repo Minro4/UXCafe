@@ -5,6 +5,8 @@
 //********************************************************************
 package src.Modèles;
 
+import java.util.ResourceBundle;
+
 public class Creme extends ComposanteBreuvage{
 
 	private static double proportionMax = 0.1f;
@@ -35,8 +37,8 @@ public class Creme extends ComposanteBreuvage{
 		return portion*quantiteParPortion;
 	}
 	
-	public String rapport(int portion) {
-		return getQuantite(portion) + " ml de " + getNom() + ":";
+	public String rapport(int portion, ResourceBundle bdlLangue) {
+		return getQuantite(portion) + bdlLangue.getString("ml") + bdlLangue.getString(getNom()) + ":";
 	}
 	
 	public double getPrix(int portion) {

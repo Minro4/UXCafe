@@ -7,6 +7,7 @@
 package src.Modèles;
 
 import java.text.DecimalFormat;
+import java.util.ResourceBundle;
 
 public class Jet extends ComposanteBreuvage{
 	
@@ -30,9 +31,9 @@ public class Jet extends ComposanteBreuvage{
 		return proportion;
 	}
 	
-	public String rapport(double ratio,int tailleCapacite) {
+	public String rapport(double ratio,int tailleCapacite,ResourceBundle bdlLangue) {
 		DecimalFormat df = new DecimalFormat("#.0"); 
-		return df.format(Jet.getQuantite(ratio, tailleCapacite)) + " ml sirop " + getNom() + ":";	
+		return df.format(Jet.getQuantite(ratio, tailleCapacite)) + bdlLangue.getString(" ml sirop ") + bdlLangue.getString(getNom()) + ":";	
 	}
 	
 }

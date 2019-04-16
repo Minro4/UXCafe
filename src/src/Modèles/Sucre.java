@@ -6,6 +6,7 @@
 
 package src.Modèles;
 
+import java.util.ResourceBundle;
 
 public class Sucre extends ComposanteBreuvage {
 
@@ -34,8 +35,8 @@ public class Sucre extends ComposanteBreuvage {
 		return (portions <= (int) (tailleCapacite * proportionMax));
 	}
 	
-	public String rapport(int portion) {
-		return portion + " " + getNom() + ((portion > 1)?"s:":":");//Si on a plus de 1 portions, on ajoute un 's'
+	public String rapport(int portion ,ResourceBundle bdlLangue) {
+		return portion + " " + bdlLangue.getString(getNom()) + ":";//Si on a plus de 1 portions, on ajoute un 's'
 	}
 	
 	public int getNbrPortionMax(int tailleCapacite) {

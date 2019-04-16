@@ -4,6 +4,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 
 public abstract class MdlBoisson {
@@ -47,6 +49,13 @@ public abstract class MdlBoisson {
 		return laits.containsKey(lait) ? laits.get(lait) : 0;
 	}
 	
+	protected <T> int getTotal(HashMap<T, Integer> map) {
+		int sum = 0;
+		for (Map.Entry<T, Integer> entry : map.entrySet()) {
+				sum += entry.getValue();
+		}
+		return sum;
+	}
 	
 	// Est utilis� lorsque l'on ajoute un autre ingr�dient, car puisque la quantite
 	// de caf� est r�duite,
@@ -57,7 +66,7 @@ public abstract class MdlBoisson {
 	
 	abstract public int getQuantite();
 	
-	abstract public String[][] getRapport();
+	abstract public String[][] getRapport(ResourceBundle bdlLangue);
 
 	public void addPropertyChangeListener(PropertyChangeListener pcl) {
 		support.addPropertyChangeListener(pcl);
