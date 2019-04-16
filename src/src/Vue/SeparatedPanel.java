@@ -1,5 +1,6 @@
 package src.Vue;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -8,10 +9,13 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.GroupLayout.Alignment;
 
+import com.sun.beans.editors.FloatEditor;
 import com.sun.org.apache.bcel.internal.generic.DMUL;
 
 
@@ -21,7 +25,7 @@ public class SeparatedPanel extends JPanelTrad {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JPanel paneHolder;
+	
 	JPanel buttonHolder;
 	JPanelTradInterm paneJets;
 	JButton next;
@@ -32,8 +36,12 @@ public class SeparatedPanel extends JPanelTrad {
 
 	public SeparatedPanel(JPanelTrad[] jets, int nbPref) {
 
+		this.setBackground(Color.white);
 		buttonHolder = new JPanel();
+		buttonHolder.setBackground(Color.white);
 		paneJets = new JPanelTradInterm();
+		paneJets.setLayout(new FlowLayout());
+		paneJets.setBackground(Color.white);
 
 		next = new JButton();
 		previous = new JButton();
@@ -58,16 +66,11 @@ public class SeparatedPanel extends JPanelTrad {
 		buttonHolder.add(previous);
 		buttonHolder.add(next);
 		
-
-		setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-
-		c.gridy = 0;
-		c.weighty = 2;
-		add(paneJets, c);
-		c.gridy = 1;
-		c.weighty = 0.1;
-		add(buttonHolder, c);
+		
+		
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		add(paneJets);
+		add(buttonHolder);
 
 	}
 
@@ -109,7 +112,8 @@ public class SeparatedPanel extends JPanelTrad {
 		while (xd) {
 				JPanelTradInterm j = new JPanelTradInterm();
 				j.setLayout(new FlowLayout());
-				j.setPreferredSize(new Dimension(600,600));
+				j.setPreferredSize(new Dimension(360, 252));
+				j.setBackground(Color.white);
 			for (int i = 0; i < nbPrefPerPanel; i++) {
 				
 				int position = i + (subPanesList.size() * nbPrefPerPanel);
