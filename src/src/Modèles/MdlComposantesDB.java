@@ -45,8 +45,8 @@ public class MdlComposantesDB {
 	private static ComposanteBreuvage[] sucres = {		
 			new Sucre("sucre_raffine", "Images/sugar.png"),
 			new Sucre("sucre_miel","Images/honey.png",0.05f,true),
-			new Sucre("sucre_cassonade", "Images/cassonade.png",0.1f,false),
-			new Sucre("sucre_edulcorant", "Images/edulcorant.png",0.05f,true)		
+			new Sucre("sucre_cassonade", "Images/cassonade.jpg",0.1f,false),
+			new Sucre("sucre_edulcorant", "Images/sweetener.png",0.05f,true)		
 	};
 	public static Taille[] getTaillesCafe() {
 		return taillesCafe;

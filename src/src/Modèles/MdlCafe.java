@@ -270,7 +270,7 @@ public class MdlCafe extends MdlBoisson {
 
 	@Override
 	public ComposanteBreuvage[] getListLcs() {
-		return  Misc.combine(MdlComposantesDB.getSucres(),MdlComposantesDB.getCremes(),MdlComposantesDB.getSucres());
+		return  Misc.combine(MdlComposantesDB.getSucres(),MdlComposantesDB.getCremes(),MdlComposantesDB.getLaits());
 	}	
 	
 	public static String getPath() {
