@@ -33,10 +33,17 @@ public class SeparatedPanel extends JPanelTrad {
 
 		next = new JButton();
 		previous = new JButton();
+<<<<<<< Updated upstream
 
 		next.setIcon(new ImageIcon("Images/arrowRight.png"));
 		previous.setIcon(new ImageIcon("Images/arrowLeft.png"));
 
+=======
+		
+		next.setIcon(setIc("Images/arrowLeft.png", 20));
+		previous.setIcon(setIc("Images/arrowRight.png",20));
+		
+>>>>>>> Stashed changes
 		listSousPane = getSubListPanel(jets, nbPref);
 
 		for (int i = 0; i < listSousPane.size(); i++) {
@@ -83,6 +90,7 @@ public class SeparatedPanel extends JPanelTrad {
 	public void setPrevious(JButton previous) {
 		this.previous = previous;
 	}
+<<<<<<< Updated upstream
 
 	private static ArrayList<JPanelTrad> getSubListPanel(JPanelTrad[] jets, int nbPrefPerPanel) {
 		ArrayList<JPanelTrad> subPanesList = new ArrayList<JPanelTrad>();
@@ -91,6 +99,21 @@ public class SeparatedPanel extends JPanelTrad {
 			for (int i = 0; i < nbPrefPerPanel; i++) {
 				JPanelTradInterm j = new JPanelTradInterm();
 				int position = i + (subPanesList.size() * nbPrefPerPanel);
+=======
+	public ImageIcon setIc(String path, int hauteur) {
+		
+		ImageIcon imageI = new ImageIcon(path);
+		
+		java.awt.Image oof = imageI.getImage();
+		java.awt.Image resized = oof.getScaledInstance(hauteur, hauteur, java.awt.Image.SCALE_SMOOTH);
+		imageI.setImage(resized);		
+		
+		return imageI;
+		
+	}
+	private static ArrayList<JPanel> getSubListPanel(JPanel[] jets, int nbPrefPerPanel) {
+		ArrayList<JPanel> subPanesList = new ArrayList<JPanel>();
+>>>>>>> Stashed changes
 
 				if (position < jets.length - 1) {
 					j.add(jets[i + (subPanesList.size() * nbPrefPerPanel)]);
