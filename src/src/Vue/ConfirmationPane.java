@@ -8,19 +8,22 @@ package src.Vue;
 
 import javax.swing.*;
 
+
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 
 public class ConfirmationPane extends JPanelTrad {
 
 	private static final long serialVersionUID = 1L;
-	private JButton btnConfirm;
-
+	private JButton btnConfirm, btnLangue;
+	
 	private JPanel panelRapport;
 	
 	JLabel lbTitre;
@@ -28,7 +31,7 @@ public class ConfirmationPane extends JPanelTrad {
 //	private Font font;
 	
 	
-	public ConfirmationPane() {
+	public ConfirmationPane(ActionListener langueListener) {
 
 		setPreferredSize(new Dimension(203, 0));
 		lbTitre = new JLabel();
@@ -37,6 +40,11 @@ public class ConfirmationPane extends JPanelTrad {
 		btnConfirm = new JButton();
 		btnConfirm.setPreferredSize(new Dimension(140,40));
 		btnConfirm.setFont(btnConfirm.getFont().deriveFont(16f));
+		
+		btnLangue= new JButton();
+		btnLangue.setPreferredSize(new Dimension(60,20));
+		btnLangue.setFont(btnLangue.getFont().deriveFont(12f));
+		btnLangue.addActionListener(langueListener);
 		
 		panelRapport = new JPanel();		
 		panelRapport.setLayout(new GridBagLayout());
@@ -51,26 +59,30 @@ public class ConfirmationPane extends JPanelTrad {
 		
 		
 		constraints.anchor = GridBagConstraints.PAGE_START;
-		constraints.weighty = 1;
-		
-		
-		//constraints.insets = normalInset;
+		constraints.weighty = 0;
+
 		constraints.gridx = 0;
 		constraints.gridy = 0;
-		constraints.insets =  new Insets(40, 0, 0, 0);
+		constraints.insets = new Insets(10, 140, 0, 0);
+		add(btnLangue, constraints);
+		constraints.weighty=1;
+		//constraints.insets = normalInset;
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		constraints.insets =  new Insets(0, 0, 0, 0);
 		add(lbTitre, constraints);
 		//constraints.anchor = GridBagConstraints.CENTER;
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.weightx = 1;
 		constraints.gridx = 0;
-		constraints.gridy = 1;
+		constraints.gridy = 2;
 		constraints.insets =  new Insets(0, 0, 0, 0);
 		add(panelRapport, constraints);
 	
 		constraints.fill = GridBagConstraints.NONE;
 		constraints.weightx = 0;
 		constraints.gridx = 0;
-		constraints.gridy = 2;
+		constraints.gridy = 3;
 		constraints.weighty = 0;
 		
 		constraints.insets =  new Insets(0, 0, 40, 0);
@@ -135,6 +147,8 @@ public class ConfirmationPane extends JPanelTrad {
 	public void setTexte(ResourceBundle bdlLangue) {
 		lbTitre.setText(bdlLangue.getString("votre_boisson"));
 		btnConfirm.setText(bdlLangue.getString("confirmer"));
+		btnLangue.setText(bdlLangue.getString("shortLangue"));
+		
 	}
 	
 }
