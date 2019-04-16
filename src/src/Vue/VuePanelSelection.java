@@ -2,9 +2,11 @@ package src.Vue;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -26,10 +28,12 @@ public class VuePanelSelection extends JPanelTrad{
 		setLayout(new GridBagLayout());
 		setBackground(bgColor);
 		JPanel btnHolder = new JPanel();
+		btnHolder.setLayout(new BorderLayout());
 		btnLangue = new JButton();
+		btnLangue.setPreferredSize(new Dimension(100, 45));
 		btnLangue.addActionListener(langueListener);
-		btnHolder.add(btnLangue);
-		//btnHolder.setBackground(bgColor);
+		btnHolder.add(btnLangue,BorderLayout.EAST);
+		btnHolder.setBackground(bgColor);
 		//setLayout();
 		JPanel pnlSelection = new JPanel();
 		pnlSelection.setLayout(new FlowLayout(FlowLayout.CENTER,40,100));
@@ -38,13 +42,17 @@ public class VuePanelSelection extends JPanelTrad{
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.anchor = GridBagConstraints.FIRST_LINE_END;
 		constraints.fill = GridBagConstraints.BOTH;
-		
+		constraints.weightx = 1;
+		constraints.weighty =0; 
+		constraints.insets = new Insets(5, 5, 5, 5);
 		add(btnHolder,constraints);
+		constraints.weighty =1; 
 		constraints.gridy = 1;
 		add(pnlSelection,constraints);
 		
 		for (int i = 0; i < keys.length; i++) {
 			PnlChoix pnlChoix = new PnlChoix(keys[i], paths[i],bgColor, actionListeners[i]);
+			pnlChoix.setPreferredSize(new Dimension(150, 150));
 			pnlChoixs.add(pnlChoix);	
 			pnlSelection.add(pnlChoix);
 		}		

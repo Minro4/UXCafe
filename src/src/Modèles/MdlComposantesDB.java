@@ -35,13 +35,13 @@ public class MdlComposantesDB {
 			new Jet("jet_vanille", "Images/vanilla.png"),
 			new Jet("jet_framboise", "Images/raspberry.png"),
 			new Jet("jet_noisette", "Images/hazelnut.png"),
-			new Jet("jet_almond", "Images/almond.png"),
-			new Jet("jet_cinnamon", "Images/caramel.jpg"),
+			new Jet("jet_amandes", "Images/almond.png"),
+			new Jet("jet_cannelle", "Images/caramel.jpg"),
 			new Jet("jet_chocolat_blanc", "Images/chocolatBlanc.jpg"),
-			new Jet("jet_coconut", "Images/coconut.png"),
-			new Jet("jet_painEpices", "Images/PainEpices.png"),
+			new Jet("jet_noix_de_coco", "Images/coconut.png"),
+			new Jet("jet_pain_epice", "Images/PainEpices.png"),
 			new Jet("jet_erable", "Images/erable.png"),
-			new Jet("jet_cremeIrlandaise", "Images/cream.png")
+			new Jet("jet_creme_irlandaise", "Images/cream.png")
 			
 	}; 
 	private static ComposanteBreuvage[] laits = {
