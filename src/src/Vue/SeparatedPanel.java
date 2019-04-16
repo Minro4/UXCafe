@@ -17,7 +17,6 @@ import javax.swing.GroupLayout.Alignment;
 
 
 public class SeparatedPanel extends JPanelTrad {
-
 	/**
 	 * 
 	 */

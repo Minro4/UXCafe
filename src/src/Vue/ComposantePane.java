@@ -74,7 +74,7 @@ public class ComposantePane extends JPanelTrad{
 		imageIngred.setBorder(new LineBorder(Color.BLACK));
 
 		lbNom = new JLabel();
-		lbNom.setFont(lbNom.getFont().deriveFont(16.0f));
+		lbNom.setFont(lbNom.getFont().deriveFont(10.0f));
 
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
