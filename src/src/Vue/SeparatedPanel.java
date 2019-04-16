@@ -1,5 +1,7 @@
 package src.Vue;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
@@ -9,6 +11,8 @@ import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import com.sun.org.apache.bcel.internal.generic.DMUL;
 
 
 public class SeparatedPanel extends JPanelTrad {
@@ -34,8 +38,8 @@ public class SeparatedPanel extends JPanelTrad {
 		next = new JButton();
 		previous = new JButton();
 
-		next.setIcon(setIc("Images/arrowLeft.png", 20));
-		previous.setIcon(setIc("Images/arrowRight.png",20));
+		next.setIcon(setIc("Images/arrowRight.png", 10));
+		previous.setIcon(setIc("Images/arrowLeft.png",10));
 		
 
 		listSousPane = getSubListPanel(jets, nbPref);
@@ -45,19 +49,21 @@ public class SeparatedPanel extends JPanelTrad {
 				paneJets.add(listSousPane.get(i));
 				paneJets.addTrad(listSousPane.get(i));
 			} else {
-				listSousPane.get(i).setVisible(false);
 				paneJets.add(listSousPane.get(i));
+				listSousPane.get(i).setVisible(false);	
+				paneJets.addTrad(listSousPane.get(i));
 			}
 
 		}
-
-		buttonHolder.add(next);
 		buttonHolder.add(previous);
+		buttonHolder.add(next);
+		
 
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
 		c.gridy = 0;
+		c.weighty = 2;
 		add(paneJets, c);
 		c.gridy = 1;
 		c.weighty = 0.1;
@@ -101,17 +107,22 @@ public class SeparatedPanel extends JPanelTrad {
 		ArrayList<JPanelTrad> subPanesList = new ArrayList<JPanelTrad>();
 		boolean xd = true;
 		while (xd) {
-			for (int i = 0; i < nbPrefPerPanel; i++) {
 				JPanelTradInterm j = new JPanelTradInterm();
+				j.setLayout(new FlowLayout());
+				j.setPreferredSize(new Dimension(600,600));
+			for (int i = 0; i < nbPrefPerPanel; i++) {
+				
 				int position = i + (subPanesList.size() * nbPrefPerPanel);
 
-				if (position < jets.length - 1) {
-					j.add(jets[i + (subPanesList.size() * nbPrefPerPanel)]);
-					j.addTrad(jets[i + (subPanesList.size() * nbPrefPerPanel)]);
+				if (position < jets.length) {
+					j.add(jets[position]);
+					j.addTrad(jets[position]);
+					
 					if (i == nbPrefPerPanel - 1) {
 						subPanesList.add(j);
 					}
-				} else {
+				}
+				else {
 					subPanesList.add(j);
 					xd = false;
 					break;
