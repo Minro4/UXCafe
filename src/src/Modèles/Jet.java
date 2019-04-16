@@ -33,7 +33,7 @@ public class Jet extends ComposanteBreuvage{
 	
 	public String rapport(double ratio,int tailleCapacite,ResourceBundle bdlLangue) {
 		DecimalFormat df = new DecimalFormat("#.0"); 
-		return df.format(Jet.getQuantite(ratio, tailleCapacite)) + bdlLangue.getString(" ml sirop ") + bdlLangue.getString(getNom()) + ":";	
+		return df.format(Jet.getQuantite(ratio, tailleCapacite)) + bdlLangue.getString("mlSirop") + bdlLangue.getString(getNom()) + ":";	
 	}
 	
 }

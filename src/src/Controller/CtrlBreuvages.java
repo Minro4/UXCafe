@@ -15,6 +15,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -65,7 +66,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		ActionListener[] actionListeners = { new breuvageListener(MdlThe.class), new breuvageListener(MdlCafe.class),
 				new breuvageListener(MdlChocolatChaud.class) };
 
-		vueGenerale = new VueGenerale(new VuePanelSelection(noms, paths, actionListeners));
+		vueGenerale = new VueGenerale(new VuePanelSelection(noms, paths, actionListeners,new LangueButtonListener()));
 		// creationBreuvage(MdlThe.class);
 		bdlLangue = ResourceBundle.getBundle("src.properties.langue", lclLangue);
 		vueGenerale.setTexte(bdlLangue);
@@ -255,6 +256,21 @@ public class CtrlBreuvages implements PropertyChangeListener {
 
 		public void actionPerformed(ActionEvent e) {
 			vueGenerale.dispose();
+		}
+	}
+	public class LangueButtonListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			 JButton btnTemp = (JButton)e.getSource();
+	         lclLangue = btnTemp.getLocale();
+	         
+	         if (lclLangue == Locale.FRENCH)
+	        	 btnTemp.setLocale(Locale.ENGLISH);
+	         else
+	        	 btnTemp.setLocale(Locale.FRENCH);
+	        	 
+			bdlLangue = ResourceBundle.getBundle("src.properties.langue", lclLangue);
+			vueGenerale.setTexte(bdlLangue);
 		}
 	}
 
