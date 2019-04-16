@@ -90,7 +90,12 @@ public class MdlCafe extends MdlBoisson {
 
 	private int setSucrePortion(Sucre sucre, int prtnSucre) {
 		int totalSucre = getTotal(sucres);
-		int diff = prtnSucre - sucres.get(sucre);
+		int diff;
+		if (sucres.containsKey(sucre))
+			diff = prtnSucre - sucres.get(sucre);
+		else
+			diff = prtnSucre;
+
 		if (sucre.valide(totalSucre + diff, taille.getCapacite())) {
 			sucres.put(sucre, prtnSucre);
 			// sucre.setValue(prtnSucre);
@@ -140,15 +145,15 @@ public class MdlCafe extends MdlBoisson {
 		int currentIndex = 0;
 		double prixTotal = 0;
 
-		rapport[currentIndex][0] = getQuantite() + " ml cafe:";
+		rapport[currentIndex][0] = getQuantite() + bdlLangue.getString("ml") + bdlLangue.getString("cafe") + ":";
 		rapport[currentIndex++][1] = formatter.format(taille.getPrix());
 		prixTotal += taille.getPrix();
 
 		{
-			String text = "Toréfaction: ";
+			String text = bdlLangue.getString("toref")+": ";
 
 			rapport[currentIndex][0] = text;
-			rapport[currentIndex++][1] = torefaction.getNom();
+			rapport[currentIndex++][1] = bdlLangue.getString(torefaction.getNom());
 		}
 
 		{ // On ajoute les jets
@@ -168,7 +173,7 @@ public class MdlCafe extends MdlBoisson {
 			if (jets.size() > 1) {
 				double prix = Jet.getPrix(1, taille.getCapacite());
 				prixTotal += prix;
-				rapport[currentIndex][0] = "Prix des jets:";
+				rapport[currentIndex][0] = bdlLangue.getString("prixJets");
 				rapport[currentIndex++][1] = formatter.format(prix);
 			}
 
