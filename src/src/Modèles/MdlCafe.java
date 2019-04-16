@@ -24,10 +24,6 @@ public class MdlCafe extends MdlBoisson {
 	public MdlCafe(String imgPath) {
 		super(imgPath);
 		
-		Sucre sucre = new Sucre("Sucre", "Images/sugar.png");
-		Creme creme = new Creme("Creme", "Images/creme.png");
-		lcsList.add(sucre);
-		lcsList.add(creme);
 		taille=MdlComposantesDB.getTaillesCafe()[2];
 		torefaction=MdlComposantesDB.getTorefs()[1];
 

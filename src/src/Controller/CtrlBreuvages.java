@@ -38,7 +38,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 	private String[] titresCafe = { "titre_cafe1", "titre_cafe2", "titre_cafe3"};
 	private String[] titresThe = { "titre_taille", "titre_perso"};
 	private String[] titresCC = { "titre_taille", "titre_perso"};
-	private String[] noms = { "cafe", "the", "chocolat_chaud" };
+	private String[] noms = {"the", "cafe", "chocolat_chaud" };
 	
 	private ResourceBundle bdlLangue;
 	
@@ -61,53 +61,17 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		// Cr�ation de la liste de jets
 
 		
-		String[] paths = { MdlCafe.getPath(), MdlThe.getPath(), MdlChocolatChaud.getPath() };
-		ActionListener[] actionListeners = { new breuvageListener(MdlCafe.class), new breuvageListener(MdlThe.class),
+		String[] paths = {  MdlThe.getPath(),MdlCafe.getPath(), MdlChocolatChaud.getPath() };
+		ActionListener[] actionListeners = { new breuvageListener(MdlThe.class), new breuvageListener(MdlCafe.class),
 				new breuvageListener(MdlChocolatChaud.class) };
 
 		vueGenerale = new VueGenerale(new VuePanelSelection(noms, paths, actionListeners));
 		// creationBreuvage(MdlThe.class);
 		bdlLangue = ResourceBundle.getBundle("src.properties.langue", lclLangue);
 		vueGenerale.setTexte(bdlLangue);
-		// vueCafe = new VueGenerale(jetList, tailleList, torefList);
-
-		// pnlCreation.setPanelCafe(tailleList, torefList, cafe, 40, this);
-		// pnlCreation.setPanelJet(jetList, 69, this);
-		// pnlCreation.setPanelLCS(lait, creme, sucre, 69, this);
-
-		// updateRapport();
-	}
-
-	/*public void setButton(String txt, String path, JToggleButton button, Class<?> valeur) {
-
-		button.setText(txt);
-		button.setIcon(setIcon(path, 45));
-		button.addActionListener(new breuvageListener(valeur));
 
 	}
 
-	public void createToggleGroup(JToggleButton[] buttonList) {
-
-		ButtonGroup buttonGroup = new ButtonGroup();
-
-		for (JToggleButton button : buttonList) {
-
-			buttonGroup.add(button);
-
-		}
-	}
-
-	public ImageIcon setIcon(String path, int resizeX) {
-
-		ImageIcon imageI = new ImageIcon(path);
-
-		java.awt.Image oof = imageI.getImage();
-		java.awt.Image resized = oof.getScaledInstance(resizeX, resizeX, java.awt.Image.SCALE_SMOOTH);
-		imageI.setImage(resized);
-
-		return imageI;
-
-	}*/
 
 	private void creationBreuvage(Class<?> classe) {
 
