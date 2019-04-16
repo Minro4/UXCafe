@@ -42,8 +42,8 @@ public class SeparatedPanel extends JPanelTrad {
 		next = new JButton();
 		previous = new JButton();
 
-		next.setIcon(setIc("Images/arrowRight.png", 10));
-		previous.setIcon(setIc("Images/arrowLeft.png",10));
+		next.setIcon(setIc("Images/arrowRight.png", 16));
+		previous.setIcon(setIc("Images/arrowLeft.png",16));
 		
 
 		listSousPane = getSubListPanel(jets, nbPref);

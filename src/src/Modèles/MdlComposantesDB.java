@@ -42,7 +42,8 @@ public class MdlComposantesDB {
 			new Jet("jet_pain_epice", "Images/PainEpices.png"),
 			new Jet("jet_erable", "Images/erable.png"),
 			new Jet("jet_creme_irlandaise", "Images/cream.png"),
-			new Jet("jet_wafle", "Images/wafer.png")
+			new Jet("jet_wafle", "Images/wafer.png"),
+		
 			
 	}; 
 	private static ComposanteBreuvage[] laits = {
