@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
@@ -22,6 +23,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+
+import src.Controller.CtrlBreuvages.LangueButtonListener;
 
 
 public class PanelCreation extends JPanelTrad {
@@ -55,7 +58,7 @@ public class PanelCreation extends JPanelTrad {
 	private Border selectedBorder;
 	private Border unselectedBorder;
 
-	public PanelCreation(JPanelTrad[] pnlWindows, String[] keyNomOnglets, String[] keyNomPanels) {
+	public PanelCreation(JPanelTrad[] pnlWindows, String[] keyNomOnglets, String[] keyNomPanels, ActionListener langueListener) {
 
 		setLayout(new BorderLayout());
 		pnlOnglets = new JPanel(new GridBagLayout());
@@ -73,7 +76,7 @@ public class PanelCreation extends JPanelTrad {
 		lbTitre.setHorizontalAlignment(SwingConstants.CENTER);
 		// lbTitre.setText(nomTitres[0]);
 
-		confirmationPane = new ConfirmationPane();
+		confirmationPane = new ConfirmationPane(langueListener);
 
 		// ‐‐‐‐‐‐‐‐‐‐‐‐‐‐ Positionnement ‐‐‐‐‐‐‐‐‐‐‐‐‐‐
 

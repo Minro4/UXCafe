@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import src.Vue.*;
+import src.Controller.CtrlBreuvages.LangueButtonListener;
 import src.Modèles.*;
 
 public class CtrlBreuvages implements PropertyChangeListener {
@@ -101,7 +102,7 @@ public class CtrlBreuvages implements PropertyChangeListener {
 		}
 		breuvage.addPropertyChangeListener(this);
 
-		pnlCreation = new PanelCreation(pnlWindows, ongletNoms, nomTitres);
+		pnlCreation = new PanelCreation(pnlWindows, ongletNoms, nomTitres, new LangueButtonListener());
 		pnlCreation.getConfirmationPane().getBtnConfirm().addActionListener(new ConfirmerButtonListener());
 		vueGenerale.switchToCreation(pnlCreation);
 		pnlCreation.setTexte(bdlLangue);
@@ -261,16 +262,15 @@ public class CtrlBreuvages implements PropertyChangeListener {
 	public class LangueButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			 JButton btnTemp = (JButton)e.getSource();
-	         lclLangue = btnTemp.getLocale();
-	         
+      
 	         if (lclLangue == Locale.FRENCH)
-	        	 btnTemp.setLocale(Locale.ENGLISH);
+	        	 lclLangue=Locale.ENGLISH;
 	         else
-	        	 btnTemp.setLocale(Locale.FRENCH);
+	        	 lclLangue=Locale.FRENCH;
 	        	 
 			bdlLangue = ResourceBundle.getBundle("src.properties.langue", lclLangue);
 			vueGenerale.setTexte(bdlLangue);
+			updateRapport();
 		}
 	}
 
