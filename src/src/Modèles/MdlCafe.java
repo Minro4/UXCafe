@@ -223,7 +223,7 @@ public class MdlCafe extends MdlBoisson {
 		 * if no digits found return num.isEmpty() ? 0 : Integer.parseInt(num); } });
 		 */
 
-		rapport[currentIndex][0] = "Total:";
+		rapport[currentIndex][0] = bdlLangue.getString("total")+" :";
 		rapport[currentIndex++][1] = formatter.format(prixTotal);
 
 		return rapport;

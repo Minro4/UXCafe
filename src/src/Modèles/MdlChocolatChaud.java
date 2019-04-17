@@ -43,7 +43,7 @@ public class MdlChocolatChaud extends MdlBoisson {
 		int currentIndex = 0;
 		double prixTotal = 0;
 
-		rapport[currentIndex][0] = getQuantite() + " ml cafe:";
+		rapport[currentIndex][0] = getQuantite() + bdlLangue.getString("ml") + bdlLangue.getString("chocolat_chaud") + ":";
 		rapport[currentIndex++][1] = formatter.format(taille.getPrix());
 		prixTotal += taille.getPrix();
 
@@ -63,7 +63,7 @@ public class MdlChocolatChaud extends MdlBoisson {
 				}
 			}
 		}
-		rapport[currentIndex][0] = "Total:";
+		rapport[currentIndex][0] = bdlLangue.getString("total")+" :";
 		rapport[currentIndex++][1] = formatter.format(prixTotal);
 
 		return rapport;
