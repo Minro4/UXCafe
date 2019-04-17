@@ -11,8 +11,8 @@ import java.util.ResourceBundle;
 
 public class Jet extends ComposanteBreuvage{
 	
-	private final static double proportion = 0.05f;
-	private final static double prixParPortion = 0.1f;
+	private final static double proportion = 0.05;
+	private final static double prixParPortion = 0.1;
 	private final static int taillePortion = 3;
 	
 	public Jet(String nom,String image) {

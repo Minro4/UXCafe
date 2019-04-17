@@ -31,9 +31,12 @@ public class Sucre extends ComposanteBreuvage {
 		return calcUnite? prix*portions:prix;
 	}
 
-	public boolean valide(int portions,int tailleCapacite) {
-		return (portions <= (int) (tailleCapacite * proportionMax));
+	public boolean valide(int portion,int portionsTotal,int tailleCapacite) {
+		return (portionsTotal <= (int) (tailleCapacite * proportionMax) && portion>= 0);
 	}
+	/*public boolean valide(int portionsTotal,int tailleCapacite) {
+		return (portionsTotal <= (int) (tailleCapacite * proportionMax) && portionsTotal>= 0);
+	}*/
 	
 	public String rapport(int portion ,ResourceBundle bdlLangue) {
 		return portion + " " + bdlLangue.getString(getNom()) + ":";//Si on a plus de 1 portions, on ajoute un 's'

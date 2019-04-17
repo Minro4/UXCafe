@@ -43,19 +43,18 @@ public class MdlThe extends MdlBoisson {
 	private int setSucrePortion(Sucre sucre, int prtnSucre) {
 		int totalSucre = getTotal(sucres);
 		int diff;
-		if (sucres.containsKey(sucre))
+		if (sucres.containsKey(sucre)) 
 			diff = prtnSucre - sucres.get(sucre);
 		else
 			diff = prtnSucre;
 
-		if (sucre.valide(totalSucre + diff, taille.getCapacite())) {
+		if (sucre.valide(prtnSucre,totalSucre + diff, taille.getCapacite())) {
 			sucres.put(sucre, prtnSucre);
 			// sucre.setValue(prtnSucre);
 			return prtnSucre;
 		}
 		return sucres.containsKey(sucre) ? sucres.get(sucre) : 0;
 	}
-
 	public int getQuantite() {
 		int quantite = taille.getCapacite();
 
@@ -112,7 +111,7 @@ public class MdlThe extends MdlBoisson {
 	protected void CheckAndAdjustSucre() {
 		for (Map.Entry<Sucre, Integer> sucre : sucres.entrySet()) {
 
-			while (!sucre.getKey().valide(getTotal(sucres), taille.getCapacite()) && sucre.getValue() > 0) {
+			while (!sucre.getKey().valide(sucre.getValue(),getTotal(sucres), taille.getCapacite()) && sucre.getValue() > 0) {
 				sucre.setValue(sucre.getValue() - 1);
 			}
 			support.firePropertyChange("Sucre", sucre.getKey(), sucre.getValue());
